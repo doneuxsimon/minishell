@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:51:43 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/06/08 19:28:36 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/06/08 20:17:36 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	verify_buitlins(char *line)
 	if (ft_strncmp(line, "env", 3) != 0)
 		i = 1;
 	if (ft_strncmp(line, "exit", 4) != 0)
-		i = 1;
+		i = 0;
 	return (i);
 }
 
