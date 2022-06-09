@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 16:01:34 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/06/08 17:06:06 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/06/09 18:51:57 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ char	**ft_split(char const *s, char c)
 	s2 = (char **)malloc(sizeof(char *) * (num_words + 1));
 	if (!s2)
 		return (NULL);
-	ft_split_words(s, c, s2, num_words);
+	s2 = ft_split_words(s, c, s2, num_words);
 	return (s2);
 }
