@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 20:12:00 by lide              #+#    #+#             */
-/*   Updated: 2022/06/08 20:12:02 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/10 18:49:37 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	test(int sig)
 		sig = sig;
 }
 
-int main(void)
+int	main(void)
 {
-	struct sigaction sa1;
-	char* tmp;
-	int i;
+	struct sigaction	sa1;
+	char				*tmp;
+	int					i;
 
 	i = 0;
 	while (i++ < 10)
@@ -41,8 +41,6 @@ int main(void)
 		sigaction(SIGINT, &sa1, NULL);
 		sigaction(SIGQUIT, &sa1, NULL);
 		sigaction(4, &sa1, NULL);
-		// while (1)
-		// 	sleep(100);
 	}
 	return (0);
 }

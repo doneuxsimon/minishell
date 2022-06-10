@@ -1,32 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini.h                                             :+:      :+:    :+:   */
+/*   utils_big_split.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/06/09 18:47:01 by lide             ###   ########.fr       */
+/*   Created: 2022/06/09 17:51:14 by lide              #+#    #+#             */
+/*   Updated: 2022/06/10 18:30:24 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_H
-# define MINI_H
+#include "../includes/mini.h"
 
-# include "../Sdoneux/test.c"
-
-typedef struct s_line
+int	in_tab(char str, char *c)
 {
-	char	*ft;
-	char	*opt;
-	char	*arg;
-	char	*file;
-	t_line	*next;
-	t_line	*before;
-}				t_line;
+	int	i;
 
-char	**big_split(char const *s, char *c);
-int		in_tab(char str, char *c);
-int		ft_pass(char const *s, char *c, int i);
+	i = -1;
+	while (c[++i])
+	{
+		if (str == c[i])
+			return (0);
+	}
+	return (1);
+}
 
-#endif
+int	ft_pass(char const *s, char *c, int i)
+{
+	int	nb;
+
+	nb = in_tab(s[i], c);
+	while (s[i] && nb == 0)
+	{
+		i++;
+		if (s[i])
+			nb = in_tab(s[i], c);
+	}
+	return (i);
+}

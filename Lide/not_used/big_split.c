@@ -6,11 +6,11 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 16:01:34 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/06/09 18:05:54 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/10 18:40:31 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Sdoneux/test.h"
+#include "../includes/mini.h"
 
 static int	words(char const *s, char *c)
 {
