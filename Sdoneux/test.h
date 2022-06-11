@@ -11,7 +11,6 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <signal.h>
 
 char	*find_path(char **envp);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -19,5 +18,6 @@ size_t	ft_strlen(char *s);
 char	*ft_strjoin(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
 char	*get_cmd(char *path, char *cmd);
+int		verify_builtins(char *line, char **envp);
 
 #endif
