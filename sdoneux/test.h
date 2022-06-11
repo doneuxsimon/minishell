@@ -18,5 +18,6 @@ size_t	ft_strlen(char *s);
 char	*ft_strjoin(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
 char	*get_cmd(char *path, char *cmd);
+int		verify_builtins(char *line, char **envp);
 
 #endif
