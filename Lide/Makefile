@@ -6,7 +6,7 @@
 #    By: lide <lide@student.s19.be>                 +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/10 18:31:54 by lide              #+#    #+#              #
-#    Updated: 2022/06/10 19:27:03 by lide             ###   ########.fr        #
+#    Updated: 2022/06/13 17:40:49 by lide             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,15 +14,17 @@ SRCS	=	srcs/parcing_line.c\
 			srcs/mini_split.c\
 			srcs/utils_mini_split.c
 
+# SRCS	=	srcs/minishell_signal.c
+
 NAME	=	minishell.a
 EXEC	=	minishell
 OBJS	=	${SRCS:.c=.o}
 CC		=	@gcc
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include
 
 ${NAME}:	${OBJS}
 			@ar -rc ${NAME} ${OBJS}
-			@${CC} -lreadline ${CFLAGS} ${NAME} -o ${EXEC}
+			@${CC} -lreadline ${CFLAGS} ${NAME} -lreadline -L/Users/$(USER)/.brew/opt/readline/lib -o ${EXEC}
 			@echo "|minishell: ready to use|"
 
 all:		${NAME}

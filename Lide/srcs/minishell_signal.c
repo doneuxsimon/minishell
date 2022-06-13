@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 20:12:00 by lide              #+#    #+#             */
-/*   Updated: 2022/06/10 18:49:37 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/13 17:50:37 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,41 @@
 void	test(int sig)
 {
 	if (sig == SIGINT)
-		sig = sig;
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 	if (sig == SIGQUIT)
-		sig = sig;
+	{
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }
 
 int	main(void)
 {
 	struct sigaction	sa1;
-	char				*tmp;
+	char				*line;
 	int					i;
 
+	sa1.sa_handler = &test;
+	sa1.sa_flags = SA_SIGINFO;
+	sigaction(SIGINT, &sa1, NULL);
+	sigaction(SIGQUIT, &sa1, NULL);
 	i = 0;
 	while (i++ < 10)
 	{
-		tmp = readline("Minishell $> ");
-		add_history(tmp);
-		sa1.sa_handler = &test;
-		sa1.sa_flags = SA_SIGINFO;
-		sigaction(SIGINT, &sa1, NULL);
-		sigaction(SIGQUIT, &sa1, NULL);
-		sigaction(4, &sa1, NULL);
+		line = readline("Minishell $ ");
+		if (!line)
+		{
+			write(1, "exit\n", 5);
+			rl_clear_history();
+			break ;
+		}
+		add_history(line);
+		get_line(line);
 	}
 	return (0);
 }

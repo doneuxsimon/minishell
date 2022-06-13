@@ -6,32 +6,21 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 19:20:19 by lide              #+#    #+#             */
-/*   Updated: 2022/06/10 20:11:27 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/13 12:48:33 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
 
-int skip_space(char *line, int *i)
+void	*free_split(char **str, int max)
 {
-	while (line[*i] && ((line[*i] >= 9 && line[*i] <= 13) || line[*i] == ' '))
-		(*i)++;
-	return ((*i));
-}
+	int	i;
 
-int	skip_and(char *line, int i)
-{
-	if (line[i] && line[i] == '&')
-	{
-		while (line[i] && line[i] == '&')
-			i++;
-	}
-	else if (line[i] && line[i] == '|')
-	{
-		while (line[i] && line[i] == '|')
-			i++;
-	}
-	return (i);
+	i = -1;
+	while (++i < max)
+		free(str[i]);
+	free(str);
+	return (NULL);
 }
 
 char	**split_line(char **str, char *line, int ct)
@@ -46,20 +35,49 @@ char	**split_line(char **str, char *line, int ct)
 	while (++loop < ct)
 	{
 		tmp = skip_space(line, &i);
-		if (line[i] && !(line[i] == '&' || line[i] == '|'))
-			skip_word(line, &i);
-		else if (line[i] && (line[i] == '&' || line[i] == '|'))
-			i = skip_and(line, i);
+		if (line[i] && check_expt(line[i], 0))
+			i = skip_word(line, i);
+		else if (line[i] && !check_expt(line[i], 0))
+			i = skip_separator(line, i);
 		len = i - tmp;
 		str[loop] = (char *)malloc(sizeof(char) * (len + 1));
 		if (!str[loop])
 			return (free_split(str, loop));
+		str[loop][len] = '\0';
 		len = 0;
 		while (tmp < i)
 			str[loop][len++] = line[tmp++];
-		str[loop][tmp] = 0;
 	}
 	return (str);
+}
+
+int	nb_word(char *line)
+{
+	int	i;
+	int	word;
+	int	ct;
+
+	i = 0;
+	word = 0;
+	while (line[i])
+	{
+		ct = 0;
+		while (line[i] && ((line[i] >= 9 && line[i] <= 13) || line[i] == ' '))
+			i++;
+		if (line[i] && check_expt(line[i], 0))
+		{
+			i = skip_word(line, i);
+			word++;
+		}
+		if (line[i] && !check_expt(line[i], 0))
+		{
+			i = skip_separator(line, i);
+			word++;
+		}
+		if (i == -1)
+			return (i);
+	}
+	return (word);
 }
 
 char	**mini_split(char *line)
