@@ -3,7 +3,9 @@ NAME = Minishell
 SRCS = 	test.c\
 		split.c\
 		parsing.c\
-		utils.c
+		utils.c\
+		places.c\
+		execution.c
 
 OBJS =		$(SRCS:.c=.o)
 
