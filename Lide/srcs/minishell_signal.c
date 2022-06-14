@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 20:12:00 by lide              #+#    #+#             */
-/*   Updated: 2022/06/13 17:50:37 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/13 18:24:37 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-void	test(int sig)
+void	control(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -37,14 +37,12 @@ int	main(void)
 {
 	struct sigaction	sa1;
 	char				*line;
-	int					i;
 
-	sa1.sa_handler = &test;
+	sa1.sa_handler = &control;
 	sa1.sa_flags = SA_SIGINFO;
 	sigaction(SIGINT, &sa1, NULL);
 	sigaction(SIGQUIT, &sa1, NULL);
-	i = 0;
-	while (i++ < 10)
+	while (1)
 	{
 		line = readline("Minishell $ ");
 		if (!line)
