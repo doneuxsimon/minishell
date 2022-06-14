@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 19:20:21 by lide              #+#    #+#             */
-/*   Updated: 2022/06/13 13:09:23 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/14 14:48:21 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,18 @@
 int	check_expt(char c, int verif)
 {
 	if (verif == 0)
-	{
 		if (c == '&' || c == '|' || c == '<' || c == '>')
 			return (0);
-	}
-	if (verif == 1 || verif == 2)
-	{
+	if (verif == 1 || verif == 2 || verif == 4)
 		if (c == '&' || c == '|' || (c >= 9 && c <= 13) || c == 32
 			|| c == '<' || c == '>')
 			return (0);
-	}
-	if (verif == 2 || verif == 3)
-	{
+	if (verif == 2 || verif == 3 || verif == 4)
 		if (c == '\'' || c == '\"')
 			return (0);
-	}
+	if (verif == 4)
+		if (c == '$')
+			return (0);
 	return (1);
 }
 
@@ -50,10 +47,7 @@ int	skip_word(char *line, int i)
 			while (line[tmp] && line[tmp] != quote)
 				tmp++;
 			if (line[tmp])
-			{
-				tmp++;
-				(i) = tmp;
-			}
+				(i) = ++tmp;//change
 		}
 	}
 	return (i);

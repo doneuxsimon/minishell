@@ -1,0 +1,1 @@
+echo a{pr,rm,r,i}e attention ne pas gerer si entre quote
