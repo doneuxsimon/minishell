@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 19:20:21 by lide              #+#    #+#             */
-/*   Updated: 2022/06/14 14:48:21 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/15 17:28:26 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ int	skip_word(char *line, int i)
 	while (line[i] && check_expt(line[i], 1))
 	{
 		while (line[i] && check_expt(line[i], 2))
-			(i)++;
+			i++;
 		if (line[i] && !check_expt(line[i], 3))
 		{
 			quote = line[i];
-			(i)++;
+			i++;
 			tmp = i;
 			while (line[tmp] && line[tmp] != quote)
 				tmp++;
 			if (line[tmp])
-				(i) = ++tmp;//change
+				i = ++tmp;
 		}
 	}
 	return (i);

@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/06/14 18:00:39 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/15 15:54:05 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,96 +28,6 @@ t_list	*init_lst(void)
 	return (list);
 }
 
-int	ft_len(char *str)
-{
-	int	ct;
-
-	if (!str)
-		return (0);
-	ct = 0;
-	while (str[ct])
-		ct++;
-	return (ct);
-}
-
-char	*change_env(char *str, int *j, int tmp)//doit changer tmp -1 = $
-{
-	char *line;
-	char *env;
-	int len;
-	int i;
-	int ct;
-
-	len = (*j) - tmp;
-	env = (char *)malloc(sizeof(char) * len + 1);
-	if (!env)
-	{
-		free(str);
-		return (NULL);
-	}
-	env[len] = '\0';
-	i = -1;
-	while (++i < len)
-		env[i] = str[tmp + i];
-	line = getenv(env);
-	free(env);
-	len = ft_len(str) + ft_len(line) - len;
-	env = (char *)malloc(sizeof(char) * len);
-	if (!env)
-	{
-		free(str);
-		return (NULL);
-	}
-	len = ft_len(line);
-	i = -1;
-	ct = -1;
-	while (++i < tmp - 1)
-		env[i] = str[i];
-	while (++ct < len)
-		env[i++] = line[ct];
-	ct = i;
-	while(str[*j])
-		env[i++] = str[(*j)++];
-	*j = tmp - 1 + len;
-	printf("%d\n", *j);
-	free(str);
-	return (env);
-}
-
-char **check_env(char **str)
-{
-	int	i;
-	int	j;
-	int tmp;
-
-	i = -1;
-	while(str[++i])
-	{
-		j = 0;
-		while (str[i][j])
-		{
-			if (str[i][j] == '\'')
-			{
-				tmp = ++j;
-				while (str[i][tmp] && str[i][tmp] != '\'')
-					tmp++;
-				if (str[i][tmp])
-					j = ++tmp;
-			}
-			else if (str[i][j] == '$')
-			{
-				tmp = ++j;
-				while (str[i][j] && check_expt(str[i][j], 4))
-					j++;
-				str[i] = change_env(str[i], &j, tmp);
-			}
-			else
-				j++;
-		}
-	}
-	return (str);
-}
-
 void	get_line(char *line)
 {
 	char	**str;
@@ -125,9 +35,14 @@ void	get_line(char *line)
 
 	i = -1;
 	str = mini_split(line);
+	if (!str)
+	{
+		printf("Error\n");
+		exit(0);
+	}
 	str = check_env(str);
 	if (!str)
-		printf("Error\n");
+		printf("Error2\n");
 	else
 		while (str[++i])
 			printf("%s\n", str[i]);
@@ -155,7 +70,7 @@ int	main(void)
 	sigaction(SIGINT, &sa1, NULL);
 	signal(SIGQUIT, SIG_IGN);
 	i = 0;
-	while (i++ < 10)
+	while (1)
 	{
 		line = readline("Minishell$ ");
 		if (!line)
