@@ -6,29 +6,32 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/06/15 15:54:05 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/17 14:40:03 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
 
-t_list	*init_lst(void)
+t_list	*init_lst(t_list *cmd)
 {
-	t_list	*list;
-
-	list = (t_list *)malloc(sizeof(t_list));
-	if (!list)
+	cmd = (t_list *)malloc(sizeof(t_list));
+	if (!cmd)
 		return (NULL);
-	list->ft = NULL;
-	list->opt = NULL;
-	list->arg = NULL;
-	list->file = NULL;
-	list->next = NULL;
-	list->before = NULL;
-	return (list);
+	cmd->ft = NULL;
+	cmd->opt = NULL;
+	cmd->arg = NULL;
+	cmd->save = NULL;
+	cmd->link = NULL;
+	cmd->infile = 0;
+	cmd->outfile = 0;
+	cmd->pos = 0;
+	cmd->var = NULL;
+	cmd->next = NULL;
+	cmd->before = NULL;
+	return (cmd);
 }
 
-void	get_line(char *line)
+char	**get_line(char *line)
 {
 	char	**str;
 	int		i;
@@ -36,16 +39,15 @@ void	get_line(char *line)
 	i = -1;
 	str = mini_split(line);
 	if (!str)
-	{
 		printf("Error\n");
-		exit(0);
-	}
-	str = check_env(str);
+	if (str)
+		str = check_env(str);
 	if (!str)
 		printf("Error2\n");
 	else
 		while (str[++i])
 			printf("%s\n", str[i]);
+	return (str);
 }
 
 void	test(int sig)
@@ -63,12 +65,16 @@ int	main(void)
 {
 	struct sigaction	sa1;
 	char				*line;
+	char				**str;
 	int					i;
+	t_list				*cmd;
 
+	cmd = NULL;
 	sa1.sa_handler = &test;
 	sa1.sa_flags = SA_SIGINFO;
 	sigaction(SIGINT, &sa1, NULL);
 	signal(SIGQUIT, SIG_IGN);
+	init_lst(cmd);
 	i = 0;
 	while (1)
 	{
@@ -80,7 +86,8 @@ int	main(void)
 			exit(0);
 		}
 		add_history(line);
-		get_line(line);
+		str = get_line(line);
+		// put_in_struct(str, cmd);
 	}
 	return (0);
 }

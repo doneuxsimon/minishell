@@ -6,7 +6,7 @@
 #    By: lide <lide@student.s19.be>                 +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/10 18:31:54 by lide              #+#    #+#              #
-#    Updated: 2022/06/15 16:39:54 by lide             ###   ########.fr        #
+#    Updated: 2022/06/17 17:56:50 by lide             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ SRCS	=	srcs/parcing_line.c\
 			srcs/utils_mini_split.c\
 			srcs/check_dol.c\
 			srcs/utils_check_dol.c
+			# srcs/put_in_struct.c
 
 # SRCS	=	srcs/minishell_signal.c
 
@@ -22,7 +23,7 @@ NAME	=	minishell.a
 EXEC	=	minishell
 OBJS	=	${SRCS:.c=.o}
 CC		=	@gcc
-CFLAGS = -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include
 
 ${NAME}:	${OBJS}
 			@ar -rc ${NAME} ${OBJS}

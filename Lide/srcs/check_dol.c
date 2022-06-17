@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 13:51:37 by lide              #+#    #+#             */
-/*   Updated: 2022/06/15 16:38:54 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/17 10:07:52 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ char	*change_env(char *str, int *j, int tmp)
 	int		ct;
 
 	env = find_env(str, &len, tmp, j);
-	if (!env && len == -1)
-		return (NULL);
+	if (!env)
+		return (unchange_env(str, j, len));
 	line = (char *)malloc(sizeof(char) * len + 1);
 	if (!line)
 		return (free_env(str, NULL));
