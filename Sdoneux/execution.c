@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 16:53:14 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/06/14 18:12:18 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/06/16 19:26:48 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,32 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 	pid = fork();
 	if (!pid)
 	{
-		if (!list->arg)
+		if (!list->arg && !list->outfile)
 		{
+			cmd = get_cmd2(cmd_path, list->ft);
+			cmd_args = malloc(sizeof(char *) * 2);
+			cmd_args[0] = list->ft;
+			cmd_args[1] = list->opt;
+			if (cmd == NULL)
+			{
+				printf("command not found \n");
+				exit(EXIT_FAILURE);
+			}
+			execve(cmd, cmd_args, envp);
+		}
+		else if (list->outfile)
+		{
+			int	fd;
+			int fd2;
+
+			fd = list->outfile;
+			fd2 = open("open.txt", O_TRUNC | O_CREAT | O_RDWR, 0000644);
+			if (fd < 0)
+			{
+				perror("INFILE");
+				exit(EXIT_SUCCESS);
+			}
+			dup2(fd, 0);
 			cmd = get_cmd2(cmd_path, list->ft);
 			cmd_args = malloc(sizeof(char *) * 2);
 			cmd_args[0] = list->ft;

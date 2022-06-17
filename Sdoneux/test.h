@@ -14,21 +14,31 @@
 # include <readline/history.h>
 # include <signal.h>
 
+
+typedef struct s_var
+{
+	char			*name;
+	char			*value;
+	struct s_var	*next;
+	struct s_var	*before;
+}					t_var;
+
 typedef struct s_list
 {
 	char			*ft;
 	char			*opt;
 	char			*arg;
-	char			**var;
-	char			**exp;
-	char			*file;
+	char			*ancient_file;
+	struct s_var	var;
 	char			*link;
 	int				pos;
+	int				infile;
+	int				outfile;
 	struct s_list	*next;
 	struct s_list	*before;
 }					t_list;
 
-char	*var;
+struct s_var	export;
 
 void	ft_end(t_list **stack);
 void	ft_begin(t_list **stack);

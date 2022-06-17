@@ -5,10 +5,10 @@ void	ft_initialise(t_list **list)
 	(*list)->arg = NULL;
 	(*list)->opt = NULL;
 	(*list)->ft = NULL;
-	(*list)->file = NULL;
+	(*list)->outfile = 0;
 	(*list)->pos = 0;
-	(*list)->var = NULL;
-	(*list)->exp = NULL;
+	// (*list)->var = NULL;
+	// (*list)->exp = NULL;
 	(*list)->link = NULL;
 	(*list)->next = NULL;
 	(*list)->before = NULL;
@@ -37,8 +37,9 @@ int	main(int argc, char **argv, char **envp)
 		tmp = get_cmd(path, line);
 		if (i == 0)
 		{
-			list->ft = "ls";
-			list->opt = "-l";
+			list->ft = "cat";
+			//list->opt = "-e";
+			list->outfile = open("test.c", O_RDONLY);
 			ft_start_exec(list, path, envp);
 		}
 		//printf("%s\n", tmp);
