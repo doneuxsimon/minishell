@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 11:31:20 by lide              #+#    #+#             */
-/*   Updated: 2022/06/17 19:35:47 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/20 17:31:38 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ int	cmp_line(char *tmp, char *line)
 	while (tmp[i] && line[i] && tmp[i] == line[i])
 		i++;
 	if ((!tmp[i] && line[i]) || (tmp[i] && !line[i]) || tmp[i] != line[i])
-		return (0)
+		return (0);
 	return (1);
 }
 
-void	write_in_file(int fd, t_list *cmd, char **tmp, int *i)
+void	write_in_file(int fd, char **tmp, int *i)
 {
 	char *line;
 	while (1)
@@ -75,14 +75,18 @@ void ft_copy(char *name, char *str, int *i)
 char *find_name(t_list *cmd)
 {
 	char	*name;
+	char	*nb;
 	int		len;
 	int		i;
 
 	i = 0;
-	len = len1(cmd->pos);
+	nb = ft_itoa(cmd->pos);
+	if (!nb)
+		exit (0);
+	len = len1(nb);
 	name = (char *)malloc(sizeof(char) * (len + 9));
 	ft_copy(name, ".tmp", &i);
-	ft_copy(name, cmd->pos, &i);
+	ft_copy(name, nb, &i);
 	ft_copy(name, ".txt", &i);
 	name[i] = '\0';
 	return (name);
@@ -101,7 +105,7 @@ void	find_infile(char **tmp, t_list *cmd, int *i)
 	{
 		name = find_name(cmd);
 		fd = open(name, O_CREAT | O_WRONLY | O_TRUNC, 00644);
-		write_in_file(fd, cmd, tmp, i);
+		write_in_file(fd, tmp, i);
 		close(fd);
 		cmd->infile = open(name, O_RDONLY);
 		cmd->tmp = name;
@@ -112,6 +116,20 @@ void	find_infile(char **tmp, t_list *cmd, int *i)
 	if (fd != -1)
 		tmp[*i] = NULL;
 	cmd->infile = fd;
+}
+
+void	next_struct(t_list *cmd, int *i, char **tmp)
+{
+	t_list	*new;
+	static int pos;
+
+	new = NULL;
+	cmd->link = tmp[*i];
+	(*i)++;
+	new = init_lst(new);
+	new->pos = ++pos;
+	cmd->next = new;
+	cmd = cmd->next;
 }
 
 void	redirection(char **tmp,t_list *cmd, int len)
@@ -125,14 +143,17 @@ void	redirection(char **tmp,t_list *cmd, int len)
 		{
 			if (tmp[i][0] == '>')
 				find_outfile(tmp, cmd, &i);
-			if(cmd->outfile == -1)
-				exit(0);
 			else if (tmp[i][0] == '<')
 				find_infile(tmp, cmd, &i);
 			else if (tmp[i][0] == '&' || tmp[i][0] == '|')
-				next_struct(tmp, cmd, &i);
+				next_struct(cmd, &i, tmp);
 			else
 				i++;
+			if (cmd->outfile == -1 || cmd->infile == -1)
+			{
+				printf("error\n");
+				exit(0);
+			}
 		}
 		else
 			i++;
@@ -143,8 +164,12 @@ void	put_in_struct(char **str,t_list *cmd)
 {
 	char **tmp;
 	int len;
+	int i;
 
+	i = -1;
 	tmp = str;
 	len = len2(str);
 	redirection(tmp, cmd, len);
+	while (++i < len)
+		printf("%s\n", tmp[i]);
 }

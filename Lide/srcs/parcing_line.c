@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/06/17 14:40:03 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/20 16:55:30 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_list	*init_lst(t_list *cmd)
 	cmd->ft = NULL;
 	cmd->opt = NULL;
 	cmd->arg = NULL;
-	cmd->save = NULL;
 	cmd->link = NULL;
+	cmd->tmp = NULL;
 	cmd->infile = 0;
 	cmd->outfile = 0;
 	cmd->pos = 0;
@@ -44,9 +44,9 @@ char	**get_line(char *line)
 		str = check_env(str);
 	if (!str)
 		printf("Error2\n");
-	else
-		while (str[++i])
-			printf("%s\n", str[i]);
+	// else
+	// 	while (str[++i])
+	// 		printf("%s\n", str[i]);
 	return (str);
 }
 
@@ -74,7 +74,7 @@ int	main(void)
 	sa1.sa_flags = SA_SIGINFO;
 	sigaction(SIGINT, &sa1, NULL);
 	signal(SIGQUIT, SIG_IGN);
-	init_lst(cmd);
+	cmd = init_lst(cmd);
 	i = 0;
 	while (1)
 	{
@@ -87,7 +87,7 @@ int	main(void)
 		}
 		add_history(line);
 		str = get_line(line);
-		// put_in_struct(str, cmd);
+		put_in_struct(str, cmd);
 	}
 	return (0);
 }

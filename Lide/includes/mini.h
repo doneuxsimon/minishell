@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/06/17 17:56:20 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/20 16:30:20 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
-# include "../wraloc.h"
+// # include "../wraloc.h"
 
 typedef struct s_var
 {
@@ -45,12 +45,14 @@ typedef struct s_list
 	int				infile;
 	int				outfile;
 	int				pos;
-	struct s_var	var;
+	struct s_var	*var;
 	struct s_list	*next;
 	struct s_list	*before;
 }					t_list;
 //fichier appeler .tmp;
 
+char	*ft_itoa(int n);
+t_list	*init_lst(t_list *cmd);
 char	**mini_split(char *line);
 int		check_expt(char c, int verif);
 int		skip_word(char *line, int i);
@@ -62,6 +64,6 @@ char	*unchange_env(char *str, int *j, int len);
 char	**check_env(char **str);
 int		len1(char *str);
 int		len2(char **str);
-// void	put_in_struct(char **str,t_list *cmd);
+void	put_in_struct(char **str,t_list *cmd);
 
 #endif
