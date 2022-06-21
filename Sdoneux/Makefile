@@ -1,11 +1,13 @@
 NAME = Minishell
 
-SRCS = 	test.c\
-		split.c\
-		parsing.c\
-		utils.c\
-		places.c\
-		execution.c
+SRCS_PATH = srcs/
+
+SRCS = 	${SRCS_PATH}main.c\
+		${SRCS_PATH}split.c\
+		${SRCS_PATH}parsing.c\
+		${SRCS_PATH}utils.c\
+		${SRCS_PATH}places.c\
+		${SRCS_PATH}execution.c
 
 OBJS =		$(SRCS:.c=.o)
 
