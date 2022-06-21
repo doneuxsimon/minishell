@@ -37,10 +37,12 @@ int	main(int argc, char **argv, char **envp)
 		tmp = get_cmd(path, line);
 		if (i == 0)
 		{
-			list->ft = "cat";
-			//list->opt = "-e";
-			list->outfile = open("test.c", O_RDONLY);
+			list->ft = "wc";
+			list->opt = "-w";
+			list->arg = "bonjour";
+			//list->outfile = open("test.c", O_RDONLY);
 			ft_start_exec(list, path, envp);
+			//printf("%i\n", unlink(".tmp"));
 		}
 		//printf("%s\n", tmp);
 	}

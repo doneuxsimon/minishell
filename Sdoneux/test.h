@@ -28,12 +28,12 @@ typedef struct s_list
 	char			*ft;
 	char			*opt;
 	char			*arg;
-	char			*ancient_file;
-	struct s_var	var;
+	char			*tmp;
 	char			*link;
 	int				pos;
 	int				infile;
 	int				outfile;
+	struct s_var	var;
 	struct s_list	*next;
 	struct s_list	*before;
 }					t_list;

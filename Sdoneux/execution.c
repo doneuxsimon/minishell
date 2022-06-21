@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 16:53:14 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/06/16 19:26:48 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/06/17 17:57:01 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 		if (!list->arg && !list->outfile)
 		{
 			cmd = get_cmd2(cmd_path, list->ft);
-			cmd_args = malloc(sizeof(char *) * 2);
+			cmd_args = malloc(sizeof(char *) * 3);
 			cmd_args[0] = list->ft;
 			cmd_args[1] = list->opt;
+			cmd_args[2] = NULL;
 			if (cmd == NULL)
 			{
 				printf("command not found \n");
@@ -65,36 +66,38 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 			}
 			execve(cmd, cmd_args, envp);
 		}
-		else if (list->outfile)
+		else if (list->arg)
 		{
-			int	fd;
-			int fd2;
+			// int	fd;
+			// int fd2;
 
-			fd = list->outfile;
-			fd2 = open("open.txt", O_TRUNC | O_CREAT | O_RDWR, 0000644);
-			if (fd < 0)
-			{
-				perror("INFILE");
-				exit(EXIT_SUCCESS);
-			}
-			dup2(fd, 0);
+			// fd = list->outfile;
+			// if (fd < 0)
+			// {
+			// 	perror("INFILE");
+			// 	exit(EXIT_SUCCESS);
+			// }
+			// dup2(fd, 0);
 			cmd = get_cmd2(cmd_path, list->ft);
-			cmd_args = malloc(sizeof(char *) * 2);
+			cmd_args = malloc(sizeof(char *) * 4);
 			cmd_args[0] = list->ft;
 			cmd_args[1] = list->opt;
+			cmd_args[2] = list->arg;
+			cmd_args[3] = NULL;
 			if (cmd == NULL)
 			{
 				printf("command not found \n");
 				exit(EXIT_FAILURE);
 			}
-			execve(cmd, cmd_args, envp);
+			execve(cmd, cmd_args, NULL);
+			printf("jeff\n");
 		}
 	}
 	else if (pid)
 	{
 		waitpid(pid, NULL, 0);
 	}
-
+	//kill(pid, 0);
 	return(pid);
 }
 
