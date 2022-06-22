@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/06/20 16:30:20 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/22 05:31:33 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <signal.h>
 // # include "../wraloc.h"
 
+
 typedef struct s_var
 {
 	char			*name;
@@ -45,12 +46,13 @@ typedef struct s_list
 	int				infile;
 	int				outfile;
 	int				pos;
-	struct s_var	*var;
 	struct s_list	*next;
 	struct s_list	*before;
 }					t_list;
-//fichier appeler .tmp;
 
+t_var	*g_var;
+
+void	init_var(t_var **var);
 char	*ft_itoa(int n);
 t_list	*init_lst(t_list *cmd);
 char	**mini_split(char *line);
@@ -64,6 +66,9 @@ char	*unchange_env(char *str, int *j, int len);
 char	**check_env(char **str);
 int		len1(char *str);
 int		len2(char **str);
-void	put_in_struct(char **str,t_list *cmd);
+void	put_in_struct(char **str,t_list **cmd, t_var **var);
+void	redirection(char **str, t_list **cmd, int len);
+int		cmp_line(char *str, char *line);
+char	*find_name(t_list **cmd);
 
 #endif

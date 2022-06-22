@@ -6,7 +6,7 @@
 #    By: lide <lide@student.s19.be>                 +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/10 18:31:54 by lide              #+#    #+#              #
-#    Updated: 2022/06/20 16:03:29 by lide             ###   ########.fr        #
+#    Updated: 2022/06/21 21:26:50 by lide             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,9 @@ SRCS	=	srcs/parcing_line.c\
 			srcs/check_dol.c\
 			srcs/itoa.c\
 			srcs/utils_check_dol.c\
-			srcs/put_in_struct.c
+			srcs/put_in_struct.c\
+			srcs/redirection.c\
+			srcs/utils_redirection.c
 
 # SRCS	=	srcs/minishell_signal.c
 

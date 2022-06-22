@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/06/20 16:55:30 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/22 05:31:51 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,11 @@ int	main(void)
 	char				**str;
 	int					i;
 	t_list				*cmd;
+	t_var				*var;
 
 	cmd = NULL;
+	var = NULL;
+	init_var(&g_var);
 	sa1.sa_handler = &test;
 	sa1.sa_flags = SA_SIGINFO;
 	sigaction(SIGINT, &sa1, NULL);
@@ -87,7 +90,7 @@ int	main(void)
 		}
 		add_history(line);
 		str = get_line(line);
-		put_in_struct(str, cmd);
+		put_in_struct(str, &cmd, &var);
 	}
 	return (0);
 }
