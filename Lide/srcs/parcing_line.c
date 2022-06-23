@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/06/22 05:31:51 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/23 15:27:21 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_list	*init_lst(t_list *cmd)
 	cmd->infile = 0;
 	cmd->outfile = 0;
 	cmd->pos = 0;
-	cmd->var = NULL;
 	cmd->next = NULL;
 	cmd->before = NULL;
 	return (cmd);
