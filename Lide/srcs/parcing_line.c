@@ -6,29 +6,11 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/06/23 15:27:21 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/24 19:13:02 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
-
-t_list	*init_lst(t_list *cmd)
-{
-	cmd = (t_list *)malloc(sizeof(t_list));
-	if (!cmd)
-		return (NULL);
-	cmd->ft = NULL;
-	cmd->opt = NULL;
-	cmd->arg = NULL;
-	cmd->link = NULL;
-	cmd->tmp = NULL;
-	cmd->infile = 0;
-	cmd->outfile = 0;
-	cmd->pos = 0;
-	cmd->next = NULL;
-	cmd->before = NULL;
-	return (cmd);
-}
 
 char	**get_line(char *line)
 {
@@ -71,7 +53,7 @@ int	main(void)
 
 	cmd = NULL;
 	var = NULL;
-	init_var(&g_var);
+	g_var = init_var(g_var);
 	sa1.sa_handler = &test;
 	sa1.sa_flags = SA_SIGINFO;
 	sigaction(SIGINT, &sa1, NULL);

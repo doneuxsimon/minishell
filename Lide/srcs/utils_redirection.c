@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:24:05 by lide              #+#    #+#             */
-/*   Updated: 2022/06/21 21:25:35 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/24 18:04:34 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	cmp_line(char *str, char *line)
 {
 	int	i;
 
+	if (!str || !line)
+		return (0);
 	i = 0;
 	while (str[i] && line[i] && str[i] == line[i])
 		i++;

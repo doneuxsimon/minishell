@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/06/22 05:31:33 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/24 19:12:56 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,11 @@ typedef struct s_list
 
 t_var	*g_var;
 
-void	init_var(t_var **var);
-char	*ft_itoa(int n);
+char	*ft_strdup(char *s1);
+int		ft_strncmp(char *s1, char *s2, int n);
+t_var	*init_var(t_var *var);
 t_list	*init_lst(t_list *cmd);
+char	*ft_itoa(int n);
 char	**mini_split(char *line);
 int		check_expt(char c, int verif);
 int		skip_word(char *line, int i);
