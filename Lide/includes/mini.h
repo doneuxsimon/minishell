@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/06/24 19:12:56 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/28 04:46:42 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,12 @@ char	*unchange_env(char *str, int *j, int len);
 char	**check_env(char **str);
 int		len1(char *str);
 int		len2(char **str);
-void	put_in_struct(char **str,t_list **cmd, t_var **var);
+int	put_in_struct(char **str,t_list **cmd, t_var **var);
 void	redirection(char **str, t_list **cmd, int len);
 int		cmp_line(char *str, char *line);
 char	*find_name(t_list **cmd);
+void	remove_g_var(void);
+int	ft_unset(char **str, int *i, int len);
+int	check_name_env(char *str);
 
 #endif

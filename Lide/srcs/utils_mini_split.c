@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 19:20:21 by lide              #+#    #+#             */
-/*   Updated: 2022/06/17 13:29:37 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/28 02:52:04 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ int	skip_word(char *line, int i)
 				tmp++;
 			if (line[tmp])
 				i = ++tmp;
+			else
+			{
+				printf("quote not closed\n");
+				return (-1);
+			}
 		}
 	}
 	return (i);

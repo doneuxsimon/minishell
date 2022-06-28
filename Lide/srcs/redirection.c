@@ -6,12 +6,13 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:12:08 by lide              #+#    #+#             */
-/*   Updated: 2022/06/23 17:01:02 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/28 02:53:47 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
 
+//retirer la prem et dern quote sur le mot
 void	find_outfile(char **str, t_list **cmd, int *i)
 {
 	int	fd;

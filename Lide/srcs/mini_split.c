@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 19:20:19 by lide              #+#    #+#             */
-/*   Updated: 2022/06/15 12:30:50 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/28 01:39:04 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	nb_word(char *line)
 		if (line[i] && check_expt(line[i], 0))
 		{
 			i = skip_word(line, i);
+			if (i == -1)
+				return (i);
 			word++;
 		}
 		if (line[i] && !check_expt(line[i], 0))

@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/06/24 19:13:02 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/28 04:45:33 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,16 @@ char	**get_line(char *line)
 	i = -1;
 	str = mini_split(line);
 	if (!str)
+	{
 		printf("Error\n");
-	if (str)
-		str = check_env(str);
+		return(NULL);
+	}
+	str = check_env(str);
 	if (!str)
+	{
 		printf("Error2\n");
-	// else
-	// 	while (str[++i])
-	// 		printf("%s\n", str[i]);
+		return(NULL);
+	}
 	return (str);
 }
 
@@ -71,7 +73,8 @@ int	main(void)
 		}
 		add_history(line);
 		str = get_line(line);
-		put_in_struct(str, &cmd, &var);
+		if (str)
+			put_in_struct(str, &cmd, &var);
 	}
 	return (0);
 }
