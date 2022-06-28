@@ -6,15 +6,15 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 11:31:20 by lide              #+#    #+#             */
-/*   Updated: 2022/06/28 02:51:37 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/28 18:36:28 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
 
-int	check_name_env(char *str)
+int	check_g_var(char *str)
 {
-	int verif;
+	int	verif;
 
 	verif = 0;
 	while (g_var->before != NULL)
@@ -32,8 +32,8 @@ int	check_name_env(char *str)
 
 int	check_quote(char **str, int i, int j, int *len)
 {
-	int ct;
-	int verif;
+	int	ct;
+	int	verif;
 
 	verif = -1;
 	ct = 0;
@@ -43,7 +43,7 @@ int	check_quote(char **str, int i, int j, int *len)
 		verif = 0;
 		(*len)--;
 	}
-	while((str[i][ct] != '\'' && str[i][ct] != '\"') && ct < j)
+	while ((str[i][ct] != '\'' && str[i][ct] != '\"') && ct < j)
 		ct++;
 	if (ct != j)
 	{
@@ -53,34 +53,57 @@ int	check_quote(char **str, int i, int j, int *len)
 	return (verif);
 }
 
+int	check_name_env(char *tmp, char **env)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (env[++i])
+	{
+		j = -1;
+		while(env[i][++j] != '=')
+			if (tmp[j] != env[i][j])
+				break ;
+		if (env[i][j] == '=' && !tmp[i])
+			return (i);
+	}
+	return (-1);
+}
+
 int	put_in_g(char **str, int i, int j)
 {
-	int	len;
-	int	ct;
-	int	x;
-	int t;
-	t_var *new;
-	char *tmp;
+	int		len;
+	int		ct;
+	int		x;
+	int		t;
+	t_var	*new;
+	char	*tmp;
 
 	len = len1(str[i]);
 	ct = check_quote(str, i, j, &len);
 	if (ct == -2)
 		return (0);
 	new = NULL;
-	// ct = -1;
 	x = 0;
-	tmp =(char *)malloc(sizeof(char) * (j - ct));
+	tmp = (char *)malloc(sizeof(char) * (j - ct));
 	if (!tmp)
 	{
 		printf("error malloc put in g\n");
 		return (0);
 	}
-	while(++ct < j)
+	while (++ct < j)
 		tmp[x++] = str[i][ct];
 	tmp[ct] = '\0';
-	t = check_name_env(tmp);
+	t = check_name_env(tmp, env)
+	if (t > -1)
+		change_env();//malloc tout la phrase et remplacer l'array
+	t = check_g_var(tmp);
 	if (t)
+	{
 		free(g_var->value);
+		free(tmp);
+	}
 	g_var->value = (char *)malloc(sizeof(char) * (len - j));
 	if (!g_var->value)
 	{
@@ -88,11 +111,9 @@ int	put_in_g(char **str, int i, int j)
 		return (0);
 	}
 	x = 0;
-	while(++ct < len)
+	while (++ct < len)
 		g_var->value[x++] = str[i][ct];
 	g_var->value[x] = '\0';
-	free(str[i]);
-	str[i] = NULL;
 	if (t == 0)
 	{
 		g_var->name = tmp;
@@ -106,12 +127,11 @@ int	put_in_g(char **str, int i, int j)
 
 int	ft_export(char **str, int *i, int len)
 {
-	int j;
-	int verif;
+	int	j;
+	int	verif;
 
-	str[*i] = NULL;
 	(*i)++;
-	while(*i < len)
+	while (*i < len)
 	{
 		if (str[*i])
 		{
@@ -125,11 +145,6 @@ int	ft_export(char **str, int *i, int len)
 				verif = put_in_g(str, *i, j);
 				if (!verif)
 					return (0);
-			}
-			else
-			{
-				free(str[*i]);
-				str[*i] = NULL;
 			}
 		}
 		(*i)++;
@@ -151,7 +166,7 @@ void	find_esp(int *i, int len, char **str)
 	}
 }
 
-int check_sep_exp(int i, int len, char **str)
+int	check_sep_exp(int i, int len, char **str)
 {
 	if (i == 0 || (i > 0 && str[i - 1][0] == '&'))
 	{
@@ -171,7 +186,7 @@ int check_sep_exp(int i, int len, char **str)
 int	check_equal(char **str, int len)
 {
 	int	i;
-	int verif;
+	int	verif;
 
 	i = 0;
 	find_esp(&i, len, str);
@@ -188,9 +203,11 @@ int	check_equal(char **str, int len)
 						return (0);
 				}
 				else if (!ft_strncmp(str[i], "unset", 6))
+				{
 					verif = ft_unset(str, &i, len);
 					if (!verif)
 						return (0);
+				}
 				else
 					i++;
 			}
@@ -203,13 +220,12 @@ int	check_equal(char **str, int len)
 	return (1);
 }
 
-int	put_in_struct(char **str, t_list **cmd, t_var **var)
+int	put_in_struct(char **str, t_list **cmd)
 {
 	int	len;
 	int	i;
 
 	i = -1;
-	*var = init_var(*var);
 	len = len2(str);
 	if (!check_equal(str, len))
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 11:31:20 by lide              #+#    #+#             */
-/*   Updated: 2022/06/27 20:14:07 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/28 17:33:42 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	put_in_g(char **str, int i, int j)
 	g_var = g_var->next;
 }
 
-int	check_name_env(char *str, t_var **var)
+int	check_g_var(char *str, t_var **var)
 {
 	int verif;
 	int verif2;
@@ -88,7 +88,7 @@ void	var_to_g(t_var **var, char **str, int i)
 
 	new = NULL;
 	new = init_var(new);
-	verif = check_name_env(str[i], var);
+	verif = check_g_var(str[i], var);
 	if (verif == 1)
 	{
 		g_var->name = ft_strdup((*var)->name);
@@ -247,7 +247,7 @@ void	ft_unset(char **str, t_var **var, int *i, int len)
 		{
 			if (str[*i][0] == '|' || str[*i][0] == '&')
 				break ;
-			verif = check_name_env(str[*i], var);
+			verif = check_g_var(str[*i], var);
 			if (verif == 1)
 				remove_var(str, *i, var);
 			else if (verif == 2)

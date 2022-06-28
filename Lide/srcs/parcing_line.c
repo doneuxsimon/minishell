@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/06/28 04:45:33 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/28 17:23:51 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ char	**get_line(char *line)
 	if (!str)
 	{
 		printf("Error\n");
-		return(NULL);
+		return (NULL);
 	}
 	str = check_env(str);
 	if (!str)
 	{
 		printf("Error2\n");
-		return(NULL);
+		return (NULL);
 	}
 	return (str);
 }
@@ -44,17 +44,17 @@ void	test(int sig)
 	}
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **env)
 {
 	struct sigaction	sa1;
 	char				*line;
 	char				**str;
 	int					i;
 	t_list				*cmd;
-	t_var				*var;
 
+	(void)argc;
+	(void)argv;
 	cmd = NULL;
-	var = NULL;
 	g_var = init_var(g_var);
 	sa1.sa_handler = &test;
 	sa1.sa_flags = SA_SIGINFO;
@@ -74,7 +74,7 @@ int	main(void)
 		add_history(line);
 		str = get_line(line);
 		if (str)
-			put_in_struct(str, &cmd, &var);
+			put_in_struct(str, &cmd);
 	}
 	return (0);
 }

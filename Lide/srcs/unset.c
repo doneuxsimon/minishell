@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 00:44:12 by lide              #+#    #+#             */
-/*   Updated: 2022/06/28 05:11:46 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/28 17:33:42 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	remove_g_var(void)
 {
-	t_var *tmp;
-	int verif;
+	t_var	*tmp;
+	int		verif;
 
 	verif = 0;
 	tmp = g_var;
@@ -38,15 +38,15 @@ void	remove_g_var(void)
 	}
 }
 
-char *remove_first_quote(char **str, int i)
+char	*remove_first_quote(char **str, int i)
 {
-	int len;
-	char *tmp;
-	int ct;
-	int j;
+	int		len;
+	char	*tmp;
+	int		ct;
+	int		j;
 
 	ct = -1;
-	j= -1;
+	j = -1;
 	len = len1(str[i]);
 	if (str[i][0] == '\'' || str[i][0] == '\"')
 	{
@@ -63,10 +63,10 @@ char *remove_first_quote(char **str, int i)
 
 int	ft_unset(char **str, int *i, int len)
 {
-	int verif;
-	char *tmp;
+	int		verif;
+	char	*tmp;
 
-	while(++(*i) < len)
+	while (++(*i) < len)
 	{
 		if (str[*i])
 		{
@@ -75,7 +75,7 @@ int	ft_unset(char **str, int *i, int len)
 			tmp = remove_first_quote(str, *i);
 			if (!tmp)
 				return (0);
-			verif = check_name_env(tmp);
+			verif = check_g_var(tmp);
 			if (verif)
 				remove_g_var();
 		}

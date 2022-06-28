@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 00:44:12 by lide              #+#    #+#             */
-/*   Updated: 2022/06/28 02:47:12 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/28 17:33:42 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	ft_unset(char **str, int *i, int len)
 			tmp = remove_first_quote(str, *i);
 			if (!tmp)
 				return (0);
-			verif = check_name_env(tmp);
+			verif = check_g_var(tmp);
 			if (verif)
 				remove_g_var(str, *i);
 			else
