@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 11:31:20 by lide              #+#    #+#             */
-/*   Updated: 2022/06/28 18:36:28 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/30 20:01:15 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,11 @@ int	put_in_g(char **str, int i, int j)
 	t_var	*new;
 	char	*tmp;
 
+	ct = -1;
 	len = len1(str[i]);
-	ct = check_quote(str, i, j, &len);
-	if (ct == -2)
-		return (0);
+	// ct = check_quote(str, i, j, &len);
+	// if (ct == -2)
+	// 	return (0);
 	new = NULL;
 	x = 0;
 	tmp = (char *)malloc(sizeof(char) * (j - ct));
@@ -95,9 +96,9 @@ int	put_in_g(char **str, int i, int j)
 	while (++ct < j)
 		tmp[x++] = str[i][ct];
 	tmp[ct] = '\0';
-	t = check_name_env(tmp, env)
-	if (t > -1)
-		change_env();//malloc tout la phrase et remplacer l'array
+	// t = check_name_env(tmp, env)
+	// if (t > -1)
+	// 	change_env();//malloc tout la phrase et remplacer l'array
 	t = check_g_var(tmp);
 	if (t)
 	{

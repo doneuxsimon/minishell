@@ -6,11 +6,15 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/06/28 17:23:51 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/30 20:00:26 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
+
+//doit faire une copie de env et l'utiliser pour etre modifier dans unset et export;
+//placer le reste des mots dans la structure
+//gerer les free et les messages d'erreurs
 
 char	**get_line(char *line)
 {
@@ -44,6 +48,83 @@ void	test(int sig)
 	}
 }
 
+int	ct_char(char *str)
+{
+	int		j;
+	int		len;
+	char	quote;
+
+	j = -1;
+	len = 0;
+	quote = '\0';
+	while (str[++j])
+	{
+		if (str[j] == '\'' || str[j] == '\"')
+		{
+			quote = str[j];
+			while (str[++j] != quote)
+				len++;
+		}
+		else
+			len++;
+	}
+	if (!quote)
+		return (-1);
+	return (len);
+}
+
+char	*remove_unwanted_quote(char **str, int i, int ct)
+{
+	int		j;
+	int		x;
+	char	quote;
+	char	*tmp;
+
+	j = -1;
+	x = 0;
+	tmp = (char *)malloc(sizeof(char) * (ct + 1));
+	if (!tmp)
+		return (NULL);
+	while (str[i][++j])
+	{
+		if (str[i][j] == '\'' || str[i][j] == '\"')
+		{
+			quote = str[i][j];
+			while (str[i][++j] != quote)
+				tmp[x++] = str[i][j];
+		}
+		else
+			tmp[x++] = str[i][j];
+	}
+	tmp[x] = '\0';
+	return (tmp);
+}
+
+int	remove_quote(char **str)
+{
+	int		i;
+	int		ct;
+	char	*tmp;
+
+	i = -1;
+	while (str[++i])
+	{
+		ct = ct_char(str[i]);
+		if (ct != -1)
+		{
+			tmp = remove_unwanted_quote(str, i, ct);
+			if (!tmp)
+			{
+				printf("hello\n");
+				return (0);
+			}
+			free(str[i]);
+			str[i] = tmp;
+		}
+	}
+	return (1);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	struct sigaction	sa1;
@@ -54,6 +135,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
+	(void)env;
 	cmd = NULL;
 	g_var = init_var(g_var);
 	sa1.sa_handler = &test;
@@ -61,7 +143,6 @@ int	main(int argc, char **argv, char **env)
 	sigaction(SIGINT, &sa1, NULL);
 	signal(SIGQUIT, SIG_IGN);
 	cmd = init_lst(cmd);
-	i = 0;
 	while (1)
 	{
 		line = readline("Minishell$ ");
@@ -74,7 +155,11 @@ int	main(int argc, char **argv, char **env)
 		add_history(line);
 		str = get_line(line);
 		if (str)
-			put_in_struct(str, &cmd);
+		{
+			i = remove_quote(str);
+			if (i)
+				put_in_struct(str, &cmd);
+		}
 	}
 	return (0);
 }

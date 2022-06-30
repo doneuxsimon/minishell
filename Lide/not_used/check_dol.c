@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 13:51:37 by lide              #+#    #+#             */
-/*   Updated: 2022/06/30 19:29:47 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/30 18:07:10 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,6 @@ char	*find_env(char *str, int *len, int tmp, int *j)
 	while (++i < *len)
 		line[i] = str[tmp + i];
 	env = getenv(line);
-	if (!env)
-	{
-		if (check_g_var(line))
-			env = ft_strdup(g_var->value);
-	}
-	else
-		env = ft_strdup(env);
 	free(line);
 	*len = len1(str) + len1(env) - ((*len) + 1);
 	return (env);
@@ -52,11 +45,11 @@ char	*change_env(char *str, int *j, int tmp)
 	int		ct;
 
 	env = find_env(str, &len, tmp, j);
-	if (!env && len == -1)
-		return (NULL);
+	if (!env)
+		return (unchange_env(str, j, len));
 	line = (char *)malloc(sizeof(char) * len + 1);
 	if (!line)
-		return (free_env(str, NULL, env));
+		return (free_env(str, NULL));
 	line[len] = '\0';
 	len = len1(env);
 	i = -1;
@@ -69,7 +62,7 @@ char	*change_env(char *str, int *j, int tmp)
 	while (str[*j])
 		line[i++] = str[(*j)++];
 	*j = ct;
-	return (free_env(str, line, env));
+	return (free_env(str, line));
 }
 
 int	skip_s_quote(char **str, int i, int j)
@@ -100,7 +93,9 @@ char	**check_env(char **str)
 	int	i;
 	int	j;
 	int	len;
+	int	verif;
 
+	verif = 1;
 	len = len2(str);
 	i = -1;
 	while (str[++i])
@@ -108,7 +103,12 @@ char	**check_env(char **str)
 		j = 0;
 		while (str[i][j])
 		{
-			if (str[i][j] == '\'')
+			if (str[i][j] == '\"')
+			{
+				verif *= -1;
+				j++;
+			}
+			else if (str[i][j] == '\'' && verif > 0)
 				j = skip_s_quote(str, i, j);
 			else if (str[i][j] == '$')
 			{
@@ -121,4 +121,28 @@ char	**check_env(char **str)
 		}
 	}
 	return (str);
+}
+
+char	*unchange_env(char *str, int *j, int len)
+{
+	int		i;
+	int		tmp;
+	char	*line;
+
+	if (len == -1)
+		return (NULL);
+	printf("len = %d\n", len);
+	i = -1;
+	tmp = *j + 1;
+	len = len1(str);
+	line = (char *)malloc(sizeof(char) * (len + 2));
+	while (++i < *j)
+		line[i] = str[i];
+	line[i] = '|';
+	while (str[*j])
+		line[++i] = str[(*j)++];
+	line[++i] = '\0';
+	*j = tmp;
+	free(str);
+	return (line);
 }

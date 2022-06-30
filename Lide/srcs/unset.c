@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 00:44:12 by lide              #+#    #+#             */
-/*   Updated: 2022/06/28 17:33:42 by lide             ###   ########.fr       */
+/*   Updated: 2022/06/30 13:19:24 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*remove_first_quote(char **str, int i)
 int	ft_unset(char **str, int *i, int len)
 {
 	int		verif;
-	char	*tmp;
+	// char	*tmp;
 
 	while (++(*i) < len)
 	{
@@ -72,10 +72,10 @@ int	ft_unset(char **str, int *i, int len)
 		{
 			if (str[*i][0] == '|' || str[*i][0] == '&')
 				break ;
-			tmp = remove_first_quote(str, *i);
-			if (!tmp)
-				return (0);
-			verif = check_g_var(tmp);
+			// tmp = remove_first_quote(str, *i);
+			// if (!tmp)
+			// 	return (0);
+			verif = check_g_var(str[*i]);
 			if (verif)
 				remove_g_var();
 		}
