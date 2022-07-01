@@ -37,10 +37,11 @@ int	main(int argc, char **argv, char **envp)
 		tmp = get_cmd(path, line);
 		if (i == 0)
 		{
-			list->ft = "wc";
-			list->opt = "-w";
-			list->arg = "bonjour";
-			list->outfile = open("open.txt",  O_TRUNC | O_CREAT | O_RDWR, 0000644);
+			list->ft = "chmod";
+			//list->opt = "";
+			list->arg = "777";
+			//list->infile = open("yo.txt", O_RDONLY);
+			//list->outfile = open("open.txt",  O_TRUNC | O_CREAT | O_RDWR, 0000644);
 			ft_start_exec(list, path, envp);
 			//printf("%i\n", unlink(".tmp"));
 		}

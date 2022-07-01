@@ -30,15 +30,15 @@ typedef struct s_list
 	char			*arg;
 	char			*tmp;
 	char			*link;
+	int				piped[2];
 	int				pos;
 	int				infile;
 	int				outfile;
-	struct s_var	var;
 	struct s_list	*next;
 	struct s_list	*before;
 }					t_list;
 
-struct s_var	export;
+t_var	*g_var;
 
 void	ft_end(t_list **stack);
 void	ft_begin(t_list **stack);
