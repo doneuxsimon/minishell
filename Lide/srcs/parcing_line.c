@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/06/30 20:00:26 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/13 17:30:03 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int	remove_quote(char **str)
 	return (1);
 }
 
-int	main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **envp)
 {
 	struct sigaction	sa1;
 	char				*line;
@@ -135,9 +135,9 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	(void)env;
 	cmd = NULL;
 	g_var = init_var(g_var);
+	ft_export(envp, &i, len2(envp));
 	sa1.sa_handler = &test;
 	sa1.sa_flags = SA_SIGINFO;
 	sigaction(SIGINT, &sa1, NULL);
@@ -163,6 +163,8 @@ int	main(int argc, char **argv, char **env)
 	}
 	return (0);
 }
+
+
 
 // int	main(void)//voué a disparaitre
 // {

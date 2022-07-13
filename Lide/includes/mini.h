@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/06/30 18:41:01 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/13 16:30:25 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_list
 {
 	char			*ft;
 	char			*opt;
-	char			*arg;
+	char			**arg;
 	char			*link;
 	char			*tmp;
 	int				infile;
@@ -65,13 +65,16 @@ void	*free_split(char **str, int max);
 char	*free_env(char *str, char *ret, char *env);
 char	**check_env(char **str);
 int		len1(char *str);
+int		ft_export(char **str, int *i, int len/*, char **env*/);
 int		len2(char **str);
-int		put_in_struct(char **str, t_list **cmd);
+int		put_in_struct(char **str, t_list **cmd/*, char **env*/);
 void	redirection(char **str, t_list **cmd, int len);
 int		cmp_line(char *str, char *line);
 char	*find_name(t_list **cmd);
 void	remove_g_var(void);
-int		ft_unset(char **str, int *i, int len);
+int		ft_unset(char **str, int *i, int len/*, char **env*/);
 int		check_g_var(char *str);
+int		check_equal(char **str, int len/*, char **env*/);
+char	**ft_str_big_dup(char **str);
 
 #endif

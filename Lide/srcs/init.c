@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 19:11:46 by lide              #+#    #+#             */
-/*   Updated: 2022/06/28 17:00:58 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/13 14:23:17 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,17 @@ t_var	*init_var(t_var *var)
 	var->before = NULL;
 	return (var);
 }
+
+// int	init_g_var(char **envp)
+// {
+// 	g_var = (t_var *)malloc(sizeof(t_var));
+// 	if (!g_var)
+// 	{
+// 		printf("error init var\n");
+// 		exit(1);
+// 	}
+
+// }
 
 t_list	*init_lst(t_list *cmd)
 {
