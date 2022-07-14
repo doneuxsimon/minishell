@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/07/13 16:30:25 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/14 15:30:46 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	redirection(char **str, t_list **cmd, int len);
 int		cmp_line(char *str, char *line);
 char	*find_name(t_list **cmd);
 void	remove_g_var(void);
+int		remove_quote(char **str, int i);
 int		ft_unset(char **str, int *i, int len/*, char **env*/);
 int		check_g_var(char *str);
 int		check_equal(char **str, int len/*, char **env*/);

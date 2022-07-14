@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/07/13 17:30:03 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/14 15:33:57 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,27 +100,23 @@ char	*remove_unwanted_quote(char **str, int i, int ct)
 	return (tmp);
 }
 
-int	remove_quote(char **str)
+int	remove_quote(char **str, int i)
 {
-	int		i;
 	int		ct;
 	char	*tmp;
 
-	i = -1;
-	while (str[++i])
+	// printf("%d\n", i);
+	ct = ct_char(str[i]);
+	if (ct != -1)
 	{
-		ct = ct_char(str[i]);
-		if (ct != -1)
+		tmp = remove_unwanted_quote(str, i, ct);
+		if (!tmp)
 		{
-			tmp = remove_unwanted_quote(str, i, ct);
-			if (!tmp)
-			{
-				printf("hello\n");
-				return (0);
-			}
-			free(str[i]);
-			str[i] = tmp;
+			printf("hello\n");
+			return (0);
 		}
+		free(str[i]);
+		str[i] = tmp;
 	}
 	return (1);
 }
@@ -142,9 +138,9 @@ int	main(int argc, char **argv, char **envp)
 	sa1.sa_flags = SA_SIGINFO;
 	sigaction(SIGINT, &sa1, NULL);
 	signal(SIGQUIT, SIG_IGN);
-	cmd = init_lst(cmd);
 	while (1)
 	{
+		cmd = init_lst(cmd);
 		line = readline("Minishell$ ");
 		if (!line)
 		{
@@ -156,8 +152,8 @@ int	main(int argc, char **argv, char **envp)
 		str = get_line(line);
 		if (str)
 		{
-			i = remove_quote(str);
-			if (i)
+			// i = remove_quote(str);
+			// if (i)
 				put_in_struct(str, &cmd);
 		}
 	}

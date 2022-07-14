@@ -6,16 +6,18 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:12:08 by lide              #+#    #+#             */
-/*   Updated: 2022/07/13 17:34:54 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/14 17:22:30 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
 
-void	find_outfile(char **str, t_list **cmd, int *i)
+void	find_outfile(char **str, t_list **cmd, int *i)//proteger quote
 {
 	int	fd;
 
+	if (str[*i + 1])
+		remove_quote(str, (*i + 1));
 	if ((*cmd)->outfile != 0)
 		close((*cmd)->outfile);
 	if (!str[*i + 1] || (str[*i + 1] && str[*i + 1][0] == '<'))
@@ -58,11 +60,13 @@ void	write_in_file(int fd, char **str, int *i)
 	free(line);
 }
 
-void	find_infile(char **str, t_list **cmd, int *i)
+void	find_infile(char **str, t_list **cmd, int *i)//proteger quote
 {
 	int		fd;
 	char	*name;
 
+	if (str[*i + 1])
+		remove_quote(str, (*i + 1));
 	if ((*cmd)->infile != 0)
 		close((*cmd)->infile);
 	if (!str[*i + 1] || (str[*i + 1] && str[*i + 1][0] == '>'))
@@ -87,13 +91,13 @@ void	find_infile(char **str, t_list **cmd, int *i)
 void	next_struct(t_list **cmd, int *i, char **str)
 {
 	t_list		*new;
-	static int	pos;
+	// static int	pos;
 
 	new = NULL;
 	(*cmd)->link = str[*i];
 	(*i)++;
 	new = init_lst(new);
-	new->pos = ++pos;
+	new->pos = ((*cmd)->pos) + 1;
 	new->before = *cmd;
 	(*cmd)->next = new;
 	*cmd = (*cmd)->next;
@@ -113,7 +117,11 @@ void	redirection(char **str, t_list **cmd, int len)
 			else if (str[i][0] == '<')
 				find_infile(str, cmd, &i);
 			else if (str[i][0] == '&' || str[i][0] == '|')
+			{
+				printf("%d\n", (*cmd)->pos);
 				next_struct(cmd, &i, str);
+				printf("%d\n", (*cmd)->pos);
+			}
 			else
 				i++;
 			if ((*cmd)->outfile == -1 || (*cmd)->infile == -1)

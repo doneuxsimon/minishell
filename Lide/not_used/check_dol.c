@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 13:51:37 by lide              #+#    #+#             */
-/*   Updated: 2022/06/30 18:07:10 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/14 16:29:52 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,3 +146,32 @@ char	*unchange_env(char *str, int *j, int len)
 	free(str);
 	return (line);
 }
+
+
+// char	**check_env(char **str)
+// {
+// 	int	i;
+// 	int	j;
+// 	int	len;
+
+// 	len = len2(str);
+// 	i = -1;
+// 	while (str[++i])
+// 	{
+// 		j = 0;
+// 		while (str[i][j])
+// 		{
+// 			if (str[i][j] == '\'')
+// 				j = skip_s_quote(str, i, j);
+// 			else if (str[i][j] == '$')
+// 			{
+// 				j = find_dol(str, i, j);
+// 				if (!str[i])
+// 					return (free_split(str, len));
+// 			}
+// 			else
+// 				j++;
+// 		}
+// 	}
+// 	return (str);
+// }
