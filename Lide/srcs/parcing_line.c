@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/07/14 15:33:57 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/15 17:16:21 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,19 @@ int	remove_quote(char **str, int i)
 	return (1);
 }
 
+void	free_envp(void)
+{
+	while (g_var->next != NULL)
+	{
+		free(g_var->name);
+		free(g_var->value);
+		g_var = g_var->next;
+	}
+	free(g_var->name);
+	free(g_var->value);
+	free(g_var);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	struct sigaction	sa1;
@@ -133,7 +146,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	cmd = NULL;
 	g_var = init_var(g_var);
-	ft_export(envp, &i, len2(envp));
+	ft_export(envp, &i, len2(envp));//gerer leaks export
 	sa1.sa_handler = &test;
 	sa1.sa_flags = SA_SIGINFO;
 	sigaction(SIGINT, &sa1, NULL);
@@ -145,6 +158,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!line)
 		{
 			write(1, "exit\n", 5);
+			free_envp();
 			rl_clear_history();
 			exit(0);
 		}
