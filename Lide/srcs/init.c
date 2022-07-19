@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 19:11:46 by lide              #+#    #+#             */
-/*   Updated: 2022/07/15 16:46:27 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/19 16:39:29 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ t_var	*init_var(t_var *var)
 	if (!var)
 	{
 		printf("error init var\n");
-		exit(1);
+		return (NULL);
+		// exit(1);
 	}
 	var->name = NULL;
 	var->value = NULL;
@@ -31,7 +32,10 @@ t_list	*init_lst(t_list *cmd)
 {
 	cmd = (t_list *)malloc(sizeof(t_list));
 	if (!cmd)
+	{
+		printf("error malloc init lst\n");
 		return (NULL);
+	}
 	cmd->ft = NULL;
 	cmd->opt = NULL;
 	cmd->arg = NULL;

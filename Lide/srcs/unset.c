@@ -6,11 +6,13 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 00:44:12 by lide              #+#    #+#             */
-/*   Updated: 2022/07/13 14:51:58 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/19 18:37:15 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
+
+//doit ajouter remove_quote
 
 void	remove_g_var(void)
 {

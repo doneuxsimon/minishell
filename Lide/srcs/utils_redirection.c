@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:24:05 by lide              #+#    #+#             */
-/*   Updated: 2022/06/24 18:04:34 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/19 18:19:30 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,13 @@ char	*find_name(t_list **cmd)
 		exit (0);
 	len = len1(nb);
 	name = (char *)malloc(sizeof(char) * (len + 9));
+	if (!name)
+		return (NULL);
 	ft_copy(name, ".tmp", &i);
 	ft_copy(name, nb, &i);
 	ft_copy(name, ".txt", &i);
 	name[i] = '\0';
+	free(nb);
 	return (name);
 }
 

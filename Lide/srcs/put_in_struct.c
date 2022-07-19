@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 11:31:20 by lide              #+#    #+#             */
-/*   Updated: 2022/07/15 16:55:23 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/19 18:30:51 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	put_in_cmd(char **str, t_list **cmd, int len)//proteger quote
 	int	verif;
 	int	tmp;
 	int	words;
+	int	error;
 
 	i = -1;
 	verif = 0;
@@ -34,12 +35,16 @@ int	put_in_cmd(char **str, t_list **cmd, int len)//proteger quote
 		}
 		else if (str[i] && verif == 0)
 		{
-			remove_quote(str, i);
+			error = remove_quote(str, i);
+			if (!error)
+				return (0);
 			(*cmd)->ft = str[i];
 			str[i] = NULL;
 			if (str[i + 1] && str[i + 1][0] == '-')
 			{
-				remove_quote(str, ++i);
+				error = remove_quote(str, ++i);
+				if (!error)
+					return (0);
 				(*cmd)->opt = str[i];
 				str[i] = NULL;
 			}
@@ -69,7 +74,9 @@ int	put_in_cmd(char **str, t_list **cmd, int len)//proteger quote
 				}
 				else if (str[i])
 				{
-					remove_quote(str, i);
+					error = remove_quote(str, i);
+					if (!error)
+						return (0);
 					(*cmd)->arg[tmp++] = str[i];
 					str[i] = NULL;
 				}
@@ -85,6 +92,8 @@ void	free_all(t_list **cmd)
 	t_list *tmp;
 	int i;
 
+	while ((*cmd)->before != NULL)
+		*cmd = (*cmd)->before;
 	while (*cmd)
 	{
 		tmp = *cmd;
@@ -97,6 +106,7 @@ void	free_all(t_list **cmd)
 		if (tmp->arg != NULL)
 			while (tmp->arg[++i])
 				free(tmp->arg[i]);
+		free(tmp->arg);
 		free(tmp);
 	}
 }
@@ -141,17 +151,22 @@ void	print_env(void)
 int	put_in_struct(char **str, t_list **cmd)
 {
 	int	len;
-	int	i;
+	int verif;
 
-	i = -1;
 	len = len2(str);
-	// if (!check_equal(str, len))
-	// 	return (0);
-	redirection(str, cmd, len);
-	if (!put_in_cmd(str, cmd, len))
+	verif = redirection(str, cmd, len);
+	if (!verif)
 		return (0);
-	while (++i < len)
-		printf("%s\n", str[i]);
+	if (!put_in_cmd(str, cmd, len))
+	{
+		free_envp();
+		free_all(cmd);
+		free_split(str, len);
+		return (0);
+	}
+	// while (++i < len)
+	// 	printf("%s\n", str[i]);
+	free(str);
 	print_cmd(cmd);
 	// print_env();
 	return (1);

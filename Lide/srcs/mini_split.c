@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 19:20:19 by lide              #+#    #+#             */
-/*   Updated: 2022/06/30 13:59:44 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/19 17:19:32 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	*free_split(char **str, int max)
 	int	i;
 
 	i = -1;
+	printf("error malloc split line\n");
 	while (++i < max)
 		free(str[i]);
 	free(str);
@@ -55,20 +56,18 @@ int	nb_word(char *line)
 {
 	int	i;
 	int	word;
-	int	ct;
 
 	i = 0;
 	word = 0;
 	while (line[i])
 	{
-		ct = 0;
 		while (line[i] && ((line[i] >= 9 && line[i] <= 13) || line[i] == ' '))
 			i++;
 		if (line[i] && check_expt(line[i], 0))
 		{
 			i = skip_word(line, i);
 			if (i == -1)
-				return (i);
+				return (-1);
 			word++;
 		}
 		if (line[i] && !check_expt(line[i], 0))
@@ -77,7 +76,7 @@ int	nb_word(char *line)
 			word++;
 		}
 		if (i == -1)
-			return (i);
+			return (-1);
 	}
 	return (word);
 }
@@ -89,13 +88,23 @@ char	**mini_split(char *line)
 
 	ct = nb_word(line);
 	if (ct == -1)
+	{
+		free(line);
 		return (NULL);
+	}
 	str = (char **)malloc(sizeof(char *) * (ct + 1));
 	if (!str)
+	{
+		free(line);
 		return (NULL);
+	}
 	str[ct] = NULL;
 	str = split_line(str, line, ct);
 	if (!str)
+	{
+		free(line);
 		return (NULL);
+	}
+	free(line);
 	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 13:51:37 by lide              #+#    #+#             */
-/*   Updated: 2022/07/14 16:35:20 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/19 18:28:21 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ char	*find_env(char *str, int *len, int tmp, int *j)
 	line = (char *)malloc(sizeof(char) * ((*len) + 1));
 	if (!line)
 	{
-		free(str);
 		*len = -1;
 		return (NULL);
 	}
@@ -34,10 +33,26 @@ char	*find_env(char *str, int *len, int tmp, int *j)
 	if (!env)
 	{
 		if (check_g_var(line))
+		{
 			env = ft_strdup(g_var->value);
+			if (!env)
+			{
+				free(line);
+				*len = -1;
+				return (NULL);
+			}
+		}
 	}
 	else
+	{
 		env = ft_strdup(env);
+		if (!env)
+		{
+			free(line);
+			*len = -1;
+			return (NULL);
+		}
+	}
 	free(line);
 	*len = len1(str) + len1(env) - ((*len) + 1);
 	return (env);
@@ -56,7 +71,11 @@ char	*change_env(char *str, int *j, int tmp)
 		return (NULL);
 	line = (char *)malloc(sizeof(char) * len + 1);
 	if (!line)
-		return (free_env(str, NULL, env));
+	{
+		free(env);
+		return (NULL);
+	}
+		// return (free_env(str, NULL, env));
 	line[len] = '\0';
 	len = len1(env);
 	i = -1;
@@ -95,35 +114,7 @@ int	find_dol(char **str, int i, int j)
 	return (j);
 }
 
-// char	**check_env(char **str)
-// {
-// 	int	i;
-// 	int	j;
-// 	int	len;
-
-// 	len = len2(str);
-// 	i = -1;
-// 	while (str[++i])
-// 	{
-// 		j = 0;
-// 		while (str[i][j])
-// 		{
-			// if (str[i][j] == '\'')
-// 				j = skip_s_quote(str, i, j);
-// 			else if (str[i][j] == '$')
-// 			{
-// 				j = find_dol(str, i, j);
-// 				if (!str[i])
-// 					return (free_split(str, len));
-// 			}
-// 			else
-// 				j++;
-// 		}
-// 	}
-// 	return (str);
-// }
-
-char	**check_env(char **str)
+char	**check_dol(char **str)
 {
 	int	i;
 	int	j;
