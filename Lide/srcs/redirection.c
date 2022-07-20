@@ -6,108 +6,11 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:12:08 by lide              #+#    #+#             */
-/*   Updated: 2022/07/20 15:34:13 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/20 18:46:52 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
-
-int	find_outfile(char **str, t_list **cmd, int *i)
-{
-	int	fd;
-	int	verif;
-
-	if (str[*i + 1])
-	{
-		verif = remove_quote(str, (*i + 1));
-		if (!verif)
-			return (0);
-	}
-	if ((*cmd)->outfile != 0)
-		close((*cmd)->outfile);
-	if (!str[*i + 1] || (str[*i + 1] && str[*i + 1][0] == '<'))
-		fd = -1;
-	else if (str[*i][1] && str[*i][1] == '>')
-		fd = open(str[*i + 1], O_CREAT | O_RDWR | O_APPEND, 00644);
-	else
-	{
-		fd = open(str[*i + 1], O_CREAT | O_RDWR | O_TRUNC, 00644);
-		if (fd != -1)
-		{
-			close(fd);
-			fd = open(str[*i + 1], O_CREAT | O_RDWR | O_APPEND, 00644);
-		}
-	}
-	free(str[*i]);
-	str[(*i)++] = NULL;
-	if (fd != -1)
-	{
-		free(str[*i]);
-		str[*i] = NULL;
-	}
-	(*cmd)->outfile = fd;
-	return (1);
-}
-
-void	write_in_file(int fd, char **str, int *i)//doit vraiment free line ?
-{
-	char	*line;
-
-	while (1)
-	{
-		line = readline("> ");
-		if (!line)
-		{
-			printf("error ctrl d while <<\n");
-			break ;
-		}
-		if (cmp_line(str[*i + 1], line))
-			break ;
-		write (fd, line, len1(line));
-		write (fd, "\n", 1);
-		// free(line);
-	}
-	// free(line);
-}
-
-int	find_infile(char **str, t_list **cmd, int *i)
-{
-	int		fd;
-	char	*name;
-	int		verif;
-
-	if (str[*i + 1])
-	{
-		verif = remove_quote(str, (*i + 1));
-		if (!verif)
-			return (0);
-	}
-	if ((*cmd)->infile != 0)
-		close((*cmd)->infile);
-	if (!str[*i + 1] || (str[*i + 1] && str[*i + 1][0] == '>'))
-		fd = -1;
-	else if (str[*i][1] && str[*i][1] == '<')
-	{
-		name = find_name(cmd);
-		if (!name)
-			return (0);
-		fd = open(name, O_CREAT | O_WRONLY | O_TRUNC, 00644);
-		write_in_file(fd, str, i);
-		close(fd);
-		(*cmd)->infile = open(name, O_RDONLY);
-		(*cmd)->tmp = name;
-	}
-	else
-		fd = open(str[*i + 1], O_RDONLY);
-	free(str[*i]);
-	str[(*i)++] = NULL;
-	if (fd != -1)
-	{
-		free(str[*i]);
-		str[*i] = NULL;
-	}
-	return (1);
-}
 
 int	next_struct(t_list **cmd, int *i, char **str)
 {
@@ -123,6 +26,43 @@ int	next_struct(t_list **cmd, int *i, char **str)
 	new->before = *cmd;
 	(*cmd)->next = new;
 	*cmd = (*cmd)->next;
+	return (1);
+}
+
+void	free_find_outfile(char **str, int *i, int fd)
+{
+	free(str[*i]);
+	str[(*i)++] = NULL;
+	if (fd != -1)
+	{
+		free(str[*i]);
+		str[*i] = NULL;
+	}
+}
+
+int	find_outfile(char **str, t_list **cmd, int *i)
+{
+	int	fd;
+
+	if (!remove_red_quote(str, *i))
+		return (0);
+	if ((*cmd)->outfile != 0)
+		close((*cmd)->outfile);
+	if (!str[*i + 1] || (str[*i + 1] && str[*i + 1][0] == '<'))
+		fd = -1;
+	else if (str[*i][1] && str[*i][1] == '>')
+		fd = open(str[*i + 1], O_CREAT | O_RDWR | O_APPEND, 00644);
+	else
+	{
+		fd = open(str[*i + 1], O_CREAT | O_RDWR | O_TRUNC, 00644);
+		if (fd != -1)
+		{
+			close(fd);
+			fd = open(str[*i + 1], O_CREAT | O_RDWR | O_APPEND, 00644);
+		}
+	}
+	free_find_outfile(str, i, fd);
+	(*cmd)->outfile = fd;
 	return (1);
 }
 
@@ -146,13 +86,7 @@ int	redirection(char **str, t_list **cmd, int len)
 			else
 				i++;
 			if ((*cmd)->outfile == -1 || (*cmd)->infile == -1 || !verif)
-			{
-				//selon l'erreur mettre un msg
-				free_envp();
-				free_all(cmd);
-				free_split(str, len);
-				return (0);
-			}
+				free_redirection(str, cmd, len);
 		}
 		else
 			i++;

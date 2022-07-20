@@ -6,7 +6,7 @@
 #    By: lide <lide@student.s19.be>                 +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/10 18:31:54 by lide              #+#    #+#              #
-#    Updated: 2022/07/19 17:27:59 by lide             ###   ########.fr        #
+#    Updated: 2022/07/20 18:43:14 by lide             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ SRCS	=	srcs/parcing_line.c\
 			srcs/redirection.c\
 			srcs/utils_redirection.c\
 			srcs/utils.c\
+			srcs/free.c\
+			srcs/infile.c\
 			srcs/init.c\
 			srcs/unset.c\
 			srcs/remove_quote.c\

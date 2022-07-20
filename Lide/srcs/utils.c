@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 19:08:35 by lide              #+#    #+#             */
-/*   Updated: 2022/07/20 15:34:44 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/20 18:46:46 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,10 @@ char	*ft_strdup(char *s1)
 	}
 	s2[i] = 0;
 	return (s2);
+}
+
+int	print_error(char *str)
+{
+	printf("%s\n", str);
+	return (0);
 }

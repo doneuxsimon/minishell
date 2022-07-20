@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 13:51:37 by lide              #+#    #+#             */
-/*   Updated: 2022/07/20 15:49:21 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/20 18:40:01 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,42 +16,25 @@ char	*find_env(char *str, int *len, int tmp, int *j)
 {
 	char	*env;
 	char	*line;
-	int		i;
 
-	*len = (*j) - tmp;
-	line = (char *)malloc(sizeof(char) * ((*len) + 1));
+	line = cp_name(str, len, tmp, j);
 	if (!line)
-	{
-		*len = -1;
 		return (NULL);
-	}
-	line[*len] = '\0';
-	i = -1;
-	while (++i < *len)
-		line[i] = str[tmp + i];
 	env = getenv(line);
 	if (!env)
 	{
 		if (check_g_var(line))
 		{
-			env = ft_strdup(g_var->value);
+			env = cp_value(g_var->value, line, len);
 			if (!env)
-			{
-				free(line);
-				*len = -1;
 				return (NULL);
-			}
 		}
 	}
 	else
 	{
-		env = ft_strdup(env);
+		env = cp_value(env, line, len);
 		if (!env)
-		{
-			free(line);
-			*len = -1;
 			return (NULL);
-		}
 	}
 	free(line);
 	*len = len1(str) + len1(env) - ((*len) + 1);
@@ -71,12 +54,8 @@ char	*change_env(char *str, int *j, int tmp)
 		return (NULL);
 	line = (char *)malloc(sizeof(char) * len + 1);
 	if (!line)
-	{
-		free(env);
-		return (NULL);
-	}
+		return (free_char(env));
 	line[len] = '\0';
-	len = len1(env);
 	i = -1;
 	ct = -1;
 	while (++i < tmp - 1)
@@ -88,18 +67,6 @@ char	*change_env(char *str, int *j, int tmp)
 		line[i++] = str[(*j)++];
 	*j = ct;
 	return (free_env(str, line, env));
-}
-
-int	skip_s_quote(char **str, int i, int j)
-{
-	int	tmp;
-
-	tmp = ++j;
-	while (str[i][tmp] && str[i][tmp] != '\'')
-		tmp++;
-	if (str[i][tmp])
-		j = ++tmp;
-	return (j);
 }
 
 int	find_dol(char **str, int i, int j)
@@ -125,21 +92,17 @@ char	**check_dol(char **str)
 	len = len2(str);
 	while (str[++i])
 	{
-		j = 0;
-		while (str[i][j])
+		j = -1;
+		while (str[i][++j])
 		{
 			if (str[i][j] == '\"')
 				verif *= -1;
 			if (str[i][j] == '\'' && verif > 0)
-				j = skip_s_quote(str, i, j);
+				j = (skip_s_quote(str, i, j) - 1);
 			else if (str[i][j] == '$')
-			{
-				j = find_dol(str, i, j);
-				if (!str[i])
-					return (free_split(str, len));
-			}
-			else
-				j++;
+				j = (find_dol(str, i, j) - 1);
+			if (!str[i])
+				return (free_split(str, len));
 		}
 	}
 	return (str);

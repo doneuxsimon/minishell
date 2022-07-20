@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 19:11:46 by lide              #+#    #+#             */
-/*   Updated: 2022/07/19 16:39:29 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/20 18:09:47 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_var	*init_var(t_var *var)
 	{
 		printf("error init var\n");
 		return (NULL);
-		// exit(1);
 	}
 	var->name = NULL;
 	var->value = NULL;

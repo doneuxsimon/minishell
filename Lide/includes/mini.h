@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/07/20 15:43:21 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/20 18:47:35 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,26 @@ void	*free_split(char **str, int max);
 char	*free_env(char *str, char *ret, char *env);
 char	**check_dol(char **str);
 int		len1(char *str);
-int		ft_export(char **str, int *i, int len/*, char **env*/);
+int		ft_export(char **str, int *i, int len);
 int		len2(char **str);
-int		put_in_struct(char **str, t_list **cmd/*, char **env*/);
-int	redirection(char **str, t_list **cmd, int len);
+int		put_in_struct(char **str, t_list **cmd);
+int		redirection(char **str, t_list **cmd, int len);
 int		cmp_line(char *str, char *line);
 char	*find_name(t_list **cmd);
 void	remove_g_var(void);
 int		remove_quote(char **str, int i);
-int		ft_unset(char **str, int *i, int len/*, char **env*/);
+int		ft_unset(char **str, int *i, int len);
 int		check_g_var(char *str);
-// int		check_equal(char **str, int len/*, char **env*/);
 void	free_envp(void);
+char	*free_char(char *str);
+int		free_redirection(char **str, t_list **cmd, int len);
 void	free_all(t_list **cmd);
 char	**ft_str_big_dup(char **str);
+int		skip_s_quote(char **str, int i, int j);
+char	*cp_name(char *str, int *len, int tmp, int *j);
+char	*cp_value(char *value, char *line, int *len);
+int		print_error(char *str);
+int		find_infile(char **str, t_list **cmd, int *i);
+int		remove_red_quote(char **str, int i);
 
 #endif

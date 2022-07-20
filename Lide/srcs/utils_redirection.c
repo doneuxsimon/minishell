@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:24:05 by lide              #+#    #+#             */
-/*   Updated: 2022/07/19 18:19:30 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/20 18:44:30 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,18 @@ int	cmp_line(char *str, char *line)
 		i++;
 	if ((!str[i] && line[i]) || (str[i] && !line[i]) || str[i] != line[i])
 		return (0);
+	return (1);
+}
+
+int	remove_red_quote(char **str, int i)
+{
+	int	verif;
+
+	if (str[i + 1])
+	{
+		verif = remove_quote(str, (i + 1));
+		if (!verif)
+			return (0);
+	}
 	return (1);
 }

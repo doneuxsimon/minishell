@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 13:36:37 by lide              #+#    #+#             */
-/*   Updated: 2022/07/20 15:27:58 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/20 18:08:58 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,45 +27,12 @@ int	check_g_var(char *str)
 	return (0);
 }
 
-int	put_in_g(char **str, int i, int j)
+int	put_g_name(char *tmp, int verif)
 {
-	int		len;
-	int		ct;
-	int		x;
-	int		t;
 	t_var	*new;
-	char	*tmp;
 
-	ct = -1;
-	len = len1(str[i]);
 	new = NULL;
-	x = 0;
-	tmp = (char *)malloc(sizeof(char) * (j));
-	if (!tmp)
-	{
-		printf("error malloc put in g\n");
-		return (0);
-	}
-	while (++ct < j)
-		tmp[x++] = str[i][ct];
-	tmp[ct] = '\0';
-	t = check_g_var(tmp);
-	if (t)
-	{
-		free(g_var->value);
-		free(tmp);
-	}
-	g_var->value = (char *)malloc(sizeof(char) * (len - (j - 1)));
-	if (!g_var->value)
-	{
-		printf("error malloc put in g\n");
-		return (0);
-	}
-	x = 0;
-	while (++ct < len)
-		g_var->value[x++] = str[i][ct];
-	g_var->value[x] = '\0';
-	if (t == 0)
+	if (verif == 0)
 	{
 		g_var->name = tmp;
 		new = init_var(new);
@@ -75,7 +42,52 @@ int	put_in_g(char **str, int i, int j)
 		g_var->next = new;
 		g_var = g_var->next;
 	}
+	else
+		free(tmp);
 	return (1);
+}
+
+int	put_g_value(char **str, int ct, int i, int j)
+{
+	int	len;
+	int	x;
+
+	x = 0;
+	len = len1(str[i]);
+	g_var->value = (char *)malloc(sizeof(char) * (len - (j - 1)));
+	if (!g_var->value)
+		return (print_error("error malloc put in g\n"));
+	while (++ct < len)
+		g_var->value[x++] = str[i][ct];
+	g_var->value[x] = '\0';
+	return (1);
+}
+
+int	put_in_g(char **str, int i, int j)
+{
+	int		ct;
+	int		x;
+	int		verif;
+	char	*tmp;
+
+	x = 0;
+	ct = -1;
+	tmp = (char *)malloc(sizeof(char) * (j));
+	if (!tmp)
+		return (print_error("error malloc put in g\n"));
+	while (++ct < j)
+		tmp[x++] = str[i][ct];
+	tmp[ct] = '\0';
+	verif = check_g_var(tmp);
+	if (verif)
+		free(g_var->value);
+	x = put_g_value(str, ct, i, j);
+	if (!x)
+	{
+		free(tmp);
+		return (0);
+	}
+	return (put_g_name(tmp, verif));
 }
 
 int	ft_export(char **str, int *i, int len)
