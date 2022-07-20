@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 13:51:37 by lide              #+#    #+#             */
-/*   Updated: 2022/07/19 18:28:21 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/20 15:49:21 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ char	*change_env(char *str, int *j, int tmp)
 		free(env);
 		return (NULL);
 	}
-		// return (free_env(str, NULL, env));
 	line[len] = '\0';
 	len = len1(env);
 	i = -1;
@@ -121,9 +120,9 @@ char	**check_dol(char **str)
 	int	len;
 	int	verif;
 
+	i = -1;
 	verif = 1;
 	len = len2(str);
-	i = -1;
 	while (str[++i])
 	{
 		j = 0;

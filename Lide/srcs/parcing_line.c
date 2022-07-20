@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/07/19 18:33:51 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/20 14:11:57 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 //placer le reste des mots dans la structure	V
 //gerer les free et les messages d'erreurs
 //implementer export et unset
-//segfault random hello -n ca va | hello ca va
+//segfault random hello -n ca va | hello ca va | yo -n yes cest reussi | hello -n trop fort
 
 char	**get_line(char *line)
 {
@@ -78,6 +78,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	cmd = NULL;
 	i = 0;
+
 	g_var = init_var(g_var);
 	if (!g_var)
 		return (1);
@@ -106,7 +107,7 @@ int	main(int argc, char **argv, char **envp)
 			free_envp();
 			free(cmd);
 			rl_clear_history();
-			exit(0);
+			exit(1);
 		}
 		add_history(line);
 		str = get_line(line);

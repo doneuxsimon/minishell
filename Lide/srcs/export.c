@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 13:36:37 by lide              #+#    #+#             */
-/*   Updated: 2022/07/19 18:22:14 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/20 15:27:58 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,71 +104,3 @@ int	ft_export(char **str, int *i, int len)
 	}
 	return (1);
 }
-
-// void	find_esp(int *i, int len, char **str)
-// {
-// 	int	tmp;
-
-// 	tmp = *i;
-// 	while (tmp < len)
-// 	{
-// 		if (str[tmp] && str[tmp][0] == '&' && !str[tmp][1])//si considerer comme error mettre lerreur ici
-// 			*i = ++tmp;
-// 		else
-// 			tmp++;
-// 	}
-// }
-
-// int	check_sep_exp(int i, int len, char **str)
-// {
-// 	if (i == 0 || (i > 0 && str[i - 1][0] == '&'))
-// 	{
-// 		while (++i < len)
-// 		{
-// 			if (str[i] && str[i][0] == '|' && !str[i][1])
-// 				return (0);
-// 			if (str[i] && (str[i][0] == '&'
-// 				|| (str[i][1] && str[i][1] == '|')))
-// 				return (1);
-// 		}
-// 		return (1);
-// 	}
-// 	return (0);
-// }
-
-// int	check_equal(char **str, int len)
-// {
-// 	int	i;
-// 	int	verif;
-
-// 	i = 0;
-// 	find_esp(&i, len, str);
-// 	while (i < len)
-// 	{
-// 		if (str[i])
-// 		{
-// 			if (check_sep_exp(i, len, str))
-// 			{
-// 				if (!ft_strncmp(str[i], "export", 7))
-// 				{
-// 					verif = ft_export(str, &i, len);
-// 					if (!verif)
-// 						return (0);
-// 				}
-// 				else if (!ft_strncmp(str[i], "unset", 6))
-// 				{
-// 					verif = ft_unset(str, &i, len);
-// 					if (!verif)
-// 						return (0);
-// 				}
-// 				else
-// 					i++;
-// 			}
-// 			else
-// 				i++;
-// 		}
-// 		else
-// 			i++;
-// 	}
-// 	return (1);
-// }

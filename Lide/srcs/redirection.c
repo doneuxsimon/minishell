@@ -6,13 +6,13 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:12:08 by lide              #+#    #+#             */
-/*   Updated: 2022/07/19 18:14:47 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/20 15:34:13 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
 
-int	find_outfile(char **str, t_list **cmd, int *i)//proteger quote
+int	find_outfile(char **str, t_list **cmd, int *i)
 {
 	int	fd;
 	int	verif;
@@ -65,12 +65,12 @@ void	write_in_file(int fd, char **str, int *i)//doit vraiment free line ?
 			break ;
 		write (fd, line, len1(line));
 		write (fd, "\n", 1);
-		free(line);
+		// free(line);
 	}
-	free(line);
+	// free(line);
 }
 
-int	find_infile(char **str, t_list **cmd, int *i)//proteger quote
+int	find_infile(char **str, t_list **cmd, int *i)
 {
 	int		fd;
 	char	*name;
@@ -111,19 +111,19 @@ int	find_infile(char **str, t_list **cmd, int *i)//proteger quote
 
 int	next_struct(t_list **cmd, int *i, char **str)
 {
-	t_list		*new;
+	t_list	*new;
 
 	new = NULL;
 	(*cmd)->link = str[*i];
 	(*i)++;
 	new = init_lst(new);
 	if (!new)
-		return(0);
+		return (0);
 	new->pos = ((*cmd)->pos) + 1;
 	new->before = *cmd;
 	(*cmd)->next = new;
 	*cmd = (*cmd)->next;
-	return(1);
+	return (1);
 }
 
 int	redirection(char **str, t_list **cmd, int len)

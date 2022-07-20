@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/07/19 18:12:14 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/20 15:43:21 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
-// # include "../wraloc.h"
+# include "../wraloc.h"
 
 typedef struct s_var
 {

@@ -6,13 +6,13 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 11:31:20 by lide              #+#    #+#             */
-/*   Updated: 2022/07/19 18:30:51 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/20 15:30:47 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
 
-int	put_in_cmd(char **str, t_list **cmd, int len)//proteger quote
+int	put_in_cmd(char **str, t_list **cmd, int len)
 {
 	int	i;
 	int	verif;
@@ -22,10 +22,9 @@ int	put_in_cmd(char **str, t_list **cmd, int len)//proteger quote
 
 	i = -1;
 	verif = 0;
-	words = 0;
 	while ((*cmd)->before != NULL)
 		*cmd = (*cmd)->before;
-	while(++i < len)
+	while (++i < len)
 	{
 		if (str[i] && (str[i][0] == '|' || str[i][0] == '&'))
 		{
@@ -50,13 +49,14 @@ int	put_in_cmd(char **str, t_list **cmd, int len)//proteger quote
 			}
 			verif = 1;
 		}
-		else if (str[i])//refaire
+		else if (str[i])
 		{
+			words = 0;
 			tmp = i - 1;
 			while (++tmp < len)
 			{
 				if (str[tmp] && (str[tmp][0] == '|' || str[tmp][0] == '&'))
-					break;
+					break ;
 				if (str[tmp] != NULL)
 					words++;
 			}
@@ -64,13 +64,13 @@ int	put_in_cmd(char **str, t_list **cmd, int len)//proteger quote
 			(*cmd)->arg = (char **)malloc(sizeof(char *) * (words + 1));
 			if (!(*cmd)->arg)
 				return (0);
-			while(i < len)
+			(*cmd)->arg[words] = NULL;
+			while (i < len)
 			{
 				if (str[i] && (str[i][0] == '|' || str[i][0] == '&'))
 				{
-					(*cmd)->arg[words] = NULL;
 					i--;
-					break;
+					break ;
 				}
 				else if (str[i])
 				{
@@ -89,8 +89,8 @@ int	put_in_cmd(char **str, t_list **cmd, int len)//proteger quote
 
 void	free_all(t_list **cmd)
 {
-	t_list *tmp;
-	int i;
+	t_list	*tmp;
+	int 	i;
 
 	while ((*cmd)->before != NULL)
 		*cmd = (*cmd)->before;
@@ -113,7 +113,7 @@ void	free_all(t_list **cmd)
 
 void	print_cmd(t_list **cmd)
 {
-	int i;
+	int	i;
 
 	while ((*cmd)->before != NULL)
 		*cmd = (*cmd)->before;
@@ -153,7 +153,7 @@ int	put_in_struct(char **str, t_list **cmd)
 	int	len;
 	int verif;
 
-	len = len2(str);
+		len = len2(str);
 	verif = redirection(str, cmd, len);
 	if (!verif)
 		return (0);
