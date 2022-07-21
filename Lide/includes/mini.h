@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/07/20 18:47:35 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/21 17:11:54 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
-# include "../wraloc.h"
+// # include "../wraloc.h"
 
 typedef struct s_var
 {
@@ -86,5 +86,8 @@ char	*cp_value(char *value, char *line, int *len);
 int		print_error(char *str);
 int		find_infile(char **str, t_list **cmd, int *i);
 int		remove_red_quote(char **str, int i);
+int		put_pipe(t_list **cmd, char **str, int i);
+int		put_ft_and_opt(char **str, t_list **cmd, int *i);
+int		put_arg(char **str, t_list **cmd, int len, int *i);
 
 #endif

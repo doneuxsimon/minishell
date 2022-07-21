@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/07/20 14:11:57 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/21 19:55:51 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 //doit faire une copie de env et l'utiliser pour etre modifier dans unset et export;	V
 //placer le reste des mots dans la structure	V
-//gerer les free et les messages d'erreurs
+//segfault random hello -n ca va | hello ca va | yo -n yes cest reussi | hello -n trop fort V
 //implementer export et unset
-//segfault random hello -n ca va | hello ca va | yo -n yes cest reussi | hello -n trop fort
+//gerer les free et les messages d'erreurs
+//regarde comportement <<
+//gerer $?
 
 char	**get_line(char *line)
 {
@@ -82,7 +84,7 @@ int	main(int argc, char **argv, char **envp)
 	g_var = init_var(g_var);
 	if (!g_var)
 		return (1);
-	i = ft_export(envp, &i, len2(envp));//gerer leaks export
+	i = ft_export(envp, &i, len2(envp));
 	if (!i)
 	{
 		free_envp();
@@ -107,7 +109,7 @@ int	main(int argc, char **argv, char **envp)
 			free_envp();
 			free(cmd);
 			rl_clear_history();
-			exit(1);
+			exit(0);
 		}
 		add_history(line);
 		str = get_line(line);

@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 00:44:12 by lide              #+#    #+#             */
-/*   Updated: 2022/07/20 15:34:47 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/21 16:46:35 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,28 +40,28 @@ void	remove_g_var(void)
 	}
 }
 
-char	*remove_first_quote(char **str, int i)
-{
-	int		len;
-	char	*tmp;
-	int		ct;
-	int		j;
+// char	*remove_first_quote(char **str, int i)
+// {
+// 	int		len;
+// 	char	*tmp;
+// 	int		ct;
+// 	int		j;
 
-	ct = -1;
-	j = -1;
-	len = len1(str[i]);
-	if (str[i][0] == '\'' || str[i][0] == '\"')
-	{
-		len--;
-		ct++;
-	}
-	tmp = (char *)malloc(sizeof(char) * (len - ct));
-	if (!tmp)
-		return (NULL);
-	while (++ct < len)
-		tmp[++j] = str[i][ct];
-	return (tmp);
-}
+// 	ct = -1;
+// 	j = -1;
+// 	len = len1(str[i]);
+// 	if (str[i][0] == '\'' || str[i][0] == '\"')
+// 	{
+// 		len--;
+// 		ct++;
+// 	}
+// 	tmp = (char *)malloc(sizeof(char) * (len - ct));
+// 	if (!tmp)
+// 		return (NULL);
+// 	while (++ct < len)
+// 		tmp[++j] = str[i][ct];
+// 	return (tmp);
+// }
 
 int	ft_unset(char **str, int *i, int len)
 {

@@ -6,13 +6,13 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:42:40 by lide              #+#    #+#             */
-/*   Updated: 2022/07/20 18:49:24 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/21 18:45:45 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
 
-void	write_in_file(int fd, char **str, int *i)//doit vraiment free line ?
+void	write_in_file(int fd, char **str, int *i)
 {
 	char	*line;
 
@@ -28,9 +28,9 @@ void	write_in_file(int fd, char **str, int *i)//doit vraiment free line ?
 			break ;
 		write (fd, line, len1(line));
 		write (fd, "\n", 1);
-		// free(line);
+		free(line);
 	}
-	// free(line);
+	free(line);
 }
 
 int	create_tmp_file(char **str, t_list **cmd, int *i, int *fd)
