@@ -27,7 +27,7 @@ typedef struct s_list
 {
 	char			*ft;
 	char			*opt;
-	char			*arg;
+	char			**arg;
 	char			*tmp;
 	char			*link;
 	int				piped[2];
