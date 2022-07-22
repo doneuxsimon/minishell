@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/07/21 17:11:54 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/22 17:49:14 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
-// # include "../wraloc.h"
+# include "../wraloc.h"
 
 typedef struct s_var
 {
@@ -63,7 +63,7 @@ int		skip_separator(char *line, int i);
 int		skip_space(char *line, int *i);
 void	*free_split(char **str, int max);
 char	*free_env(char *str, char *ret, char *env);
-char	**check_dol(char **str);
+char	**check_dol(char **str, int len);
 int		len1(char *str);
 int		ft_export(char **str, int *i, int len);
 int		len2(char **str);

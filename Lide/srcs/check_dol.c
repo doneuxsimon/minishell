@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 13:51:37 by lide              #+#    #+#             */
-/*   Updated: 2022/07/20 18:40:01 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/22 17:10:58 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,10 @@ int	find_dol(char **str, int i, int j)
 	return (j);
 }
 
-char	**check_dol(char **str)
+char	**check_dol(char **str, int len)
 {
 	int	i;
 	int	j;
-	int	len;
 	int	verif;
 
 	i = -1;
@@ -95,11 +94,13 @@ char	**check_dol(char **str)
 		j = -1;
 		while (str[i][++j])
 		{
+			if (str[i][j] == '$' && str[i][j + 1] && str[i][j + 1] == '?')
+				j += 2;
 			if (str[i][j] == '\"')
 				verif *= -1;
 			if (str[i][j] == '\'' && verif > 0)
 				j = (skip_s_quote(str, i, j) - 1);
-			else if (str[i][j] == '$')
+			else if (str[i][j] == '$' && str[i][j + 1])
 				j = (find_dol(str, i, j) - 1);
 			if (!str[i])
 				return (free_split(str, len));

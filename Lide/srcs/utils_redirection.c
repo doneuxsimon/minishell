@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:24:05 by lide              #+#    #+#             */
-/*   Updated: 2022/07/20 18:44:30 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/22 17:53:39 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*find_name(t_list **cmd)
 	i = 0;
 	nb = ft_itoa((*cmd)->pos);
 	if (!nb)
-		exit (0);
+		exit (0);//pas normal
 	len = len1(nb);
 	name = (char *)malloc(sizeof(char) * (len + 9));
 	if (!name)

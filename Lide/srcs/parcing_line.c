@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/07/21 19:55:51 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/22 18:01:42 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,33 @@
 //doit faire une copie de env et l'utiliser pour etre modifier dans unset et export;	V
 //placer le reste des mots dans la structure	V
 //segfault random hello -n ca va | hello ca va | yo -n yes cest reussi | hello -n trop fort V
-//implementer export et unset
-//gerer les free et les messages d'erreurs
-//regarde comportement <<
-//gerer $?
+//regarde comportement <<	V je pense
+//gerer $? V
+//gerer fd dans out/infile
+//implementer export et unset	+-
+//gerer les free et les messages d'erreurs	+-
+
+int	check_sep(char **str, int len)
+{
+	int	i;
+
+	i = -1;
+	while (++i < len)
+	{
+		if (str[i][0] && str[i][0] == '&' && !str[i][1])
+			return (0);
+		else if (str[i][0] && str[i][1] && !str[i][2]
+			&& ((str[i][0] == '&' && str[i][1] == '&')
+			|| (str[i][0] == '|' && str[i][1] == '|')))
+			return (0);
+	}
+	return (1);
+}
 
 char	**get_line(char *line)
 {
 	char	**str;
+	int		len;
 
 	str = mini_split(line);
 	if (!str)
@@ -30,7 +49,14 @@ char	**get_line(char *line)
 		printf("Error\n");//potentiellement useless
 		return (NULL);
 	}
-	str = check_dol(str);
+	len = len2(str);
+	if (!check_sep(str, len))
+	{
+		printf("you can only use '|' has a separator\n");
+		free_split(str, len);
+		return (NULL);
+	}
+	str = check_dol(str, len);
 	if (!str)
 	{
 		printf("Error2\n");
@@ -113,11 +139,14 @@ int	main(int argc, char **argv, char **envp)
 		}
 		add_history(line);
 		str = get_line(line);
-		if (!str)
-			return (1);
-		i = put_in_struct(str, &cmd);
-		if (!i)
-			return (1);
+		if (str)
+		{
+			i = put_in_struct(str, &cmd);
+			if (!i)
+				return (1);
+		}
+		else
+			free(cmd);
 	}
 	return (0);
 }
