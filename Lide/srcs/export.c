@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 13:36:37 by lide              #+#    #+#             */
-/*   Updated: 2022/07/20 18:08:58 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/25 14:53:28 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,10 @@ int	ft_export(char **str, int *i, int len)
 			{
 				verif = put_in_g(str, *i, j);
 				if (!verif)
-					return (0);
+					return (1);
 			}
 		}
 		(*i)++;
 	}
-	return (1);
+	return (0);
 }

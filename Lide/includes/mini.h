@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/07/22 17:49:14 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/25 16:53:27 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@
 # include <string.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
-# include "../wraloc.h"
+// # include "../wraloc.h"
+
+# define error1 "redirection: syntax error near unexpected token `newline'"
 
 typedef struct s_var
 {
@@ -76,13 +79,14 @@ int		remove_quote(char **str, int i);
 int		ft_unset(char **str, int *i, int len);
 int		check_g_var(char *str);
 void	free_envp(void);
-char	*free_char(char *str);
+char	*free_char(char *str, char *print);
 int		free_redirection(char **str, t_list **cmd, int len);
 void	free_all(t_list **cmd);
 char	**ft_str_big_dup(char **str);
 int		skip_s_quote(char **str, int i, int j);
 char	*cp_name(char *str, int *len, int tmp, int *j);
 char	*cp_value(char *value, char *line, int *len);
+int		print_perror(char *str);
 int		print_error(char *str);
 int		find_infile(char **str, t_list **cmd, int *i);
 int		remove_red_quote(char **str, int i);

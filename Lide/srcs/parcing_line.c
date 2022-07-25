@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/07/22 18:01:42 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/25 16:20:50 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 //segfault random hello -n ca va | hello ca va | yo -n yes cest reussi | hello -n trop fort V
 //regarde comportement <<	V je pense
 //gerer $? V
-//gerer fd dans out/infile
+//gerer fd dans out/infile	+-
 //implementer export et unset	+-
 //gerer les free et les messages d'erreurs	+-
 
@@ -111,7 +111,7 @@ int	main(int argc, char **argv, char **envp)
 	if (!g_var)
 		return (1);
 	i = ft_export(envp, &i, len2(envp));
-	if (!i)
+	if (i)
 	{
 		free_envp();
 		return(1);
@@ -135,15 +135,16 @@ int	main(int argc, char **argv, char **envp)
 			free_envp();
 			free(cmd);
 			rl_clear_history();
-			exit(0);
+			return (0);
+			// exit(0);
 		}
 		add_history(line);
 		str = get_line(line);
 		if (str)
 		{
 			i = put_in_struct(str, &cmd);
-			if (!i)
-				return (1);
+			// if (!i)
+			// 	return (1);
 		}
 		else
 			free(cmd);

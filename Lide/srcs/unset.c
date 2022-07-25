@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 00:44:12 by lide              #+#    #+#             */
-/*   Updated: 2022/07/21 16:46:35 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/25 17:00:39 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,6 @@ void	remove_g_var(void)
 	}
 }
 
-// char	*remove_first_quote(char **str, int i)
-// {
-// 	int		len;
-// 	char	*tmp;
-// 	int		ct;
-// 	int		j;
-
-// 	ct = -1;
-// 	j = -1;
-// 	len = len1(str[i]);
-// 	if (str[i][0] == '\'' || str[i][0] == '\"')
-// 	{
-// 		len--;
-// 		ct++;
-// 	}
-// 	tmp = (char *)malloc(sizeof(char) * (len - ct));
-// 	if (!tmp)
-// 		return (NULL);
-// 	while (++ct < len)
-// 		tmp[++j] = str[i][ct];
-// 	return (tmp);
-// }
-
 int	ft_unset(char **str, int *i, int len)
 {
 	int		verif;
@@ -78,5 +55,5 @@ int	ft_unset(char **str, int *i, int len)
 				remove_g_var();
 		}
 	}
-	return (1);
+	return (0);
 }

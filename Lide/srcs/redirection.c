@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:12:08 by lide              #+#    #+#             */
-/*   Updated: 2022/07/20 18:46:52 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/25 16:43:32 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	find_outfile(char **str, t_list **cmd, int *i)
 	if ((*cmd)->outfile != 0)
 		close((*cmd)->outfile);
 	if (!str[*i + 1] || (str[*i + 1] && str[*i + 1][0] == '<'))
-		fd = -1;
+		return (print_error(error1));
 	else if (str[*i][1] && str[*i][1] == '>')
 		fd = open(str[*i + 1], O_CREAT | O_RDWR | O_APPEND, 00644);
 	else
@@ -57,10 +57,13 @@ int	find_outfile(char **str, t_list **cmd, int *i)
 		fd = open(str[*i + 1], O_CREAT | O_RDWR | O_TRUNC, 00644);
 		if (fd != -1)
 		{
-			close(fd);
-			fd = open(str[*i + 1], O_CREAT | O_RDWR | O_APPEND, 00644);
+			fd = close(fd);
+			if (fd != -1)
+				fd = open(str[*i + 1], O_CREAT | O_RDWR | O_APPEND, 00644);
 		}
 	}
+	if (fd == -1)
+			return (print_perror("outfile"));
 	free_find_outfile(str, i, fd);
 	(*cmd)->outfile = fd;
 	return (1);
@@ -86,7 +89,7 @@ int	redirection(char **str, t_list **cmd, int len)
 			else
 				i++;
 			if ((*cmd)->outfile == -1 || (*cmd)->infile == -1 || !verif)
-				free_redirection(str, cmd, len);
+				return (free_redirection(str, cmd, len));
 		}
 		else
 			i++;

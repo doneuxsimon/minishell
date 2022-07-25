@@ -1,1 +1,20 @@
 echo a{pr,rm,r,i}e attention ne pas gerer si entre quote
+
+check perror
+
+check dol	V
+export
+free
+infile
+itoa
+minisplit
+parcing
+put_in_struct
+redirection	V
+remove_quote
+unset
+utils_check_dols	V
+utils_mini_split
+utils_put_in_struct
+utils_redirection	V
+utils

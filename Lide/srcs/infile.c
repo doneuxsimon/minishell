@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:42:40 by lide              #+#    #+#             */
-/*   Updated: 2022/07/22 17:54:02 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/25 16:11:07 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,23 @@ void	write_in_file(int fd, char **str, int *i)
 	free(line);
 }
 
-int	create_tmp_file(char **str, t_list **cmd, int *i, int *fd)
+int	create_tmp_file(char **str, t_list **cmd, int *i)
 {
 	char	*name;
+	int		fd;
 
 	name = find_name(cmd);
 	if (!name)
 		return (0);
-	*fd = open(name, O_CREAT | O_WRONLY | O_TRUNC, 00644);
-	write_in_file(*fd, str, i);
-	close(*fd);
-	(*cmd)->infile = open(name, O_RDONLY);
+	fd = open(name, O_CREAT | O_WRONLY | O_TRUNC, 00644);
+	if (fd == -1)
+		return (0);
+	write_in_file(fd, str, i);
+	close(fd);
+	fd = open(name, O_RDONLY);
+	if (fd == -1)
+		return (0);
+	(*cmd)->infile = fd;
 	(*cmd)->tmp = name;
 	return (1);
 }
@@ -58,20 +64,19 @@ int	find_infile(char **str, t_list **cmd, int *i)
 	if ((*cmd)->infile != 0)
 		close((*cmd)->infile);
 	if (!str[*i + 1] || (str[*i + 1] && str[*i + 1][0] == '>'))
-		fd = -1;
+		return (print_error(error1));
 	else if (str[*i][1] && str[*i][1] == '<')
 	{
-		if (!create_tmp_file(str, cmd, i, &fd))
-			return (0);
+		if (!create_tmp_file(str, cmd, i))
+			return (print_perror("infile"));
 	}
 	else
 		fd = open(str[*i + 1], O_RDONLY);
+	if (fd == -1)
+		return (print_perror("infile"));
 	free(str[*i]);
 	str[(*i)++] = NULL;
-	if (fd != -1)
-	{
-		free(str[*i]);
-		str[*i] = NULL;
-	}
+	free(str[*i]);
+	str[*i] = NULL;
 	return (1);
 }
