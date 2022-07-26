@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/07/25 16:20:50 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/26 19:28:33 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 //gerer fd dans out/infile	+-
 //implementer export et unset	+-
 //gerer les free et les messages d'erreurs	+-
+//gere ctrl c dans <<
 
 int	check_sep(char **str, int len)
 {
@@ -45,10 +46,7 @@ char	**get_line(char *line)
 
 	str = mini_split(line);
 	if (!str)
-	{
-		printf("Error\n");//potentiellement useless
 		return (NULL);
-	}
 	len = len2(str);
 	if (!check_sep(str, len))
 	{
@@ -58,10 +56,7 @@ char	**get_line(char *line)
 	}
 	str = check_dol(str, len);
 	if (!str)
-	{
-		printf("Error2\n");
 		return (NULL);
-	}
 	return (str);
 }
 
@@ -94,13 +89,23 @@ void	free_envp(void)
 	free(g_var);
 }
 
-int	main(int argc, char **argv, char **envp)
+void sig(void)
 {
 	struct sigaction	sa1;
+
+	sa1.sa_handler = &test;
+	sa1.sa_flags = SA_SIGINFO;
+	sigaction(SIGINT, &sa1, NULL);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
 	char				*line;
 	char				**str;
 	int					i;
 	t_list				*cmd;
+	static int			ct_line;
 
 	(void)argc;
 	(void)argv;
@@ -116,13 +121,11 @@ int	main(int argc, char **argv, char **envp)
 		free_envp();
 		return(1);
 	}
-	sa1.sa_handler = &test;
-	sa1.sa_flags = SA_SIGINFO;
-	sigaction(SIGINT, &sa1, NULL);
-	signal(SIGQUIT, SIG_IGN);
+	sig();
 	while (1)
 	{
-		cmd = init_lst(cmd);
+		ct_line++;
+		cmd = init_lst(cmd, ct_line);
 		if (!cmd)
 		{
 			free_envp();

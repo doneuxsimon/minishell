@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 13:36:37 by lide              #+#    #+#             */
-/*   Updated: 2022/07/25 14:53:28 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/26 15:47:44 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	put_g_value(char **str, int ct, int i, int j)
 	len = len1(str[i]);
 	g_var->value = (char *)malloc(sizeof(char) * (len - (j - 1)));
 	if (!g_var->value)
-		return (print_error("error malloc put in g\n"));
+		return (0);
 	while (++ct < len)
 		g_var->value[x++] = str[i][ct];
 	g_var->value[x] = '\0';
@@ -74,7 +74,7 @@ int	put_in_g(char **str, int i, int j)
 	ct = -1;
 	tmp = (char *)malloc(sizeof(char) * (j));
 	if (!tmp)
-		return (print_error("error malloc put in g\n"));
+		return (0);
 	while (++ct < j)
 		tmp[x++] = str[i][ct];
 	tmp[ct] = '\0';
@@ -109,7 +109,7 @@ int	ft_export(char **str, int *i, int len)
 			{
 				verif = put_in_g(str, *i, j);
 				if (!verif)
-					return (1);
+					return ((print_perror("export") + 1));
 			}
 		}
 		(*i)++;

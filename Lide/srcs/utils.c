@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 19:08:35 by lide              #+#    #+#             */
-/*   Updated: 2022/07/25 16:51:08 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/26 15:53:28 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*ft_strdup(char *s1)
 	return (s2);
 }
 
-char	print_str_perror(char *str)
+char*	print_str_perror(char *str)
 {
 	perror(str);
 	return (NULL);

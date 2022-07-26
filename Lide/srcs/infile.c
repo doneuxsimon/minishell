@@ -6,13 +6,13 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:42:40 by lide              #+#    #+#             */
-/*   Updated: 2022/07/25 16:11:07 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/26 19:25:36 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
 
-void	write_in_file(int fd, char **str, int *i)
+int	write_in_file(int fd, char **str, t_list **cmd, int *i)
 {
 	char	*line;
 
@@ -21,9 +21,11 @@ void	write_in_file(int fd, char **str, int *i)
 		line = readline("> ");
 		if (!line)
 		{
-			printf("error ctrl d while <<\n");
+			printf(error2 error2bis"\n", (*cmd)->ct_line, str[*i + 1]);
 			break ;
 		}
+		// if (cmp_line("^C", line))//doit suprimer le fichier tmp
+		// 	return (0); doit trouver soluce pour ctrl c
 		if (cmp_line(str[*i + 1], line))
 			break ;
 		write (fd, line, len1(line));
@@ -31,12 +33,14 @@ void	write_in_file(int fd, char **str, int *i)
 		free(line);
 	}
 	free(line);
+	return (1);
 }
 
 int	create_tmp_file(char **str, t_list **cmd, int *i)
 {
 	char	*name;
 	int		fd;
+	int		verif;
 
 	name = find_name(cmd);
 	if (!name)
@@ -44,8 +48,10 @@ int	create_tmp_file(char **str, t_list **cmd, int *i)
 	fd = open(name, O_CREAT | O_WRONLY | O_TRUNC, 00644);
 	if (fd == -1)
 		return (0);
-	write_in_file(fd, str, i);
+	verif = write_in_file(fd, str, cmd, i);
 	close(fd);
+	if (fd == -1 || verif == 0)
+		return (0);
 	fd = open(name, O_RDONLY);
 	if (fd == -1)
 		return (0);
@@ -62,7 +68,8 @@ int	find_infile(char **str, t_list **cmd, int *i)
 	if (!remove_red_quote(str, *i))
 		return (0);
 	if ((*cmd)->infile != 0)
-		close((*cmd)->infile);
+		if (close((*cmd)->infile) == -1)//check si tout ok
+			return (0);
 	if (!str[*i + 1] || (str[*i + 1] && str[*i + 1][0] == '>'))
 		return (print_error(error1));
 	else if (str[*i][1] && str[*i][1] == '<')

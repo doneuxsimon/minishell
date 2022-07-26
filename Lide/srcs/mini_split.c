@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 19:20:19 by lide              #+#    #+#             */
-/*   Updated: 2022/07/19 17:19:32 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/26 19:21:57 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*free_split(char **str, int max)
 	int	i;
 
 	i = -1;
-	printf("error malloc split line\n");
+	// printf("error malloc split line\n");
 	while (++i < max)
 		free(str[i]);
 	free(str);
@@ -96,12 +96,13 @@ char	**mini_split(char *line)
 	if (!str)
 	{
 		free(line);
-		return (NULL);
+		return ((char **)print_str_perror("mini_split"));
 	}
 	str[ct] = NULL;
 	str = split_line(str, line, ct);
 	if (!str)
 	{
+		perror("mini_split");
 		free(line);
 		return (NULL);
 	}

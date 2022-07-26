@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:10:25 by lide              #+#    #+#             */
-/*   Updated: 2022/07/21 17:11:24 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/26 19:20:30 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	put_arg(char **str, t_list **cmd, int len, int *i)
 	words = ct_arg(str, len, *i);
 	(*cmd)->arg = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!(*cmd)->arg)
-		return (0);
+		return (print_perror("put_in_arg"));
 	(*cmd)->arg[words] = NULL;
 	error = put_arg2(str, cmd, i, len);
 	if (!error)

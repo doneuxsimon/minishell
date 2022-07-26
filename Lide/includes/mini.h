@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/07/25 16:53:27 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/26 16:23:01 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@
 // # include "../wraloc.h"
 
 # define error1 "redirection: syntax error near unexpected token `newline'"
-
+# define error2 "minishell: warning: here-document at line %d"
+# define error2bis " delimited by end-of-file (wanted `%s')"
 typedef struct s_var
 {
 	char			*name;
@@ -47,7 +48,9 @@ typedef struct s_list
 	char			*tmp;
 	int				infile;
 	int				outfile;
+	int				piped[2];
 	int				pos;
+	int				ct_line;
 	struct s_list	*next;
 	struct s_list	*before;
 }					t_list;
@@ -57,7 +60,7 @@ t_var	*g_var;
 char	*ft_strdup(char *s1);
 int		ft_strncmp(char *s1, char *s2, int n);
 t_var	*init_var(t_var *var);
-t_list	*init_lst(t_list *cmd);
+t_list	*init_lst(t_list *cmd, int line);
 char	*ft_itoa(int n);
 char	**mini_split(char *line);
 int		check_expt(char c, int verif);
@@ -86,6 +89,7 @@ char	**ft_str_big_dup(char **str);
 int		skip_s_quote(char **str, int i, int j);
 char	*cp_name(char *str, int *len, int tmp, int *j);
 char	*cp_value(char *value, char *line, int *len);
+char*	print_str_perror(char *str);
 int		print_perror(char *str);
 int		print_error(char *str);
 int		find_infile(char **str, t_list **cmd, int *i);

@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:12:08 by lide              #+#    #+#             */
-/*   Updated: 2022/07/25 16:43:32 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/26 16:20:10 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	next_struct(t_list **cmd, int *i, char **str)
 	new = NULL;
 	(*cmd)->link = str[*i];
 	(*i)++;
-	new = init_lst(new);
+	new = init_lst(new, (*cmd)->ct_line);
 	if (!new)
 		return (0);
 	new->pos = ((*cmd)->pos) + 1;

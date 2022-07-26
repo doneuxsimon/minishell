@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 17:26:35 by lide              #+#    #+#             */
-/*   Updated: 2022/07/19 17:56:37 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/26 19:18:03 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	remove_quote(char **str, int i)
 		tmp = remove_unwanted_quote(str, i, ct);
 		if (!tmp)
 		{
-			printf("error malloc unwanted quote\n");
+			perror("remove_quote");
 			return (0);
 		}
 		free(str[i]);

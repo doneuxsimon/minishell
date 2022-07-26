@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 17:35:04 by lide              #+#    #+#             */
-/*   Updated: 2022/07/25 16:53:51 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/26 15:49:27 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ char	*free_char(char *str, char *print)
 
 int	free_redirection(char **str, t_list **cmd, int len)
 {
-	//selon l'erreur mettre un msg
 	free_all(cmd);
 	free_split(str, len);
 	return (0);
