@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:42:40 by lide              #+#    #+#             */
-/*   Updated: 2022/07/26 19:25:36 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/27 19:36:59 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,19 @@ int	write_in_file(int fd, char **str, t_list **cmd, int *i)
 {
 	char	*line;
 
+	sig(2);
+	if (g_var->error == 1)
+	{
+		return (0);
+	}
 	while (1)
 	{
 		line = readline("> ");
+		if (g_var->error == 1)
+		{
+			rl_catch_signals();
+			break;
+		}
 		if (!line)
 		{
 			printf(error2 error2bis"\n", (*cmd)->ct_line, str[*i + 1]);
@@ -31,8 +41,13 @@ int	write_in_file(int fd, char **str, t_list **cmd, int *i)
 		write (fd, line, len1(line));
 		write (fd, "\n", 1);
 		free(line);
+		printf("%d\n", g_var->error);
 	}
 	free(line);
+	if (g_var->error == 1)
+	{
+		return (0);
+	}
 	return (1);
 }
 
@@ -75,7 +90,12 @@ int	find_infile(char **str, t_list **cmd, int *i)
 	else if (str[*i][1] && str[*i][1] == '<')
 	{
 		if (!create_tmp_file(str, cmd, i))
-			return (print_perror("infile"));
+		{
+			if (g_var->error != 1)
+				return (print_perror("infile"));
+			else
+				return (0);
+		}
 	}
 	else
 		fd = open(str[*i + 1], O_RDONLY);

@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/07/26 19:28:33 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/27 19:37:06 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,16 @@ void	test(int sig)
 	}
 }
 
+void	test2(int sig)
+{
+	if (sig == SIGINT)
+	{
+		printf("> ^C");
+	}
+	// printf("errrrooooorrr\n");
+	g_var->error = 1;
+}
+
 void	free_envp(void)
 {
 	t_var	*tmp;
@@ -89,14 +99,28 @@ void	free_envp(void)
 	free(g_var);
 }
 
-void sig(void)
+void sig(int i)
 {
 	struct sigaction	sa1;
-
-	sa1.sa_handler = &test;
-	sa1.sa_flags = SA_SIGINFO;
+	struct sigaction	sa2;
+	if (i == 1)
+	{
+		printf("salut ca va\n");
+		g_var->error = 0;
+		sa1.sa_handler = &test;
+		sa1.sa_flags = SA_SIGINFO;
+	}
+	if (i == 2)
+	{
+		printf("hello\n");
+		sa1.sa_handler = &test2;
+		sa1.sa_flags = SA_SIGINFO;
+	}
+	sa2.sa_handler = SIG_IGN;
+	sa2.sa_flags = SA_SIGINFO;
 	sigaction(SIGINT, &sa1, NULL);
-	signal(SIGQUIT, SIG_IGN);
+	sigaction(SIGQUIT, &sa2, NULL);
+	// signal(SIGQUIT, SIG_IGN);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -121,11 +145,11 @@ int	main(int argc, char **argv, char **envp)
 		free_envp();
 		return(1);
 	}
-	sig();
 	while (1)
 	{
 		ct_line++;
 		cmd = init_lst(cmd, ct_line);
+		sig(1);
 		if (!cmd)
 		{
 			free_envp();

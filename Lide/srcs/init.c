@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 19:11:46 by lide              #+#    #+#             */
-/*   Updated: 2022/07/26 18:45:17 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/27 17:36:01 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_var	*init_var(t_var *var)
 	var->value = NULL;
 	var->next = NULL;
 	var->before = NULL;
+	var->error = 0;
 	return (var);
 }
 

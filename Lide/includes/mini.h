@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/07/26 16:23:01 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/27 17:42:44 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define error2bis " delimited by end-of-file (wanted `%s')"
 typedef struct s_var
 {
+	int				error;
 	char			*name;
 	char			*value;
 	struct s_var	*next;
@@ -97,5 +98,6 @@ int		remove_red_quote(char **str, int i);
 int		put_pipe(t_list **cmd, char **str, int i);
 int		put_ft_and_opt(char **str, t_list **cmd, int *i);
 int		put_arg(char **str, t_list **cmd, int len, int *i);
+void	sig(int i);
 
 #endif
