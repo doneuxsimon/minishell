@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/07/28 18:05:48 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/07/28 18:28:54 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@
 //segfault random hello -n ca va | hello ca va | yo -n yes cest reussi | hello -n trop fort V
 //regarde comportement <<	V je pense
 //gerer $? V
-//gerer fd dans out/infile	+-
+//gerer fd dans out/infile
 //implementer export et unset	+-
 //gerer les free et les messages d'erreurs	+-
-//gere ctrl c dans <<
 
 int	check_sep(char **str, int len)
 {
@@ -127,6 +126,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	char				*line;
 	char				**str;
+	char				*path;
+	char				*tmp;
 	int					i;
 	t_list				*cmd;
 	static int			ct_line;
@@ -145,6 +146,7 @@ int	main(int argc, char **argv, char **envp)
 		free_envp();
 		return(1);
 	}
+	path = getenv( "PATH" );
 	while (1)
 	{
 		ct_line++;
@@ -163,16 +165,18 @@ int	main(int argc, char **argv, char **envp)
 			free(cmd);
 			rl_clear_history();
 			exit(0);
-			// exit(0);
 		}
 		add_history(line);
 		str = get_line(line);
 		if (str)
 		{
 			i = put_in_struct(str, &cmd);
-			// if (!i)
-			// 	return (1);
-			printf("jeff : %s\n", cmd->ft);
+			//i = verify_builtins(line, envp);
+			tmp = get_cmd(path, cmd->ft);
+			printf("%s\n", tmp);
+			//printf("jeff : %s\n", cmd->ft);
+			if (tmp)
+				ft_start_exec(cmd, path, envp);
 		}
 		else
 			free(cmd);

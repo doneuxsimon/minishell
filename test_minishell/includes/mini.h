@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/07/28 17:44:25 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/07/28 17:45:40 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
-// # include "../wraloc.h"
+//# include "../wraloc.h"
 
 # define error1 "redirection: syntax error near unexpected token `newline'"
 # define error2 "minishell: warning: here-document at line %d"
@@ -100,5 +100,16 @@ int		put_ft_and_opt(char **str, t_list **cmd, int *i);
 int		put_arg(char **str, t_list **cmd, int len, int *i);
 void	sig(int i);
 void	print_cmd(t_list **cmd);
+
+void	ft_end(t_list **stack);
+void	ft_begin(t_list **stack);
+char	*find_path(char **envp);
+//int		ft_strncmp(const char *s1, const char *s2, size_t n);
+size_t	ft_strlen(char *s);
+char	*ft_strjoin(char *s1, char *s2);
+char	**ft_split(char const *s, char c);
+char	*get_cmd(char *path, char *cmd);
+int		verify_builtins(char *line, char **envp);
+void	ft_start_exec(t_list *list, char *path, char **envp);
 
 #endif

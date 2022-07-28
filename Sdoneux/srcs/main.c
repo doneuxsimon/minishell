@@ -21,16 +21,16 @@ int	main(int argc, char **argv, char **envp)
 	char	*tmp;
 	int		i;
 	t_list	*list;
-	t_list	*lists;
+	//t_list	*lists;
 
 	if (argc != 1)
 		exit(EXIT_SUCCESS);
 	if (strncmp(argv[0], "./Minishell", 7) != 0)
 		exit(EXIT_SUCCESS);
 	list = malloc(sizeof(t_list));
-	lists = malloc(sizeof(t_list));
+	//lists = malloc(sizeof(t_list));
 	ft_initialise(&list);
-	ft_initialise(&lists);
+	//ft_initialise(&lists);
 	path = getenv( "PATH" );
 	while (1)
 	{
@@ -40,19 +40,19 @@ int	main(int argc, char **argv, char **envp)
 		tmp = get_cmd(path, line);
 		if (i == 0)
 		{
-			list->ft = "ls";
-			list->opt = "-l";
-			//list->arg = malloc(sizeof(char*));
-			// list->arg[0] = malloc(sizeof(char) * 3);
-			// list->arg[0] = "777";
-			//list->arg[0] = malloc(sizeof(char) * 6);
-			//list->arg[0] = "yo.txt";
-			//list->infile = open("srcs/main.c", O_RDONLY);
+			list->ft = "cat";
+			list->opt = NULL;
+			list->arg = malloc(sizeof(char*));
+			list->arg[0] = malloc(sizeof(char) * 60);
+			list->arg[0] = "/Users/sdoneux/C_cursus/minishell/minishell/Sdoneux/open.txt";
+			// list->arg[0] = malloc(sizeof(char) * 9);
+			// list->arg[0] = "includes/";
+			//list->infile = open("open.txt", O_RDONLY);
 			//lists->outfile = open("open.txt",  O_TRUNC | O_CREAT | O_RDWR, 0000644);
-			list->next = lists;
-			lists->before = list;
-			lists->ft = "ls";
-			lists->opt = "-l";
+			//list->next = lists;
+			//lists->before = list;
+			//lists->ft = "ls";
+			//lists->opt = "-l";
 			ft_start_exec(list, path, envp);
 			//printf("%i\n", unlink(".tmp"));
 		}
