@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/07/28 17:36:57 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/28 19:06:13 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ void	test2(int sig)
 {
 	if (sig == SIGINT)
 	{
-		printf("> ^C");
+		rl_insert_text("^c");
+
 	}
 	// printf("errrrooooorrr\n");
 	g_var->error = 1;
