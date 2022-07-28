@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/07/28 18:05:48 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/07/28 21:07:56 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ void	test2(int sig)
 {
 	if (sig == SIGINT)
 	{
-		printf("> ^C");
+		rl_insert_text("^c");
+
 	}
 	// printf("errrrooooorrr\n");
 	g_var->error = 1;
@@ -162,7 +163,7 @@ int	main(int argc, char **argv, char **envp)
 			free_envp();
 			free(cmd);
 			rl_clear_history();
-			exit(0);
+			return (0);
 			// exit(0);
 		}
 		add_history(line);
@@ -172,7 +173,6 @@ int	main(int argc, char **argv, char **envp)
 			i = put_in_struct(str, &cmd);
 			// if (!i)
 			// 	return (1);
-			printf("jeff : %s\n", cmd->ft);
 		}
 		else
 			free(cmd);

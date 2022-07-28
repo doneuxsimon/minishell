@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:42:40 by lide              #+#    #+#             */
-/*   Updated: 2022/07/28 17:25:25 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/28 19:06:42 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,9 @@ int	write_in_file(int fd, char **str, t_list **cmd, int *i)
 	char	*line;
 
 	sig(2);
-	if (g_var->error == 1)
-	{
-		return (0);
-	}
 	while (1)
 	{
-		if (g_var->error != 1)
-			line = readline("> ");
+		line = readline("> ");
 		if (g_var->error == 1)
 		{
 			break;
