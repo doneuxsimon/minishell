@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/07/27 17:42:44 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/28 17:30:39 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,6 @@ int		put_pipe(t_list **cmd, char **str, int i);
 int		put_ft_and_opt(char **str, t_list **cmd, int *i);
 int		put_arg(char **str, t_list **cmd, int len, int *i);
 void	sig(int i);
+void	print_cmd(t_list **cmd);
 
 #endif

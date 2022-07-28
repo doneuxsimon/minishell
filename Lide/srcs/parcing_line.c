@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/07/27 19:37:06 by lide             ###   ########.fr       */
+/*   Updated: 2022/07/28 17:36:57 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,14 +105,14 @@ void sig(int i)
 	struct sigaction	sa2;
 	if (i == 1)
 	{
-		printf("salut ca va\n");
+		// printf("salut ca va\n");
 		g_var->error = 0;
 		sa1.sa_handler = &test;
 		sa1.sa_flags = SA_SIGINFO;
 	}
 	if (i == 2)
 	{
-		printf("hello\n");
+		// printf("hello\n");
 		sa1.sa_handler = &test2;
 		sa1.sa_flags = SA_SIGINFO;
 	}
