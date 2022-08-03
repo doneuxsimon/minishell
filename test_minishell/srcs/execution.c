@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 16:53:14 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/07/28 20:50:01 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/03 19:36:25 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,54 +46,58 @@ char	*get_cmd2(char **cmd_paths, char *cmd)
 
 void	ft_exec(t_list *list, char **cmd_path, char **envp)
 {
-	int	pid;
+	// int	pid;
 	char *cmd;
 	char **cmd_args;
 	int	i;
 	int	j;
 
-	pid = fork();
-	if (!pid)
-	{
-		if (!list->arg && !list->outfile && !list->infile)
+	// pid = fork();
+	// if (!pid)
+	// {
+		if (!list->arg && !list->outfile && !list->infile && !list->opt)
 		{
 			cmd = get_cmd2(cmd_path, list->ft);
-			cmd_args = malloc(sizeof(char *) * 3);
+			cmd_args = malloc(sizeof(char *) * 2);
 			cmd_args[0] = list->ft;
-			cmd_args[1] = list->opt;
-			cmd_args[2] = NULL;
+			cmd_args[1] = NULL;
+			printf("jeff435\n");
 			if (cmd == NULL)
 			{
 				printf("command not found \n");
 				exit(EXIT_FAILURE);
 			}
+			printf("bla %d\n", list->piped[0]);
 			execve(cmd, cmd_args, envp);
 		}
-		else if (list->arg || list->outfile || list->infile)
+		else if (list->arg || list->outfile || list->infile || list->opt)
 		{
-			if (list->arg[0])
+			if (list->arg)
 			{
 				i = 0;
 				while(list->arg[i])
 					i++;
 			}
-			if (list->infile)
+			if (!list->piped[0])
 			{
-				if (list->infile < 0)
+				if (list->infile)
 				{
-					perror("INFILE");
-					exit(EXIT_SUCCESS);
+					if (list->infile < 0)
+					{
+						perror("INFILE");
+						exit(EXIT_SUCCESS);
+					}
+					dup2(list->infile, 0);
 				}
-				dup2(list->infile, 0);
-			}
-			if (list->outfile)
-			{
-				if (list->outfile < 0)
+				if (list->outfile)
 				{
-					perror("OUTFILE");
-					exit(EXIT_SUCCESS);
+					if (list->outfile < 0)
+					{
+						perror("OUTFILE");
+						exit(EXIT_SUCCESS);
+					}
+					dup2(list->outfile, 1);
 				}
-				dup2(list->outfile, 1);
 			}
 			if (list->arg && list->opt)
 			{
@@ -142,65 +146,82 @@ void	ft_exec(t_list *list, char **cmd_path, char **envp)
 				printf("command not found \n");
 				exit(EXIT_FAILURE);
 			}
+			
 			execve(cmd, cmd_args, NULL);
 			if (errno)
 			{
 				printf("%s\n", strerror(errno));
 			}
+			printf("bla\n");
 		}
-	}
-	else if (pid)
-	{
-		waitpid(pid, NULL, 0);
-	}
+	// }
+	// else if (pid)
+	// {
+	// 	waitpid(pid, NULL, 0);
+	// }
 }
 
  void	ft_exec_simple_pipe(t_list *list, char **cmd_path, char **envp)
 {
 	int	pid1;
+	int pid2;
+	//int tmp = dup(0);
 
 	if (pipe(list->piped) < 0)
 		return ;
 	pid1 = fork();
+	if (pid1 == -1)
+		printf("error child 1\n");
 	if (!pid1)
 	{
 		if (list->infile)
 			dup2(list->infile, 0);
-		else
-			
-		dup2(list->piped[1], 1);
+		if (dup2(list->piped[1], 1) == -1)
+			printf("jeff1\n");
 		close(list->piped[0]);
+		printf("adress1:%p\n", &list->piped[1]);
 		ft_exec(list, cmd_path, envp);
 	}
-	else
-		waitpid(pid1, NULL, 0);
+	waitpid(pid1, NULL, 0);
 	list = list->next;
-	pid1 = fork();
-	if (!pid1)
+	pid2 = fork();
+	if (pid2 == -1)
+		printf("error child 2\n");
+	if (!pid2)
 	{
 		if (list->outfile)
 			dup2(list->outfile, 1);
-		dup2(list->piped[0], 0);
+		if (dup2(list->piped[0], 0) == -1)
+			printf("jeff2\n");
 		close(list->piped[1]);
+		printf("adress2:%p\n", &list->piped[0]);
 		ft_exec(list, cmd_path, envp);
+		//dup2(tmp, 0);
 	}
-	else
-		waitpid(pid1, NULL, 0);
+	// close(list->piped[0]);
+	// close(list->piped[1]);
+	waitpid(pid2, NULL, 0);
+	printf("ok\n");
 }
 
 void	ft_start_exec(t_list *list, char *path, char **envp)
 {
 	char **cmd_path;
 	int	count;
+	int pid;
 
 	count = ft_count_forks(list);
 	cmd_path = ft_split(path, ':');
 	if (count == 1)
 	{
-		ft_exec(list, cmd_path, envp);
+		pid = fork();
+		if (!pid)
+			ft_exec(list, cmd_path, envp);
+		waitpid(pid, NULL, 0);
 	}
 	else if (count == 2)
 	{
+		ft_begin(&list);
 		ft_exec_simple_pipe(list, cmd_path, envp);
 	}
 }

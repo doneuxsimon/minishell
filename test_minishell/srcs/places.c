@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 17:01:03 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/06/21 17:17:31 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/01 17:26:09 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_end(t_list **stack)
 {
 	if (*stack && (*stack)->next)
 	{
-		while ((*stack)->next != NULL)
+		while ((*stack)->next->pos != 0)
 		{
 			(*stack) = (*stack)->next;
 		}
@@ -27,7 +27,7 @@ void	ft_begin(t_list **stack)
 {
 	if (*stack && (*stack)->before)
 	{
-		while ((*stack)->before != NULL)
+		while ((*stack)->pos != 0)
 		{
 			(*stack) = (*stack)->before;
 		}
