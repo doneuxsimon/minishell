@@ -165,9 +165,10 @@ void	ft_exec(t_list *list, char **cmd_path, char **envp)
 {
 	int	pid1;
 	int pid2;
+	itn piped[2];
 	//int tmp = dup(0);
 
-	if (pipe(list->piped) < 0)
+	if (pipe(piped) < 0)
 		return ;
 	pid1 = fork();
 	if (pid1 == -1)
@@ -176,9 +177,9 @@ void	ft_exec(t_list *list, char **cmd_path, char **envp)
 	{
 		if (list->infile)
 			dup2(list->infile, 0);
-		if (dup2(list->piped[1], 1) == -1)
+		if (dup2(piped[1], 1) == -1)
 			printf("jeff1\n");
-		close(list->piped[0]);
+		close(piped[0]);
 		printf("adress1:%p\n", &list->piped[1]);
 		ft_exec(list, cmd_path, envp);
 	}
@@ -191,9 +192,9 @@ void	ft_exec(t_list *list, char **cmd_path, char **envp)
 	{
 		if (list->outfile)
 			dup2(list->outfile, 1);
-		if (dup2(list->piped[0], 0) == -1)
+		if (dup2(piped[0], 0) == -1)
 			printf("jeff2\n");
-		close(list->piped[1]);
+		close(piped[1]);
 		printf("adress2:%p\n", &list->piped[0]);
 		ft_exec(list, cmd_path, envp);
 		//dup2(tmp, 0);
