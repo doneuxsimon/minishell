@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/08/05 17:48:25 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/15 19:32:02 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ int	main(int argc, char **argv, char **envp)
 	char				*line;
 	char				**str;
 	char				*path;
-	char				*tmp;
 	int					i;
 	t_list				*cmd;
 	static int			ct_line;
@@ -171,14 +170,7 @@ int	main(int argc, char **argv, char **envp)
 		if (str)
 		{
 			i = put_in_struct(str, &cmd);
-			//i = verify_builtins(line, envp);
-			tmp = get_cmd(path, cmd->ft);
-			if (!tmp)
-				printf("Command not found\n");
-			//printf("%s\n", tmp);
-			//printf("jeff : %s\n", cmd->ft);
-			if (tmp)
-				ft_start_exec(cmd, path, envp);
+			ft_start_exec(cmd, path, envp);
 		}
 		else
 			free(cmd);

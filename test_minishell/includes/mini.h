@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/07/28 17:45:40 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/15 17:38:00 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+#include <curses.h>
+#include <term.h>
 //# include "../wraloc.h"
 
 # define error1 "redirection: syntax error near unexpected token `newline'"
@@ -109,7 +111,8 @@ size_t	ft_strlen(char *s);
 char	*ft_strjoin(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
 char	*get_cmd(char *path, char *cmd);
-int		verify_builtins(char *line, char **envp);
+int		verify_builtins(t_list *list, char **envp);
 void	ft_start_exec(t_list *list, char *path, char **envp);
+char	*get_cmd2(char **cmd_paths, char *cmd);
 
 #endif

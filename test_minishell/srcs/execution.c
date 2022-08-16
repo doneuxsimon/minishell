@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 16:53:14 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/14 18:58:37 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/16 18:01:42 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 				printf("command not found \n");
 				exit(EXIT_FAILURE);
 			}
+			if (cmd)
+				dprintf(2, "%s\n", cmd);
 			//dprintf(2, "jeff\n");
 			return(execve(cmd, cmd_args, envp));
 		}
@@ -146,7 +148,7 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 				printf("command not found \n");
 				exit(EXIT_FAILURE);
 			}
-			
+			dprintf(2, "%s\n", cmd);
 			return(execve(cmd, cmd_args, NULL));
 			// if (errno)
 			// {
@@ -161,77 +163,8 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 	// }
 }
 
- void	ft_exec_simple_pipe(t_list *list, char **cmd_path, char **envp, int count)
+ void	ft_exec_pipes(t_list *list, char **cmd_path, char **envp, int count)
 {
-	// pid_t	pid;
-	// pid_t cpid;
-	// int new_fd[2];
-	// int old_fd[2];
-	// pid_t status;
-	// int i;
-	// int err;
-	// //int tmp = dup(0);
-
-	// if ((cpid = fork()) == -1)
-	// 	return ;
-	// if (cpid == 0)
-	// {
-	// 	i = 0;
-	// 	while (i < count)
-	// 	{
-	// 		if (i+1 < count)
-	// 		pipe(new_fd);
-	// 		if ( (pid = fork()) == -1)
-    //         	return ;
-	// 		if (pid == 0)
-	// 		{
-	// 			if (i != 0)
-	// 			{
-	// 				dup2(old_fd[0], 0);
-	// 				//close(old_fd[0]);
-	// 				close(old_fd[1]);
-	// 			}
-	// 			if (i + 1 < count)
-	// 			{
-	// 				dup2(new_fd[1], 1);
-	// 				close(new_fd[0]);
-	// 				//close(new_fd[1]);
-	// 				err = ft_exec(list, cmd_path, envp);
-	// 				//dprintf(2, "jeff\n");
-	// 				status = err;
-	// 				exit(err);
-	// 			}
-	// 		}
-	// 		else
-	// 		{
-	// 			waitpid(pid, &status, 0);
-	// 			if (status == -1)
-	// 				exit(1);
-
-	// 			if (i != 0)
-	// 			{
-	// 				close(old_fd[0]);
-	// 				close(old_fd[1]);
-	// 			}
-	// 			if (i + 1 < count)
-	// 			{
-	// 				old_fd[0] = new_fd[0];
-	// 				old_fd[1] = new_fd[1];
-	// 			}
-	// 			exit(0);
-	// 		}
-	// 		i++;
-	// 		list = list->next;
-	// 	}
-	// 	if (i)
-	// 	{
-	// 		close(old_fd[0]);
-	// 		close(old_fd[1]);
-	// 	}
-	// 	else
-    //     	waitpid(cpid, &status, 0);
-	// }
-	
 	int pid1;
 	int pid2;
 	int pid3;
@@ -240,6 +173,7 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 	int piped1[2];
 	int piped2[2];
 	int i;
+	int j;
 
 	i = count;
 
@@ -260,36 +194,45 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 		if (dup2(piped1[1], 1) == -1)
 			dprintf(2, "jeff1\n");
 		close(piped1[0]);
-		//dprintf(2, "adress1:%p\n", &piped1[1]);
-		// close(piped0[0]);
-		// close(piped0[1]);
-		ft_exec(list, cmd_path, envp);
+		j = verify_builtins(list, envp);
+		if (j == 0)
+			ft_exec(list, cmd_path, envp);
+		else if (j == 1)
+		{
+			dprintf(2, "sorti\n");
+			exit(EXIT_SUCCESS);
+		}
 	}
 	count--;
 	while (count > 1)
 	{
+		close(piped2[0]);
+		close(piped2[1]);
+		pipe(piped2);
 		list = list->next;
 		pid2 = fork();
 		if (pid2 == -1)
 			printf("error child 2\n");
 		if (!pid2)
 		{
-			//dprintf(2, "jeff2\n");
-			// if (list->infile)
-			// 	dup2(list->infile, 0);
-			// if (list->outfile)
-			// 	dup2(list->outfile, 1);
-
-			//piped0[0] = piped[1];
 			if (dup2(piped1[0], 0) == -1)
 				dprintf(2, "jeff2\n");
 			if (dup2(piped2[1], 1) == -1)
 				dprintf(2, "jeff22\n");
 			close(piped1[1]);
 			close(piped2[0]);
-			//dprintf(2, "adress2:%p\n", &piped[1]);
-			ft_exec(list, cmd_path, envp);
+			j = verify_builtins(list, envp);
+			if (j == 0)
+				ft_exec(list, cmd_path, envp);
+			else if (j == 1)
+			{
+				dprintf(2, "sorti\n");
+				exit(EXIT_SUCCESS);
+			}
 		}
+		close(piped1[0]);
+		close(piped1[1]);
+		pipe(piped1);
 		count--;
 		list = list->next;
 		pid3 = fork();
@@ -316,16 +259,15 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 			close(piped2[1]);
 			if (count <= 1)
 				close(piped1[1]);
-			//close(piped[0]);
-			//close(piped0[0]);
-			//dprintf(2, "adress2:%p\n", &piped[1]);
-			ft_exec(list, cmd_path, envp);
+			j = verify_builtins(list, envp);
+			if (j == 0)
+				ft_exec(list, cmd_path, envp);
+			else if (j == 1)
+			{
+				dprintf(2, "sorti\n");
+				exit(EXIT_SUCCESS);
+			}
 		}
-		// else
-		// {
-		// 	waitpid(pid1, NULL, 0);
-		// 	waitpid(pid2, NULL, 0);
-		// }
 		count--;
 	}
 	if (count > 0)
@@ -349,9 +291,14 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 			close(piped1[1]);
 			close(piped2[1]);
 			close(piped2[0]);
-			//printf("adress2:%p\n", &list->piped[0]);
-			ft_exec(list, cmd_path, envp);
-			//dup2(tmp, 0);
+			j = verify_builtins(list, envp);
+			if (j == 0)
+				ft_exec(list, cmd_path, envp);
+			else if (j == 1)
+			{
+				dprintf(2, "sorti\n");
+				exit(EXIT_SUCCESS);
+			}
 		}
 	}
 	close(piped1[0]);
@@ -380,6 +327,7 @@ void	ft_start_exec(t_list *list, char *path, char **envp)
 	char **cmd_path;
 	int	count;
 	int pid;
+	int j;
 
 	count = ft_count_forks(list);
 	cmd_path = ft_split(path, ':');
@@ -387,12 +335,18 @@ void	ft_start_exec(t_list *list, char *path, char **envp)
 	{
 		pid = fork();
 		if (!pid)
-			ft_exec(list, cmd_path, envp);
+		{
+			j = verify_builtins(list, envp);
+			if (j == 0)
+				ft_exec(list, cmd_path, envp);
+			else if (j == 1)
+				exit(EXIT_SUCCESS);
+		}
 		waitpid(pid, NULL, 0);
 	}
 	else if (count > 1)
 	{
 		ft_begin(&list);
-		ft_exec_simple_pipe(list, cmd_path, envp, count);
+		ft_exec_pipes(list, cmd_path, envp, count);
 	}
 }
