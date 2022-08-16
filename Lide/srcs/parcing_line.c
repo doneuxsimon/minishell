@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/08/16 18:08:32 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/16 18:35:56 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,32 +60,6 @@ char	**get_line(char *line)
 	return (str);
 }
 
-void	test(int sig)
-{
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}
-
-void	test2(int sig)
-{
-	if (sig == SIGINT)
-	{
-		rl_insert_text("^c");
-		exit(1);
-	}
-}
-
-void	test3(int sig)
-{
-	if (sig == SIGINT)
-		exit(0);
-}
-
 void	free_envp(void)
 {
 	t_var	*tmp;
@@ -105,32 +79,7 @@ void	free_envp(void)
 	free(g_var);
 }
 
-void sig(int i)
-{
-	struct sigaction	sa1;
-	struct sigaction	sa2;
-	if (i == 1)
-	{
-		sa1.sa_handler = &test;
-		sa1.sa_flags = SA_SIGINFO;
-	}
-	if (i == 2)
-	{
-		sa1.sa_handler = &test2;
-		sa1.sa_flags = SA_SIGINFO;
-	}
-	if (i == 3)
-		sa1.sa_handler = SIG_IGN;
-	if (i == 4)
-	{
-		sa1.sa_handler = &test3;
-		sa1.sa_flags = SA_SIGINFO;
-	}
-	sa2.sa_handler = SIG_IGN;
-	sa2.sa_flags = SA_SIGINFO;
-	sigaction(SIGINT, &sa1, NULL);
-	sigaction(SIGQUIT, &sa2, NULL);
-}
+
 
 int	main(int argc, char **argv, char **envp)
 {

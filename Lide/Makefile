@@ -6,7 +6,7 @@
 #    By: lide <lide@student.s19.be>                 +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/10 18:31:54 by lide              #+#    #+#              #
-#    Updated: 2022/08/01 15:27:57 by lide             ###   ########.fr        #
+#    Updated: 2022/08/16 18:40:21 by lide             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRCS	=	srcs/parcing_line.c\
 			srcs/init.c\
 			srcs/unset.c\
 			srcs/remove_quote.c\
-			srcs/export.c
+			srcs/export.c\
+			srcs/signal_handler.c
 
 # SRCS	=	srcs/minishell_signal.c
 

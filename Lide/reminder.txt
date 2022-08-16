@@ -1,4 +1,5 @@
 echo a{pr,rm,r,i}e attention ne pas gerer si entre quote
+doit gerer dans parcing "a{pr,rm,r,i}e" doit garder les quote retirer toutes les quotes !!!
 
 check perror
 
@@ -21,3 +22,5 @@ utils_redirection	V
 utils	V
 
 getenv//potentiellement useles vue que toute les infos sont dans l'environnement
+
+doit gerer ctrl c cat

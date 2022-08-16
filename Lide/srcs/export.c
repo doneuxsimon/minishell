@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 13:36:37 by lide              #+#    #+#             */
-/*   Updated: 2022/07/26 15:47:44 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/16 20:10:25 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int	ft_export(char **str, int *i, int len)
 	int	j;
 	int	verif;
 
-	(*i)++;
 	while (*i < len)
 	{
 		if (str[*i])

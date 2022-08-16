@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:42:40 by lide              #+#    #+#             */
-/*   Updated: 2022/08/16 17:57:02 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/16 18:44:52 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	write_in_file(int fd, char **str, t_list **cmd, int *i)
 		waitpid(pid, &status, 0);
 	returned = WEXITSTATUS(status);
 	if (returned)
-	{
+	{//doit delete le file
 		errno = 0;
 		return (0);
 	}
