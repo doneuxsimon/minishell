@@ -6,11 +6,10 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 20:12:00 by lide              #+#    #+#             */
-/*   Updated: 2022/06/13 18:24:37 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/11 17:23:59 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>

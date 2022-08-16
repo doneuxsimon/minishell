@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 13:51:37 by lide              #+#    #+#             */
-/*   Updated: 2022/07/25 16:53:07 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/15 18:36:17 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*find_env(char *str, int *len, int tmp, int *j)
 	line = cp_name(str, len, tmp, j);
 	if (!line)
 		return (NULL);
-	env = getenv(line);
+	env = getenv(line);//potentiellement useles vue que toute les infos sont dans l'environnement
 	if (!env)
 	{
 		if (check_g_var(line))

@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 11:31:20 by lide              #+#    #+#             */
-/*   Updated: 2022/07/28 18:09:28 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/15 18:07:04 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	put_in_struct(char **str, t_list **cmd)
 	int	len;
 	int	verif;
 
-		len = len2(str);
+	len = len2(str);
 	verif = redirection(str, cmd, len);
 	if (!verif)
 		return (0);
@@ -97,7 +97,7 @@ int	put_in_struct(char **str, t_list **cmd)
 	// while (++i < len)
 	// 	printf("%s\n", str[i]);
 	free(str);
-	// print_cmd(cmd);
+	print_cmd(cmd);
 	// print_env();
 	return (1);
 }

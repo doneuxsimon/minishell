@@ -19,3 +19,5 @@ utils_mini_split	V
 utils_put_in_struct	V
 utils_redirection	V
 utils	V
+
+getenv//potentiellement useles vue que toute les infos sont dans l'environnement

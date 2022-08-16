@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcing_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/07/28 21:07:56 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/16 18:08:32 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,20 @@ void	test2(int sig)
 	if (sig == SIGINT)
 	{
 		rl_insert_text("^c");
-
+		exit(1);
 	}
-	// printf("errrrooooorrr\n");
-	g_var->error = 1;
+}
+
+void	test3(int sig)
+{
+	if (sig == SIGINT)
+		exit(0);
 }
 
 void	free_envp(void)
 {
 	t_var	*tmp;
+
 	while (g_var->before != NULL)
 		g_var = g_var->before;
 	while (g_var->next != NULL)
@@ -106,22 +111,25 @@ void sig(int i)
 	struct sigaction	sa2;
 	if (i == 1)
 	{
-		// printf("salut ca va\n");
-		g_var->error = 0;
 		sa1.sa_handler = &test;
 		sa1.sa_flags = SA_SIGINFO;
 	}
 	if (i == 2)
 	{
-		// printf("hello\n");
 		sa1.sa_handler = &test2;
+		sa1.sa_flags = SA_SIGINFO;
+	}
+	if (i == 3)
+		sa1.sa_handler = SIG_IGN;
+	if (i == 4)
+	{
+		sa1.sa_handler = &test3;
 		sa1.sa_flags = SA_SIGINFO;
 	}
 	sa2.sa_handler = SIG_IGN;
 	sa2.sa_flags = SA_SIGINFO;
 	sigaction(SIGINT, &sa1, NULL);
 	sigaction(SIGQUIT, &sa2, NULL);
-	// signal(SIGQUIT, SIG_IGN);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -136,7 +144,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	cmd = NULL;
 	i = 0;
-
 	g_var = init_var(g_var);
 	if (!g_var)
 		return (1);
@@ -148,9 +155,9 @@ int	main(int argc, char **argv, char **envp)
 	}
 	while (1)
 	{
+		sig(1);
 		ct_line++;
 		cmd = init_lst(cmd, ct_line);
-		sig(1);
 		if (!cmd)
 		{
 			free_envp();
@@ -167,7 +174,7 @@ int	main(int argc, char **argv, char **envp)
 			// exit(0);
 		}
 		add_history(line);
-		str = get_line(line);
+		str = get_line(line);//si error malloc ne s'arrete pas
 		if (str)
 		{
 			i = put_in_struct(str, &cmd);
