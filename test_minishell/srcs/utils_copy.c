@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 19:08:35 by lide              #+#    #+#             */
-/*   Updated: 2022/08/16 18:00:02 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/16 22:27:05 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,29 @@ int	ft_strncmp(char *s1, char *s2, int n)
 		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 	else
 		return (0);
+}
+
+int	ft_strncmp_end(char *s1, char *s2, int n)
+{
+	int	i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (s1[i])
+		i++;
+	while(s2[j])
+		j++;
+	while ((unsigned char)s1[i] == (unsigned char)s2[j])
+		{
+			n--;
+			i--;
+			j--;
+		}
+	if (n > 0)
+		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	else
+		return (1);
 }
 
 char	*ft_strdup(char *s1)

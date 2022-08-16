@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/08/15 19:32:02 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/16 18:59:03 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,21 @@ void	test2(int sig)
 {
 	if (sig == SIGINT)
 	{
-		printf("> ^C");
+		rl_insert_text("^c");
+		exit(1);
 	}
-	// printf("errrrooooorrr\n");
-	g_var->error = 1;
+}
+
+void	test3(int sig)
+{
+	if (sig == SIGINT)
+	{
+		dprintf(2, "\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		exit(0);
+	}
 }
 
 void	free_envp(void)
@@ -104,22 +115,25 @@ void sig(int i)
 	struct sigaction	sa2;
 	if (i == 1)
 	{
-		// printf("salut ca va\n");
-		g_var->error = 0;
 		sa1.sa_handler = &test;
 		sa1.sa_flags = SA_SIGINFO;
 	}
 	if (i == 2)
 	{
-		// printf("hello\n");
 		sa1.sa_handler = &test2;
+		sa1.sa_flags = SA_SIGINFO;
+	}
+	if (i == 3)
+		sa1.sa_handler = SIG_IGN;
+	if (i == 4)
+	{
+		sa1.sa_handler = &test3;
 		sa1.sa_flags = SA_SIGINFO;
 	}
 	sa2.sa_handler = SIG_IGN;
 	sa2.sa_flags = SA_SIGINFO;
 	sigaction(SIGINT, &sa1, NULL);
 	sigaction(SIGQUIT, &sa2, NULL);
-	// signal(SIGQUIT, SIG_IGN);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -170,7 +184,10 @@ int	main(int argc, char **argv, char **envp)
 		if (str)
 		{
 			i = put_in_struct(str, &cmd);
-			ft_start_exec(cmd, path, envp);
+			if (ft_strncmp(cmd->ft, "cd", 3) == 0 && !cmd->next)
+				chdir(cmd->arg[0]);
+			else
+				ft_start_exec(cmd, path, envp);
 		}
 		else
 			free(cmd);

@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/08/15 17:38:00 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/16 20:31:47 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/types.h>
+#include <dirent.h>
 # include <sys/uio.h>
 # include <stdlib.h>
 # include <sys/wait.h>
@@ -103,6 +104,7 @@ int		put_arg(char **str, t_list **cmd, int len, int *i);
 void	sig(int i);
 void	print_cmd(t_list **cmd);
 
+int		ft_strncmp_end(char *s1, char *s2, int n);
 void	ft_end(t_list **stack);
 void	ft_begin(t_list **stack);
 char	*find_path(char **envp);

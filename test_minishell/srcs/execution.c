@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 16:53:14 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/16 18:01:42 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/16 18:13:44 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 	int j;
 
 	i = count;
-
+	sig(3);
 	if (pipe(piped1) < 0)
 		return ;
 	if (pipe(piped2) < 0)
@@ -188,6 +188,7 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 		printf("error child 1\n");
 	if (!pid1)
 	{
+		sig(4);
 		//dprintf(2, "jeff1\n");
 		if (list->infile)
 			dup2(list->infile, 0);
@@ -215,6 +216,7 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 			printf("error child 2\n");
 		if (!pid2)
 		{
+			sig(4);
 			if (dup2(piped1[0], 0) == -1)
 				dprintf(2, "jeff2\n");
 			if (dup2(piped2[1], 1) == -1)
@@ -240,6 +242,7 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 			printf("error child 2\n");
 		if (!pid3)
 		{
+			sig(4);
 		//	dprintf(2, "jeff3\n");
 			// if (list->infile)
 			// 	dup2(list->infile, 0);
@@ -278,6 +281,7 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 			printf("error child 2\n");
 		if (!pid4)
 		{
+			sig(4);
 			//dprintf(2, "jeff4\n");
 			// if (i > 0)
 			// 	piped[0] = piped0[1];
@@ -333,9 +337,11 @@ void	ft_start_exec(t_list *list, char *path, char **envp)
 	cmd_path = ft_split(path, ':');
 	if (count == 1)
 	{
+		sig(3);
 		pid = fork();
 		if (!pid)
 		{
+			sig(4);
 			j = verify_builtins(list, envp);
 			if (j == 0)
 				ft_exec(list, cmd_path, envp);
