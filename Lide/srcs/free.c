@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 17:35:04 by lide              #+#    #+#             */
-/*   Updated: 2022/07/26 15:49:27 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/17 16:50:29 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,13 @@ void	free_all(t_list **cmd)
 		free(tmp->arg);
 		free(tmp);
 	}
+}
+
+int	free_infile(char **str, int *i)
+{
+	free(str[*i]);
+	str[(*i)++] = NULL;
+	free(str[*i]);
+	str[*i] = NULL;
+	return (1);
 }

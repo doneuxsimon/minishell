@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/08/16 18:35:56 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/17 16:26:43 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ void	free_envp(void)
 	free(g_var);
 }
 
-
-
 int	main(int argc, char **argv, char **envp)
 {
 	char				*line;
@@ -100,7 +98,7 @@ int	main(int argc, char **argv, char **envp)
 	if (i)
 	{
 		free_envp();
-		return(1);
+		return (1);
 	}
 	while (1)
 	{
@@ -110,7 +108,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!cmd)
 		{
 			free_envp();
-			return(1);
+			return (1);
 		}
 		line = readline("Minishell$ ");
 		if (!line)
@@ -119,7 +117,7 @@ int	main(int argc, char **argv, char **envp)
 			free_envp();
 			free(cmd);
 			rl_clear_history();
-			return (0);
+			return (0);//changer avant la fin
 			// exit(0);
 		}
 		add_history(line);

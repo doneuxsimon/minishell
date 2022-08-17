@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:10:25 by lide              #+#    #+#             */
-/*   Updated: 2022/08/16 20:46:41 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/17 18:55:46 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	put_ft_and_opt(char **str, t_list **cmd, int *i)
 		return (0);
 	(*cmd)->ft = str[*i];
 	str[*i] = NULL;
-	if (str[(*i) + 1] && str[(*i) + 1][0] == '-')
+	if (check_minus(str, i))
 	{
 		error = remove_quote(str, ++(*i));
 		if (!error)
@@ -56,26 +56,6 @@ int	ct_arg(char **str, int len, int i)
 	return (words);
 }
 
-int check_bracket(char *str)
-{
-	int	i;
-	int	verif;
-
-	verif = 0;
-	i = -1;
-	while (str[++i])
-	{
-		if (str[i] == '{' && verif == 0)
-			verif = 1;
-		if (str[i] == '}' && verif == 1)
-			verif = 2;
-	}
-	if (verif == 2)
-		return (1);
-	else
-		return (0);
-}
-
 int	put_arg2(char **str, t_list **cmd, int *i, int len)
 {
 	int	tmp;
@@ -91,10 +71,7 @@ int	put_arg2(char **str, t_list **cmd, int *i, int len)
 		}
 		else if (str[*i])
 		{
-			if (!(check_bracket(str[*i]) && cmp_line("echo", (*cmd)->ft)))
-				error = remove_quote(str, *i);
-			else
-				error = 1;
+			error = remove_quote(str, *i);
 			if (!error)
 				return (0);
 			(*cmd)->arg[tmp++] = str[*i];

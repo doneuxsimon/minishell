@@ -6,46 +6,51 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:42:40 by lide              #+#    #+#             */
-/*   Updated: 2022/08/16 18:44:52 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/17 19:04:30 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
 
-int	write_in_file(int fd, char **str, t_list **cmd, int *i)
+void	start_heredoc(int fd, char **str, t_list **cmd, int *i)
 {
 	char	*line;
+
+	sig(2);
+	while (1)
+	{
+		line = readline("> ");
+		if (!line)
+		{
+			printf(ERROR2 ERROR2BIS"\n", (*cmd)->ct_line, str[*i + 1]);
+			exit(1);
+		}
+		if (cmp_line(str[*i + 1], line))
+			break ;
+		write (fd, line, len1(line));
+		write (fd, "\n", 1);
+		free(line);
+	}
+	free(line);
+	exit(0);
+}
+
+int	write_in_file(int fd, char **str, t_list **cmd, int *i)
+{
 	int		pid;
-	int status;
-	int returned;
+	int		status;
+	int		returned;
 
 	sig(3);
 	pid = fork();
 	if (!pid)
-	{
-		sig(2);
-		while (1)
-		{
-			line = readline("> ");
-			if (!line)
-			{
-				printf(error2 error2bis"\n", (*cmd)->ct_line, str[*i + 1]);
-				exit(1);
-			}
-			if (cmp_line(str[*i + 1], line))
-				break ;
-			write (fd, line, len1(line));
-			write (fd, "\n", 1);
-			free(line);
-		}
-		free(line);
-		exit(0);
-	}
+		start_heredoc(fd, str, cmd, i);
 	else
 		waitpid(pid, &status, 0);
 	returned = WEXITSTATUS(status);
 	if (returned)
-	{//doit delete le file
+	{
+		//doit delete le file
 		errno = 0;
 		return (0);
 	}
@@ -70,7 +75,7 @@ int	create_tmp_file(char **str, t_list **cmd, int *i)
 	fd = close(fd);
 	if (fd == -1)
 		return (0);
-	fd = open(name, O_RDONLY);
+	fd = open(name, O_RDONLY);//probleme de free avec le fork lors du ctrl c
 	if (fd == -1)
 		return (0);
 	(*cmd)->infile = fd;
@@ -87,10 +92,10 @@ int	find_infile(char **str, t_list **cmd, int *i)
 	if (!remove_red_quote(str, *i))
 		return (0);
 	if ((*cmd)->infile != 0)
-		if (close((*cmd)->infile) == -1)//check si tout ok
+		if (close((*cmd)->infile) == -1)
 			return (0);
 	if (!str[*i + 1] || (str[*i + 1] && str[*i + 1][0] == '>'))
-		return (print_error(error1));
+		return (print_error(ERROR1));
 	else if (str[*i][1] && str[*i][1] == '<')
 	{
 		verif = create_tmp_file(str, cmd, i);
@@ -103,9 +108,5 @@ int	find_infile(char **str, t_list **cmd, int *i)
 		fd = open(str[*i + 1], O_RDONLY);
 	if (fd == -1)
 		return (print_perror("infile"));
-	free(str[*i]);
-	str[(*i)++] = NULL;
-	free(str[*i]);
-	str[*i] = NULL;
-	return (1);
+	return (free_infile(str, i));
 }

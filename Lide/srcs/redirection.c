@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:12:08 by lide              #+#    #+#             */
-/*   Updated: 2022/07/26 16:20:10 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/17 16:27:42 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	find_outfile(char **str, t_list **cmd, int *i)
 	if ((*cmd)->outfile != 0)
 		close((*cmd)->outfile);
 	if (!str[*i + 1] || (str[*i + 1] && str[*i + 1][0] == '<'))
-		return (print_error(error1));
+		return (print_error(ERROR1));
 	else if (str[*i][1] && str[*i][1] == '>')
 		fd = open(str[*i + 1], O_CREAT | O_RDWR | O_APPEND, 00644);
 	else
@@ -63,7 +63,7 @@ int	find_outfile(char **str, t_list **cmd, int *i)
 		}
 	}
 	if (fd == -1)
-			return (print_perror("outfile"));
+		return (print_perror("outfile"));
 	free_find_outfile(str, i, fd);
 	(*cmd)->outfile = fd;
 	return (1);

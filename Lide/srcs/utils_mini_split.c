@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 19:20:21 by lide              #+#    #+#             */
-/*   Updated: 2022/07/26 19:05:12 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/17 18:53:54 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,26 +56,6 @@ int	skip_word(char *line, int i)
 		}
 	}
 	return (i);
-}
-
-void	skip_sep_error(int ct, int sep)
-{
-	if (sep == '<')
-	{
-		if (ct == 4)
-			printf("minishel: syntax error near unexpected token `<'\n");
-		else if (ct == 5)
-			printf("minishel: syntax error near unexpected token `<<'\n");
-		else
-			printf("minishel: syntax error near unexpected token `<<<'\n");
-	}
-	else if (sep == '>')
-	{
-		if (ct == 3)
-			printf("minishel: syntax error near unexpected token `>'\n");
-		else
-			printf("minishel: syntax error near unexpected token `>>'\n");
-	}
 }
 
 int	skip_sep(char *line, int i, char sep)

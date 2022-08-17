@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/08/16 20:28:26 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/17 18:57:54 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
-// # include "../wraloc.h"
+# include "../wraloc.h"
 
-# define error1 "redirection: syntax error near unexpected token `newline'"
-# define error2 "minishell: warning: here-document at line %d"
-# define error2bis " delimited by end-of-file (wanted `%s')"
+# define ERROR1 "redirection: syntax error near unexpected token `newline'"
+# define ERROR2 "minishell: warning: here-document at line %d"
+# define ERROR2BIS " delimited by end-of-file (wanted `%s')"
+
 typedef struct s_var
 {
 	char			*name;
@@ -89,7 +90,7 @@ char	**ft_str_big_dup(char **str);
 int		skip_s_quote(char **str, int i, int j);
 char	*cp_name(char *str, int *len, int tmp, int *j);
 char	*cp_value(char *value, char *line, int *len);
-char*	print_str_perror(char *str);
+char	*print_str_perror(char *str);
 int		print_perror(char *str);
 int		print_error(char *str);
 int		find_infile(char **str, t_list **cmd, int *i);
@@ -99,5 +100,8 @@ int		put_ft_and_opt(char **str, t_list **cmd, int *i);
 int		put_arg(char **str, t_list **cmd, int len, int *i);
 void	sig(int i);
 void	print_cmd(t_list **cmd);
+int		free_infile(char **str, int *i);
+void	skip_sep_error(int ct, int sep);
+int		check_minus(char **str, int *i);
 
 #endif

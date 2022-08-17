@@ -6,43 +6,11 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 13:51:37 by lide              #+#    #+#             */
-/*   Updated: 2022/08/16 20:27:57 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/17 16:23:44 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
-
-// char	*find_env(char *str, int *len, int tmp, int *j)
-// {
-// 	char	*env;
-// 	char	*line;
-
-// 	env = NULL;
-// 	line = cp_name(str, len, tmp, j);
-// 	if (!line)
-// 		return (NULL);
-// 	env = getenv(line);//potentiellement useles vue que toute les infos sont dans l'environnement
-// 	if (!env)
-// 	{
-// 		if (check_g_var(line))
-// 		{
-// 			env = cp_value(g_var->value, line, len);
-// 			if (!env)
-// 				return (NULL);
-// 		}
-// 	}
-// 	else
-// 	{
-// 		env = cp_value(env, line, len);
-// 		if (!env)
-// 			return (NULL);
-// 	}
-// 	free(line);
-// 	printf("|len1| %d\n", *len);
-// 	*len = len1(str) + len1(env) - ((*len) + 1);
-// 	printf("len2 %d\n", *len);
-// 	return (env);
-// }
 
 char	*find_env(char *str, int *len, int tmp, int *j)
 {
@@ -52,7 +20,7 @@ char	*find_env(char *str, int *len, int tmp, int *j)
 	env = NULL;
 	line = cp_name(str, len, tmp, j);
 	if (!line)
-	return (NULL);
+		return (NULL);
 	if (check_g_var(line))
 	{
 		env = cp_value(g_var->value, line, len);
@@ -61,7 +29,7 @@ char	*find_env(char *str, int *len, int tmp, int *j)
 	}
 	free(line);
 	*len = len1(str) + len1(env) - ((*len) + 1);
- 	return (env);
+	return (env);
 }
 
 char	*change_env(char *str, int *j, int tmp)

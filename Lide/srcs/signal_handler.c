@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 18:34:54 by lide              #+#    #+#             */
-/*   Updated: 2022/08/16 18:36:56 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/17 16:28:50 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	handle_2(int sig)
 {
 	if (sig == SIGINT)
 	{
-		// rl_insert_text("^c");
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
@@ -41,10 +40,11 @@ void	handle_4(int sig)
 		exit(0);
 }
 
-void sig(int i)
+void	sig(int i)
 {
 	struct sigaction	sa1;
 	struct sigaction	sa2;
+
 	if (i == 1)
 	{
 		sa1.sa_handler = &handle_1;
