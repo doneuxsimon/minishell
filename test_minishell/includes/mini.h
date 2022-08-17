@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/08/16 20:31:47 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/17 20:13:08 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_list
 	int				piped[2];
 	int				pos;
 	int				ct_line;
+	int				returned;
 	struct s_list	*next;
 	struct s_list	*before;
 }					t_list;

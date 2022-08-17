@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 16:53:14 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/16 18:13:44 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/17 20:15:49 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,7 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 	int piped2[2];
 	int i;
 	int j;
+	int status;
 
 	i = count;
 	sig(3);
@@ -311,14 +312,15 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 	close(piped2[1]);
 	// close(piped0[0]);
 	// close(piped0[1]);
-	waitpid(pid1, NULL, 0);
+	waitpid(pid1, &status, 0);
 	if (i > 2)
 	{
-		waitpid(pid2, NULL, 0);
-		waitpid(pid3, NULL, 0);
+		waitpid(pid2, &status, 0);
+		waitpid(pid3, &status, 0);
 	}
 	if ((i-1) % 2 == 1)
-		waitpid(pid4, NULL, 0);
+		waitpid(pid4, &status, 0);
+	list->returned = WEXITSTATUS(status);
 	//close(piped[0]);
 	//close(piped[1]);
 	//waitpid(pid1, NULL, 0);
@@ -332,6 +334,7 @@ void	ft_start_exec(t_list *list, char *path, char **envp)
 	int	count;
 	int pid;
 	int j;
+	int status;
 
 	count = ft_count_forks(list);
 	cmd_path = ft_split(path, ':');
@@ -348,7 +351,8 @@ void	ft_start_exec(t_list *list, char *path, char **envp)
 			else if (j == 1)
 				exit(EXIT_SUCCESS);
 		}
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &status, 0);
+		list->returned = WEXITSTATUS(status);
 	}
 	else if (count > 1)
 	{

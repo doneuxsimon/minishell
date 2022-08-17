@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:51:43 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/16 22:45:39 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/17 20:20:38 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,144 +49,54 @@ int ft_compare_n(t_list *list)
 	return(1);
 }
 
+void ft_print_code(t_list *list, int i)
+{
+	int j;
+
+	j = 0;
+	while (list->arg[i][j])
+	{
+		if (list->arg[i][j] == '$' && list->arg[i][j + 1] && list->arg[i][j + 1] == '?')
+		{
+			printf("%d", list->returned);
+			j += 2;
+		}
+		else 
+		{
+			printf("%c", list->arg[i][j]);
+			j++;
+		}
+	}
+}
+
 void	ft_echo(t_list *list)
 {
 	int i;
 	int j;
-	int c;
-	int d;
-	int before;
-	int stop;
-	int after;
-	int test;
+	int x;
 	int n;
-	DIR *folder;
-	char *folder_name;
-	struct dirent *entry;
-	char *search;
 	
 	i = 0;
-	test = 0;
+	x = 0;
 	n = ft_compare_n(list);
 	while(list->arg[i])
 	{
 		j = 0;
 		while (list->arg[i][j])
 		{
-			if (list->arg[i][j] == '\\')
+			if (list->arg[i][j] == '$' && list->arg[i][j + 1] && list->arg[i][j + 1] == '?')
 			{
-				printf("%c", list->arg[i][j + 1]);
-				j++;
-				j++;
-			}
-			else if (list->arg[i][j] == '{')
-			{
-				before = j - 1;
-				while (list->arg[i][before])
-				{
-					if (list->arg[i][before] == ' ')
-						exit(0);
-					before--;
-				}
-				stop = j;
-				after = j;
-				while (list->arg[i][after] != '}')
-					after++;
-				after++;
-				j++;
-				while(j < after - 1)
-				{
-					c = before;
-					while (c < stop)
-					{
-						printf("%c", list->arg[i][c]);
-						c++;
-					}
-					while (list->arg[i][j] != ',' && j < after - 1)
-					{
-						printf("%c", list->arg[i][j]);
-						j++;
-					}
-					d = after;
-					while (list->arg[i][d] && list->arg[i][d]!= ' ')
-					{
-						printf("%c", list->arg[i][d]);
-						d++;
-					}
-					if (j < after - 1)
-						printf(" ");
-					j++;
-				}
-			}
-			else if (list->arg[i][j] == '*')
-			{
-				d = 0;
-				if (j == 0)
-				{
-					folder = opendir("./");
-					folder_name = "";
-				}
-				else
-				{
-					folder_name = malloc(sizeof(char) * j + 1);
-					c = 0;
-					while (d < j)
-					{
-						folder_name[c] = list->arg[i][d];
-						d++;
-						c++;
-					}
-					folder_name[c] = '\0';
-					folder = opendir((const char *)folder_name);
-				}
-				if (folder != NULL)
-				{
-					j++;
-					c = j;
-					while (list->arg[i][c])
-						c++;
-					c--;
-					search = malloc(sizeof(char) * c - j + 2);
-					c = 0;
-					while (list->arg[i][j])
-					{
-						search[c] = list->arg[i][j];
-						c++;
-						j++;
-					}
-					search[c] = '\0';
-					c = 0;
-					while (c == 0)
-					{
-						entry = readdir(folder);
-						if (ft_strncmp_end(entry->d_name, search, ft_strlen(search)) == 1)
-						{
-								printf("%s ",entry->d_name);
-								c++;
-						}
-					}
-					while ((entry=readdir(folder)))
-					{
-						if (ft_strncmp_end(entry->d_name, search, ft_strlen(search)) == 1)
-						{
-							printf("%s%s ",folder_name, entry->d_name);
-							c++;
-						}
-					}
-					if (c == 0)
-						printf("%s\n", list->arg[i]);
-					printf("%d\n", c);
-						closedir(folder);
-				}
-			}
-			else
-			{
-				printf("%c", list->arg[i][j]);
+				ft_print_code(list, i);
+				x = 1;
 			}
 			j++;
 		}
-		if (list->arg[i + 1])
-			printf(" ");
+		if (x == 0)
+		{
+			printf("%s", list->arg[i]);
+			if (list->arg[i + 1])
+				printf(" ");
+		}
 		i++;
 	}
 	if (n == 0)
