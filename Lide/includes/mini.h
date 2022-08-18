@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/08/18 18:03:08 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/18 20:12:52 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_var
 {
 	char			*name;
 	char			*value;
+	int				*returned;
 	struct s_var	*next;
 	struct s_var	*before;
 }					t_var;
@@ -85,7 +86,7 @@ int		check_g_var(char *str);
 void	free_envp(void);
 char	*free_char(char *str, char *print);
 int		free_redirection(char **str, t_list **cmd, int len);
-void	free_all(t_list **cmd);
+void	free_all(t_list **cmd, int verif);
 char	**ft_str_big_dup(char **str);
 int		skip_s_quote(char **str, int i, int j);
 char	*cp_name(char *str, int *len, int tmp, int *j);

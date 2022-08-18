@@ -32,7 +32,7 @@ void	print_cmd(t_list **cmd)
 		while ((*cmd)->arg[++i])
 			printf("%s /", (*cmd)->arg[i]);
 	printf("%s / %s / %d / %d / %d\n", (*cmd)->link, (*cmd)->tmp, (*cmd)->infile, (*cmd)->outfile, (*cmd)->pos);
-	free_all(cmd);
+	free_all(cmd, 0);
 }
 
 	// while (++i < len)

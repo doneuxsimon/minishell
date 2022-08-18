@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 11:31:20 by lide              #+#    #+#             */
-/*   Updated: 2022/08/18 18:05:16 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/18 20:25:16 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	print_cmd(t_list **cmd)
 		while ((*cmd)->arg[++i])
 			printf("%s /", (*cmd)->arg[i]);
 	printf("%s / %s / %d / %d / %d\n", (*cmd)->link, (*cmd)->tmp, (*cmd)->infile, (*cmd)->outfile, (*cmd)->pos);
-	free_all(cmd);
+	free_all(cmd, 0);
 }
 
 void	print_env(void)
@@ -92,14 +92,13 @@ int	put_in_struct(char **str, t_list **cmd)
 	if (!put_in_cmd(str, cmd, len))
 	{
 		free_envp();
-		free_all(cmd);
+		free_all(cmd, 0);
 		free_split(str, len);
 		return (0);
 	}
 	// while (++i < len)
 	// 	printf("%s\n", str[i]);
 	free(str);
-	printf("%p\n", (*cmd)->tmp);
 	print_cmd(cmd);
 	// print_env();
 	return (1);

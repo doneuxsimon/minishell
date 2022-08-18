@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:42:40 by lide              #+#    #+#             */
-/*   Updated: 2022/08/18 18:38:10 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/18 20:22:47 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	write_in_file(int fd, char **str, t_list **cmd, int *i)
 	int		status;
 	int		returned;
 
-	printf("%p\n", (*cmd)->tmp);
 	sig(3);
 	pid = fork();
 	if (!pid)
@@ -52,10 +51,8 @@ int	write_in_file(int fd, char **str, t_list **cmd, int *i)
 	if (returned)
 	{
 		close(fd);
-		unlink((*cmd)->tmp);
 		errno = 0;
 		return (0);
-		//doit delete le file
 	}
 	return (1);
 }

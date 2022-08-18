@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/08/18 18:24:23 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/18 20:19:12 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,15 @@ void	free_envp(void)
 	free(g_var);
 }
 
+int *init_returned(void)
+{
+	int	*i;
+
+	i = (int *)malloc(sizeof(int));
+	*i = 0;
+	return (i);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char				*line;
@@ -94,6 +103,12 @@ int	main(int argc, char **argv, char **envp)
 	g_var = init_var(g_var);
 	if (!g_var)
 		return (1);
+	g_var->returned = init_returned();
+	if (!g_var->returned)
+	{
+		free(g_var);
+		return (1);
+	}
 	if (ft_export(envp, &i, len2(envp)) )
 	{
 		free_envp();
