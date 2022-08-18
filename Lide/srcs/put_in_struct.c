@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 11:31:20 by lide              #+#    #+#             */
-/*   Updated: 2022/08/17 18:40:05 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/18 18:05:16 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	print_cmd(t_list **cmd)
 {
 	int	i;
 
+	if ((*cmd)->ft)
+		printf("yo\n");
 	while ((*cmd)->before != NULL)
 		*cmd = (*cmd)->before;
 	while ((*cmd)->next != NULL)
@@ -97,6 +99,7 @@ int	put_in_struct(char **str, t_list **cmd)
 	// while (++i < len)
 	// 	printf("%s\n", str[i]);
 	free(str);
+	printf("%p\n", (*cmd)->tmp);
 	print_cmd(cmd);
 	// print_env();
 	return (1);

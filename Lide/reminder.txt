@@ -24,3 +24,5 @@ utils	V
 getenv//potentiellement useles vue que toute les infos sont dans l'environnement
 
 doit gerer ctrl c cat
+
+echo salut "" yo

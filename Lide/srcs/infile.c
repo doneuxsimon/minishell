@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:42:40 by lide              #+#    #+#             */
-/*   Updated: 2022/08/17 19:04:30 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/18 18:38:10 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	write_in_file(int fd, char **str, t_list **cmd, int *i)
 	int		status;
 	int		returned;
 
+	printf("%p\n", (*cmd)->tmp);
 	sig(3);
 	pid = fork();
 	if (!pid)
@@ -50,9 +51,11 @@ int	write_in_file(int fd, char **str, t_list **cmd, int *i)
 	returned = WEXITSTATUS(status);
 	if (returned)
 	{
-		//doit delete le file
+		close(fd);
+		unlink((*cmd)->tmp);
 		errno = 0;
 		return (0);
+		//doit delete le file
 	}
 	return (1);
 }
@@ -66,6 +69,7 @@ int	create_tmp_file(char **str, t_list **cmd, int *i)
 	name = find_name(cmd);
 	if (!name)
 		return (0);
+	(*cmd)->tmp = name;
 	fd = open(name, O_CREAT | O_WRONLY | O_TRUNC, 00644);
 	if (fd == -1)
 		return (0);
@@ -75,11 +79,10 @@ int	create_tmp_file(char **str, t_list **cmd, int *i)
 	fd = close(fd);
 	if (fd == -1)
 		return (0);
-	fd = open(name, O_RDONLY);//probleme de free avec le fork lors du ctrl c
+	fd = open(name, O_RDONLY);
 	if (fd == -1)
 		return (0);
 	(*cmd)->infile = fd;
-	(*cmd)->tmp = name;
 	return (1);
 }
 

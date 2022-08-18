@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/08/17 18:57:54 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/18 18:03:08 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
-# include "../wraloc.h"
+// # include "../wraloc.h"
 
 # define ERROR1 "redirection: syntax error near unexpected token `newline'"
 # define ERROR2 "minishell: warning: here-document at line %d"

@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/08/17 16:26:43 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/18 18:24:23 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,7 @@ int	main(int argc, char **argv, char **envp)
 	g_var = init_var(g_var);
 	if (!g_var)
 		return (1);
-	i = ft_export(envp, &i, len2(envp));
-	if (i)
+	if (ft_export(envp, &i, len2(envp)) )
 	{
 		free_envp();
 		return (1);
