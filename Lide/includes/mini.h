@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/08/18 20:12:52 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/19 20:50:01 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,6 @@ void	print_cmd(t_list **cmd);
 int		free_infile(char **str, int *i);
 void	skip_sep_error(int ct, int sep);
 int		check_minus(char **str, int *i);
+char	**g_var_to_char(void);
 
 #endif

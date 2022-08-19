@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 11:31:20 by lide              #+#    #+#             */
-/*   Updated: 2022/08/18 20:25:16 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/19 20:49:13 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ void	print_cmd(t_list **cmd)
 
 void	print_env(void)
 {
+	char **str;
+	int i = -1;
+
 	while (g_var->before != NULL)
 		g_var = g_var->before;
 	while (g_var->next != NULL)
@@ -78,6 +81,9 @@ void	print_env(void)
 		g_var = g_var->next;
 	}
 	printf("name = %s| value = %s\n", g_var->name, g_var->value);
+	str = g_var_to_char();
+	while (str[++i])
+		printf("%s\n", str[i]);
 }
 
 int	put_in_struct(char **str, t_list **cmd)
@@ -100,6 +106,6 @@ int	put_in_struct(char **str, t_list **cmd)
 	// 	printf("%s\n", str[i]);
 	free(str);
 	print_cmd(cmd);
-	// print_env();
+	print_env();
 	return (1);
 }

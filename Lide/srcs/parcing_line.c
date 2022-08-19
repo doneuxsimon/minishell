@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/08/18 20:19:12 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/19 19:56:42 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,21 +147,3 @@ int	main(int argc, char **argv, char **envp)
 	}
 	return (0);
 }
-
-// int	main(void)//voué a disparaitre
-// {
-// 	char	*line;
-// 	// char	*path;
-// 	// char	*tmp;
-
-// 	// path = getenv( "PATH" );
-// 	while (1)
-// 	{
-// 		line = readline("Minishell $> ");
-// 		add_history(line);
-// 		get_line(line);
-// 		// tmp = get_cmd(path, line);
-// 		// printf("%s\n", tmp);
-// 	}
-// 	return (0);
-// }
