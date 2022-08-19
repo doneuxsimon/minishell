@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/08/16 18:59:03 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/19 17:42:52 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	check_sep(char **str, int len)
 	}
 	return (1);
 }
-
 char	**get_line(char *line)
 {
 	char	**str;
@@ -59,41 +58,10 @@ char	**get_line(char *line)
 	return (str);
 }
 
-void	test(int sig)
-{
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}
-
-void	test2(int sig)
-{
-	if (sig == SIGINT)
-	{
-		rl_insert_text("^c");
-		exit(1);
-	}
-}
-
-void	test3(int sig)
-{
-	if (sig == SIGINT)
-	{
-		dprintf(2, "\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-		exit(0);
-	}
-}
-
 void	free_envp(void)
 {
 	t_var	*tmp;
+
 	while (g_var->before != NULL)
 		g_var = g_var->before;
 	while (g_var->next != NULL)
@@ -109,31 +77,13 @@ void	free_envp(void)
 	free(g_var);
 }
 
-void sig(int i)
+int *init_returned(void)
 {
-	struct sigaction	sa1;
-	struct sigaction	sa2;
-	if (i == 1)
-	{
-		sa1.sa_handler = &test;
-		sa1.sa_flags = SA_SIGINFO;
-	}
-	if (i == 2)
-	{
-		sa1.sa_handler = &test2;
-		sa1.sa_flags = SA_SIGINFO;
-	}
-	if (i == 3)
-		sa1.sa_handler = SIG_IGN;
-	if (i == 4)
-	{
-		sa1.sa_handler = &test3;
-		sa1.sa_flags = SA_SIGINFO;
-	}
-	sa2.sa_handler = SIG_IGN;
-	sa2.sa_flags = SA_SIGINFO;
-	sigaction(SIGINT, &sa1, NULL);
-	sigaction(SIGQUIT, &sa2, NULL);
+	int	*i;
+
+	i = (int *)malloc(sizeof(int));
+	*i = 0;
+	return (i);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -149,22 +99,28 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	cmd = NULL;
 	i = 0;
-
 	g_var = init_var(g_var);
 	if (!g_var)
 		return (1);
+		g_var->returned = init_returned();
+	if (!g_var->returned)
+	{
+		free(g_var);
+		return (1);
+	}
 	i = ft_export(envp, &i, len2(envp));
 	if (i)
 	{
 		free_envp();
 		return(1);
 	}
-	path = getenv( "PATH" );
+	printf("ca commence\n");
+	path = getenv("PATH");
 	while (1)
 	{
+		sig(1);
 		ct_line++;
 		cmd = init_lst(cmd, ct_line);
-		sig(1);
 		if (!cmd)
 		{
 			free_envp();
@@ -177,15 +133,20 @@ int	main(int argc, char **argv, char **envp)
 			free_envp();
 			free(cmd);
 			rl_clear_history();
-			exit(0);
+			return (0);
 		}
 		add_history(line);
 		str = get_line(line);
 		if (str)
 		{
 			i = put_in_struct(str, &cmd);
-			if (ft_strncmp(cmd->ft, "cd", 3) == 0 && !cmd->next)
-				chdir(cmd->arg[0]);
+			if (cmd->ft && ft_strncmp(cmd->ft, "cd", 3) == 0 && !cmd->next)
+			{
+				if (cmd->arg)
+					chdir(cmd->arg[0]);
+				else
+					chdir(getenv("HOME"));
+			}
 			else
 				ft_start_exec(cmd, path, envp);
 		}

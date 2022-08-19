@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 13:36:37 by lide              #+#    #+#             */
-/*   Updated: 2022/07/26 15:47:44 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/18 20:19:59 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	put_g_name(char *tmp, int verif)
 		new = init_var(new);
 		if (!new)
 			return (0);
+		new->returned = g_var->returned;
 		new->before = g_var;
 		g_var->next = new;
 		g_var = g_var->next;
@@ -95,7 +96,6 @@ int	ft_export(char **str, int *i, int len)
 	int	j;
 	int	verif;
 
-	(*i)++;
 	while (*i < len)
 	{
 		if (str[*i])

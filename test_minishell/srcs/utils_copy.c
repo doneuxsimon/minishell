@@ -1,40 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils_copy.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/24 19:08:35 by lide              #+#    #+#             */
-/*   Updated: 2022/08/16 22:27:05 by sdoneux          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/mini.h"
 
-int	len1(char *str)
-{
-	int	ct;
-
-	if (!str)
-		return (0);
-	ct = 0;
-	while (str[ct])
-		ct++;
-	return (ct);
-}
-
-int	len2(char **str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
-		i++;
-	return (i);
-}
 
 int	ft_strncmp(char *s1, char *s2, int n)
 {
@@ -42,72 +7,46 @@ int	ft_strncmp(char *s1, char *s2, int n)
 
 	i = 0;
 	while ((unsigned char)s1[i] == (unsigned char)s2[i]
-		&& s1[i] != '\0' && s2[i] != '\0')
-		{
-			n--;
-			i++;
-		}
+		&& s1[i] != '\0' && s2[i] != '\0' && i < n - 1)
+		i++;
 	if (n > 0)
 		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 	else
 		return (0);
 }
 
-int	ft_strncmp_end(char *s1, char *s2, int n)
+size_t	ft_strlen(char *s)
 {
-	int	i;
-	int j;
+	size_t	i;
 
 	i = 0;
-	j = 0;
-	while (s1[i])
+	while (s[i])
 		i++;
-	while(s2[j])
-		j++;
-	while ((unsigned char)s1[i] == (unsigned char)s2[j])
-		{
-			n--;
-			i--;
-			j--;
-		}
-	if (n > 0)
-		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-	else
-		return (1);
+	return (i);
 }
 
-char	*ft_strdup(char *s1)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	char	*s2;
 	int		i;
+	int		j;
+	char	*str;
 
-	s2 = (char *)malloc(sizeof(char) * (len1(s1) + 1));
-	if (!s2)
+	if (!s1 && !s2)
+		return (NULL);
+	if (s1 && !s2)
+		return ((char *)s1);
+	if (!s1 && s2)
+		return ((char *)s2);
+	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) +1));
+	if (!str)
 		return (NULL);
 	i = 0;
-	while (s1[i])
-	{
-		s2[i] = s1[i];
-		i++;
-	}
-	s2[i] = 0;
-	return (s2);
-}
-
-char*	print_str_perror(char *str)
-{
-	perror(str);
-	return (NULL);
-}
-
-int	print_perror(char *str)
-{
-	perror(str);
-	return (0);
-}
-
-int	print_error(char *str)
-{
-	printf("%s\n", str);
-	return (0);
+	j = 0;
+	while (s1[j])
+		str[i++] = s1[j++];
+	j = 0;
+	while (s2[j])
+		str[i++] = s2[j++];
+	str[i] = '\0';
+	return (str);
 }

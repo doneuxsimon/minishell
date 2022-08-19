@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:10:25 by lide              #+#    #+#             */
-/*   Updated: 2022/07/26 19:20:30 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/17 18:55:46 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	put_ft_and_opt(char **str, t_list **cmd, int *i)
 		return (0);
 	(*cmd)->ft = str[*i];
 	str[*i] = NULL;
-	if (str[(*i) + 1] && str[(*i) + 1][0] == '-')
+	if (check_minus(str, i))
 	{
 		error = remove_quote(str, ++(*i));
 		if (!error)

@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 13:51:37 by lide              #+#    #+#             */
-/*   Updated: 2022/07/25 16:53:07 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/17 16:23:44 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,13 @@ char	*find_env(char *str, int *len, int tmp, int *j)
 	char	*env;
 	char	*line;
 
+	env = NULL;
 	line = cp_name(str, len, tmp, j);
 	if (!line)
 		return (NULL);
-	env = getenv(line);
-	if (!env)
+	if (check_g_var(line))
 	{
-		if (check_g_var(line))
-		{
-			env = cp_value(g_var->value, line, len);
-			if (!env)
-				return (NULL);
-		}
-	}
-	else
-	{
-		env = cp_value(env, line, len);
+		env = cp_value(g_var->value, line, len);
 		if (!env)
 			return (NULL);
 	}

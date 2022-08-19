@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 16:53:14 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/17 20:15:49 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/19 17:30:30 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,7 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 	// }
 }
 
+
  void	ft_exec_pipes(t_list *list, char **cmd_path, char **envp, int count)
 {
 	int pid1;
@@ -196,7 +197,7 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 		if (dup2(piped1[1], 1) == -1)
 			dprintf(2, "jeff1\n");
 		close(piped1[0]);
-		j = verify_builtins(list, envp);
+		j = verify_builtins(list, envp, cmd_path);
 		if (j == 0)
 			ft_exec(list, cmd_path, envp);
 		else if (j == 1)
@@ -224,7 +225,7 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 				dprintf(2, "jeff22\n");
 			close(piped1[1]);
 			close(piped2[0]);
-			j = verify_builtins(list, envp);
+			j = verify_builtins(list, envp, cmd_path);
 			if (j == 0)
 				ft_exec(list, cmd_path, envp);
 			else if (j == 1)
@@ -263,7 +264,7 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 			close(piped2[1]);
 			if (count <= 1)
 				close(piped1[1]);
-			j = verify_builtins(list, envp);
+			j = verify_builtins(list, envp, cmd_path);
 			if (j == 0)
 				ft_exec(list, cmd_path, envp);
 			else if (j == 1)
@@ -296,7 +297,7 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 			close(piped1[1]);
 			close(piped2[1]);
 			close(piped2[0]);
-			j = verify_builtins(list, envp);
+			j = verify_builtins(list, envp, cmd_path);
 			if (j == 0)
 				ft_exec(list, cmd_path, envp);
 			else if (j == 1)
@@ -320,13 +321,14 @@ int	ft_exec(t_list *list, char **cmd_path, char **envp)
 	}
 	if ((i-1) % 2 == 1)
 		waitpid(pid4, &status, 0);
-	list->returned = WEXITSTATUS(status);
+	(*(&g_var))->returned[0] = WEXITSTATUS(status);
 	//close(piped[0]);
 	//close(piped[1]);
 	//waitpid(pid1, NULL, 0);
 	//waitpid(pid2, NULL, 0);
 	//printf("ok\n");
 }
+
 
 void	ft_start_exec(t_list *list, char *path, char **envp)
 {
@@ -336,6 +338,8 @@ void	ft_start_exec(t_list *list, char *path, char **envp)
 	int j;
 	int status;
 
+	if (list->ft == NULL)
+		return ;
 	count = ft_count_forks(list);
 	cmd_path = ft_split(path, ':');
 	if (count == 1)
@@ -345,14 +349,14 @@ void	ft_start_exec(t_list *list, char *path, char **envp)
 		if (!pid)
 		{
 			sig(4);
-			j = verify_builtins(list, envp);
+			j = verify_builtins(list, envp, cmd_path);
 			if (j == 0)
 				ft_exec(list, cmd_path, envp);
 			else if (j == 1)
 				exit(EXIT_SUCCESS);
 		}
 		waitpid(pid, &status, 0);
-		list->returned = WEXITSTATUS(status);
+		(*(&g_var))->returned[0] = WEXITSTATUS(status);
 	}
 	else if (count > 1)
 	{

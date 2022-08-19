@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 11:31:20 by lide              #+#    #+#             */
-/*   Updated: 2022/07/28 18:12:33 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/19 16:12:58 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,25 +45,27 @@ void	print_cmd(t_list **cmd)
 {
 	int	i;
 
+	if ((*cmd)->ft)
+		printf("yo\n");
 	while ((*cmd)->before != NULL)
 		*cmd = (*cmd)->before;
 	while ((*cmd)->next != NULL)
 	{
-		printf("ft : %s / opt : %s /", (*cmd)->ft, (*cmd)->opt);
+		printf("%s / %s /", (*cmd)->ft, (*cmd)->opt);
 		i = -1;
 		if ((*cmd)->arg != NULL)
 			while ((*cmd)->arg[++i])
-				printf("arg : %s /", (*cmd)->arg[i]);
-		printf("link : %s / tmp : %s / infile : %d / outfile : %d / pos : %d\n", (*cmd)->link, (*cmd)->tmp, (*cmd)->infile, (*cmd)->outfile, (*cmd)->pos);
+				printf("%s /", (*cmd)->arg[i]);
+		printf("%s / %s / %d / %d / %d\n", (*cmd)->link, (*cmd)->tmp, (*cmd)->infile, (*cmd)->outfile, (*cmd)->pos);
 		*cmd = (*cmd)->next;
 	}
-printf("ft : %s / opt : %s /", (*cmd)->ft, (*cmd)->opt);
-		i = -1;
-		if ((*cmd)->arg != NULL)
-			while ((*cmd)->arg[++i])
-				printf("arg : %s /", (*cmd)->arg[i]);
-		printf("link : %s / tmp : %s / infile : %d / outfile : %d / pos : %d\n", (*cmd)->link, (*cmd)->tmp, (*cmd)->infile, (*cmd)->outfile, (*cmd)->pos);
-	//free_all(cmd);
+	printf("%s / %s /", (*cmd)->ft, (*cmd)->opt);
+	i = -1;
+	if ((*cmd)->arg != NULL)
+		while ((*cmd)->arg[++i])
+			printf("%s /", (*cmd)->arg[i]);
+	printf("%s / %s / %d / %d / %d\n", (*cmd)->link, (*cmd)->tmp, (*cmd)->infile, (*cmd)->outfile, (*cmd)->pos);
+	//free_all(cmd, 0);
 }
 
 void	print_env(void)
@@ -90,7 +92,7 @@ int	put_in_struct(char **str, t_list **cmd)
 	if (!put_in_cmd(str, cmd, len))
 	{
 		free_envp();
-		free_all(cmd);
+		free_all(cmd, 0);
 		free_split(str, len);
 		return (0);
 	}

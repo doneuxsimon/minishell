@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/08/17 20:13:08 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/19 17:29:57 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,16 @@
 #include <term.h>
 //# include "../wraloc.h"
 
-# define error1 "redirection: syntax error near unexpected token `newline'"
-# define error2 "minishell: warning: here-document at line %d"
-# define error2bis " delimited by end-of-file (wanted `%s')"
+# define ERROR1 "redirection: syntax error near unexpected token `newline'"
+# define ERROR2 "minishell: warning: here-document at line %d"
+# define ERROR2BIS " delimited by end-of-file (wanted `%s')"
+
 typedef struct s_var
 {
 	int				error;
 	char			*name;
 	char			*value;
+	int				*returned;
 	struct s_var	*next;
 	struct s_var	*before;
 }					t_var;
@@ -55,7 +57,6 @@ typedef struct s_list
 	int				piped[2];
 	int				pos;
 	int				ct_line;
-	int				returned;
 	struct s_list	*next;
 	struct s_list	*before;
 }					t_list;
@@ -89,12 +90,12 @@ int		check_g_var(char *str);
 void	free_envp(void);
 char	*free_char(char *str, char *print);
 int		free_redirection(char **str, t_list **cmd, int len);
-void	free_all(t_list **cmd);
+void	free_all(t_list **cmd, int verif);
 char	**ft_str_big_dup(char **str);
 int		skip_s_quote(char **str, int i, int j);
 char	*cp_name(char *str, int *len, int tmp, int *j);
 char	*cp_value(char *value, char *line, int *len);
-char*	print_str_perror(char *str);
+char	*print_str_perror(char *str);
 int		print_perror(char *str);
 int		print_error(char *str);
 int		find_infile(char **str, t_list **cmd, int *i);
@@ -104,17 +105,24 @@ int		put_ft_and_opt(char **str, t_list **cmd, int *i);
 int		put_arg(char **str, t_list **cmd, int len, int *i);
 void	sig(int i);
 void	print_cmd(t_list **cmd);
+int		free_infile(char **str, int *i);
+void	skip_sep_error(int ct, int sep);
+int		check_minus(char **str, int *i);
 
 int		ft_strncmp_end(char *s1, char *s2, int n);
 void	ft_end(t_list **stack);
 void	ft_begin(t_list **stack);
+void	ft_end_var(t_var **stack);
+void	ft_begin_var(t_var **stack);
 char	*find_path(char **envp);
+int	ft_atoi(const char *str);
+int	ft_isdigit(int c);
 //int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(char *s);
 char	*ft_strjoin(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
 char	*get_cmd(char *path, char *cmd);
-int		verify_builtins(t_list *list, char **envp);
+int		verify_builtins(t_list *list, char **envp, char **path);
 void	ft_start_exec(t_list *list, char *path, char **envp);
 char	*get_cmd2(char **cmd_paths, char *cmd);
 

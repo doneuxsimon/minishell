@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:51:43 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/17 20:20:38 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/19 17:40:35 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void ft_print_code(t_list *list, int i)
 	{
 		if (list->arg[i][j] == '$' && list->arg[i][j + 1] && list->arg[i][j + 1] == '?')
 		{
-			printf("%d", list->returned);
+			printf("%d", g_var->returned[0]);
 			j += 2;
 		}
 		else 
@@ -117,26 +117,48 @@ void	ft_pwd(void)
 	free(tmp);
 }
 
-void ft_minishell(char **envp)
+void ft_minishell(char **path, char **envp)
 {
 	int pid;
 	char **cmd_args;
+	int tmp;
+	char *cmd;
 
 	printf("jeff\n");
-	cmd_args = malloc(sizeof(char *) * 2);
-	cmd_args[0] = malloc(sizeof(char) * 9);
-	cmd_args[0] = "minishell";
-	cmd_args[1] = NULL;
+	cmd_args = malloc(sizeof(char *));
+	// cmd_args[0] = malloc(sizeof(char) * 3);
+	// cmd_args[0] = "-n";
+	// cmd_args[1] = malloc(sizeof(char) * 3);
+	// cmd_args[1] = "-g";
+	// cmd_args[2] = malloc(sizeof(char) * 9);
+	// cmd_args[2] = "minishell";
+	cmd_args[0] = NULL;
+	cmd = get_cmd2(path, "open");
 	pid = fork();
 	if (!pid)
 	{
-		execve(get_cmd2(envp, "open"), cmd_args, envp);
+		ft_begin_var(&g_var);
+		while (g_var->next && ft_strncmp(g_var->name, "SHLVL", 6) != 0)
+		{
+			g_var = g_var->next;
+		}
+		if (ft_strncmp(g_var->name, "SHLVL", 6) == 0)
+		{
+			tmp = ft_atoi(g_var->value);
+			tmp++;
+			g_var->value = ft_itoa(tmp);
+			dprintf(2, "%s\n", g_var->value);
+		}
+		printf("%s\n", cmd);
+		execve("./minishell", cmd_args, envp);
 	}
-	if (pid)
+	else
+	{
 		waitpid(pid, NULL, 0);
+	}
 }
 
-int	verify_builtins(t_list *list, char **envp)
+int	verify_builtins(t_list *list, char **envp, char **path)
 {
 	int	i;
 
@@ -168,7 +190,7 @@ int	verify_builtins(t_list *list, char **envp)
 	}
 	if (ft_strncmp(list->ft, "./minishell", 12) == 0)
 	{
-		ft_minishell(envp);
+		ft_minishell(path, envp);
 		i = 1;
 	}
 	return (i);
