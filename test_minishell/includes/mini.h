@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/08/19 17:29:57 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/19 17:49:47 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ void	ft_begin(t_list **stack);
 void	ft_end_var(t_var **stack);
 void	ft_begin_var(t_var **stack);
 char	*find_path(char **envp);
-int	ft_atoi(const char *str);
-int	ft_isdigit(int c);
+int		ft_atoi(const char *str);
+int		ft_isdigit(int c);
 //int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(char *s);
 char	*ft_strjoin(char *s1, char *s2);

@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/08/19 17:42:52 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/19 19:48:43 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,26 @@ int *init_returned(void)
 	return (i);
 }
 
+int	check_g_var2(char *str, char *s)
+{
+	if (!g_var)
+	{
+		printf("jeff\n");
+		return(0);
+	}
+	while (g_var->before != NULL)
+		g_var = g_var->before;
+	while (g_var->next != NULL)
+	{
+		if (cmp_line(str, g_var->name) && ft_strncmp(g_var->value, s, 2) == 0)
+			return (1);
+		g_var = g_var->next;
+	}
+	if (cmp_line(str, g_var->name) && ft_strncmp(g_var->value, s, 2) == 0)
+		return (1);
+	return (0);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char				*line;
@@ -94,25 +114,46 @@ int	main(int argc, char **argv, char **envp)
 	int					i;
 	t_list				*cmd;
 	static int			ct_line;
+	int					j;
+	//static int 			bloup;
+
 
 	(void)argc;
 	(void)argv;
 	cmd = NULL;
 	i = 0;
-	g_var = init_var(g_var);
-	if (!g_var)
-		return (1);
-		g_var->returned = init_returned();
-	if (!g_var->returned)
+	j = 0;
+	while (envp[i])
 	{
-		free(g_var);
-		return (1);
+		printf("%s\n", envp[i]);
+		i++;
 	}
-	i = ft_export(envp, &i, len2(envp));
-	if (i)
+	i = 0;
+	//envp[5] = "Salut ca va?";
+		while (envp[i])
 	{
-		free_envp();
-		return(1);
+		printf("%s\n", envp[i]);
+		i++;
+	}
+	i = 0;
+	if (!check_g_var2("SHLVL", "1"))
+	{
+		printf("yoyo\n");
+		g_var = init_var(g_var);
+		if (!g_var)
+			return (1);
+			g_var->returned = init_returned();
+		if (!g_var->returned)
+		{
+			free(g_var);
+			return (1);
+		}
+		i = ft_export(envp, &i, len2(envp));
+		if (i)
+		{
+			free_envp();
+			return(1);
+		}
 	}
 	printf("ca commence\n");
 	path = getenv("PATH");
@@ -146,6 +187,16 @@ int	main(int argc, char **argv, char **envp)
 					chdir(cmd->arg[0]);
 				else
 					chdir(getenv("HOME"));
+			}
+			else if (cmd->ft && ft_strncmp(cmd->ft, "export", 7) == 0 && !cmd->next)
+			{
+				ft_export(cmd->arg, &j, len2(cmd->arg));
+				j = 0;
+			}
+			else if (cmd->ft && ft_strncmp(cmd->ft, "unset", 6) == 0 && !cmd->next)
+			{
+				ft_unset(cmd->arg, &j, len2(cmd->arg));
+				j = 0;
 			}
 			else
 				ft_start_exec(cmd, path, envp);

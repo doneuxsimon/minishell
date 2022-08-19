@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:51:43 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/19 17:40:35 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/19 19:48:11 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void ft_minishell(char **path, char **envp)
 	char **cmd_args;
 	int tmp;
 	char *cmd;
+	char **tmd;
 
 	printf("jeff\n");
 	cmd_args = malloc(sizeof(char *));
@@ -132,10 +133,21 @@ void ft_minishell(char **path, char **envp)
 	// cmd_args[1] = "-g";
 	// cmd_args[2] = malloc(sizeof(char) * 9);
 	// cmd_args[2] = "minishell";
+	tmd = malloc(sizeof(char *) * 3);
+	tmd[1] = "salut";
+	tmd[0] = "bloup";
+	tmd[2] = NULL;
 	cmd_args[0] = NULL;
 	cmd = get_cmd2(path, "open");
+	envp = tmd;
 	pid = fork();
 	if (!pid)
+	{
+
+		printf("%s\n", cmd);
+		execve("./minishell", cmd_args, envp);
+	}
+	else
 	{
 		ft_begin_var(&g_var);
 		while (g_var->next && ft_strncmp(g_var->name, "SHLVL", 6) != 0)
@@ -147,13 +159,8 @@ void ft_minishell(char **path, char **envp)
 			tmp = ft_atoi(g_var->value);
 			tmp++;
 			g_var->value = ft_itoa(tmp);
-			dprintf(2, "%s\n", g_var->value);
 		}
-		printf("%s\n", cmd);
-		execve("./minishell", cmd_args, envp);
-	}
-	else
-	{
+		dprintf(2, "%s\n", g_var->value);
 		waitpid(pid, NULL, 0);
 	}
 }
@@ -161,7 +168,9 @@ void ft_minishell(char **path, char **envp)
 int	verify_builtins(t_list *list, char **envp, char **path)
 {
 	int	i;
+	int j;
 
+	j = 0;
 	i = 0;
 	if (ft_strncmp(list->ft, "echo", 5) == 0)
 	{
@@ -186,6 +195,16 @@ int	verify_builtins(t_list *list, char **envp, char **path)
 	if (ft_strncmp(list->ft, "exit", 5) == 0)
 	{
 		ft_exit();
+		i = 1;
+	}
+	if (ft_strncmp(list->ft, "export", 6) == 0)
+	{
+		ft_export(list->arg, &j, len2(list->arg));
+		i = 1;
+	}
+	if (ft_strncmp(list->ft, "unset", 6) == 0)
+	{
+		ft_unset(list->arg, &j, len2(list->arg));
 		i = 1;
 	}
 	if (ft_strncmp(list->ft, "./minishell", 12) == 0)
