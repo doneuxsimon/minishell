@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:51:43 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/19 19:48:11 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/21 17:36:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	ft_env()
 		printf("%s=%s\n", g_var->name, g_var->value);
 		g_var = g_var->next;
 	}
-	//printf("%s| value = %s\n", g_var->name, g_var->value);
 }
 
 void	ft_exit(void)
@@ -31,9 +30,9 @@ void	ft_exit(void)
 	exit(EXIT_SUCCESS);
 }
 
-int ft_compare_n(t_list *list)
+int	ft_compare_n(t_list *list)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	if (!list->opt)
@@ -49,9 +48,9 @@ int ft_compare_n(t_list *list)
 	return(1);
 }
 
-void ft_print_code(t_list *list, int i)
+void	ft_print_code(t_list *list, int i)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (list->arg[i][j])
@@ -71,10 +70,10 @@ void ft_print_code(t_list *list, int i)
 
 void	ft_echo(t_list *list)
 {
-	int i;
-	int j;
-	int x;
-	int n;
+	int	i;
+	int	j;
+	int	x;
+	int	n;
 	
 	i = 0;
 	x = 0;
@@ -110,29 +109,23 @@ void	ft_cd(t_list *list)
 
 void	ft_pwd(void)
 {
-	char *tmp;
+	char	*tmp;
 
 	tmp = getcwd(NULL,  0);
 	printf("%s\n", tmp);
 	free(tmp);
 }
 
-void ft_minishell(char **path, char **envp)
+void	ft_minishell(char **path, char **envp)
 {
-	int pid;
-	char **cmd_args;
-	int tmp;
-	char *cmd;
-	char **tmd;
+	int		pid;
+	char	**cmd_args;
+	int		tmp;
+	char	*cmd;
+	char	**tmd;
 
 	printf("jeff\n");
 	cmd_args = malloc(sizeof(char *));
-	// cmd_args[0] = malloc(sizeof(char) * 3);
-	// cmd_args[0] = "-n";
-	// cmd_args[1] = malloc(sizeof(char) * 3);
-	// cmd_args[1] = "-g";
-	// cmd_args[2] = malloc(sizeof(char) * 9);
-	// cmd_args[2] = "minishell";
 	tmd = malloc(sizeof(char *) * 3);
 	tmd[1] = "salut";
 	tmd[0] = "bloup";
@@ -168,7 +161,7 @@ void ft_minishell(char **path, char **envp)
 int	verify_builtins(t_list *list, char **envp, char **path)
 {
 	int	i;
-	int j;
+	int	j;
 
 	j = 0;
 	i = 0;
