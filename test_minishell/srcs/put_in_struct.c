@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   put_in_struct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 11:31:20 by lide              #+#    #+#             */
-/*   Updated: 2022/08/19 16:12:58 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/22 16:46:17 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void	print_cmd(t_list **cmd)
 		if ((*cmd)->arg != NULL)
 			while ((*cmd)->arg[++i])
 				printf("%s /", (*cmd)->arg[i]);
-		printf("%s / %s / %d / %d / %d\n", (*cmd)->link, (*cmd)->tmp, (*cmd)->infile, (*cmd)->outfile, (*cmd)->pos);
+		printf("%s / %s / %d / %d / %d\n", (*cmd)->link,
+			(*cmd)->tmp, (*cmd)->infile, (*cmd)->outfile, (*cmd)->pos);
 		*cmd = (*cmd)->next;
 	}
 	printf("%s / %s /", (*cmd)->ft, (*cmd)->opt);
@@ -64,8 +65,8 @@ void	print_cmd(t_list **cmd)
 	if ((*cmd)->arg != NULL)
 		while ((*cmd)->arg[++i])
 			printf("%s /", (*cmd)->arg[i]);
-	printf("%s / %s / %d / %d / %d\n", (*cmd)->link, (*cmd)->tmp, (*cmd)->infile, (*cmd)->outfile, (*cmd)->pos);
-	//free_all(cmd, 0);
+	printf("%s / %s / %d / %d / %d\n", (*cmd)->link, (*cmd)->tmp,
+		(*cmd)->infile, (*cmd)->outfile, (*cmd)->pos);
 }
 
 void	print_env(void)
@@ -96,10 +97,7 @@ int	put_in_struct(char **str, t_list **cmd)
 		free_split(str, len);
 		return (0);
 	}
-	// while (++i < len)
-	// 	printf("%s\n", str[i]);
 	free(str);
 	print_cmd(cmd);
-	// print_env();
 	return (1);
 }

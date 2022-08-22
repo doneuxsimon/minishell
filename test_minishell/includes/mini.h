@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/08/19 17:49:47 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/22 16:47:06 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/types.h>
-#include <dirent.h>
+# include <dirent.h>
 # include <sys/uio.h>
 # include <stdlib.h>
 # include <sys/wait.h>
@@ -27,8 +27,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
-#include <curses.h>
-#include <term.h>
+# include <curses.h>
+# include <term.h>
 //# include "../wraloc.h"
 
 # define ERROR1 "redirection: syntax error near unexpected token `newline'"
