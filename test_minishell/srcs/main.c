@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 16:47:39 by marvin            #+#    #+#             */
-/*   Updated: 2022/08/23 19:19:08 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/23 19:22:11 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	init_global(char **envp)
 	return (0);
 }
 
-void	ft_start(char *str, t_list *cmd, char *path, char **envp)
+void	ft_start(char **str, t_list *cmd, char *path, char **envp)
 {
 	int	j;
 

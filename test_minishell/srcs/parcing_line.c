@@ -6,21 +6,11 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/08/23 17:32:36 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/23 19:23:37 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
-
-//doit faire une copie de env et l'utiliser pour etre modifier dans unset et export;	V
-//placer le reste des mots dans la structure	V
-//segfault random hello -n ca va | hello ca va | yo -n yes cest reussi | hello -n trop fort V
-//regarde comportement <<	V je pense
-//gerer $? V
-//gerer fd dans out/infile	+-
-//implementer export et unset	+-
-//gerer les free et les messages d'erreurs	+-
-//gere ctrl c dans <<
 
 int	check_sep(char **str, int len)
 {
@@ -87,63 +77,3 @@ int	*init_returned(void)
 	*i = 0;
 	return (i);
 }
-
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	char				*line;
-// 	char				**str;
-// 	int					i;
-// 	t_list				*cmd;
-// 	static int			ct_line;
-
-// 	(void)argc;
-// 	(void)argv;
-// 	cmd = NULL;
-// 	i = 0;
-// 	g_var = init_var(g_var);
-// 	if (!g_var)
-// 		return (1);
-// 	g_var->returned = init_returned();
-// 	if (!g_var->returned)
-// 	{
-// 		free(g_var);
-// 		return (1);
-// 	}
-// 	if (ft_export(envp, &i, len2(envp)) )
-// 	{
-// 		free_envp();
-// 		return (1);
-// 	}
-// 	while (1)
-// 	{
-// 		sig(1);
-// 		ct_line++;
-// 		cmd = init_lst(cmd, ct_line);
-// 		if (!cmd)
-// 		{
-// 			free_envp();
-// 			return (1);
-// 		}
-// 		line = readline("Minishell$ ");
-// 		if (!line)
-// 		{
-// 			write(1, "exit\n", 5);
-// 			free_envp();
-// 			free(cmd);
-// 			rl_clear_history();
-// 			return (0);//changer avant la fin
-// 			// exit(0);
-// 		}
-// 		add_history(line);
-// 		str = get_line(line);//si error malloc ne s'arrete pas
-// 		if (str)
-// 		{
-// 			i = put_in_struct(str, &cmd);
-// 			// if (!i)
-// 			// 	return (1);
-// 		}
-// 		else
-// 			free(cmd);
-// 	}
-// 	return (0);
-// }

@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 11:31:20 by lide              #+#    #+#             */
-/*   Updated: 2022/08/23 18:15:38 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/23 19:23:19 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	put_in_cmd(char **str, t_list **cmd, int len)
 	return (1);
 }
 
-void	print_cmd(t_list **cmd)
+/* void	print_cmd(t_list **cmd)
 {
 	int	i;
 
@@ -67,27 +67,7 @@ void	print_cmd(t_list **cmd)
 			printf("%s /", (*cmd)->arg[i]);
 	printf("%s / %s / %d / %d / %d\n", (*cmd)->link,
 		(*cmd)->tmp, (*cmd)->infile, (*cmd)->outfile, (*cmd)->pos);
-	//free_all(cmd, 0);
-}
-
-void	print_env(void)
-{
-	char	**str;
-	int		i;
-
-	i = -1;
-	while (g_var->before != NULL)
-		g_var = g_var->before;
-	while (g_var->next != NULL)
-	{
-		printf("name = %s| value = %s\n", g_var->name, g_var->value);
-		g_var = g_var->next;
-	}
-	printf("name = %s| value = %s\n", g_var->name, g_var->value);
-	str = g_var_to_char();
-	while (str[++i])
-		printf("%s\n", str[i]);
-}
+} */
 
 int	put_in_struct(char **str, t_list **cmd)
 {
@@ -106,7 +86,6 @@ int	put_in_struct(char **str, t_list **cmd)
 		return (0);
 	}
 	free(str);
-	print_cmd(cmd);
-	//print_env();
+	//print_cmd(cmd);
 	return (1);
 }
