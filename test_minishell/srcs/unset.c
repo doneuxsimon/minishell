@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 00:44:12 by lide              #+#    #+#             */
-/*   Updated: 2022/08/19 19:18:39 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/07/25 17:00:39 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
+
+//doit ajouter remove_quote
 
 void	remove_g_var(void)
 {
@@ -50,10 +52,7 @@ int	ft_unset(char **str, int *i, int len)
 				break ;
 			verif = check_g_var(str[*i]);
 			if (verif)
-			{
-				printf("removed\n");
 				remove_g_var();
-			}
 		}
 	}
 	return (0);

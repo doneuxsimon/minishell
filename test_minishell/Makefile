@@ -25,7 +25,13 @@ SRCS	=	srcs/parcing_line.c\
 			srcs/signal_handler.c\
 			srcs/utils_put_in_struct2.c\
 			srcs/ft_atoi.c\
-			srcs/ft_isdigit.c
+			srcs/ft_isdigit.c\
+			srcs/g_var_to_char.c\
+			srcs/parsing_utils_1.c\
+			srcs/parsing_utils_2.c\
+			srcs/execution_utils_1.c\
+			srcs/execution_utils_2.c\
+			srcs/execution_utils_3.c
 
 # SRCS	=	srcs/minishell_signal.c
 

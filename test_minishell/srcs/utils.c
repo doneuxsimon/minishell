@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 19:08:35 by lide              #+#    #+#             */
-/*   Updated: 2022/08/18 22:28:42 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/17 18:52:42 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,19 @@ int	len2(char **str)
 	return (i);
 }
 
-// int	ft_strncmp(char *s1, char *s2, int n)
-// {
-// 	int	i;
+int	ft_strncmp(char *s1, char *s2, int n)
+{
+	int	i;
 
-// 	i = 0;
-// 	while ((unsigned char)s1[i] == (unsigned char)s2[i]
-// 		&& s1[i] != '\0' && s2[i] != '\0' && i < n - 1)
-// 		i++;
-// 	if (n > 0)
-// 		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-// 	else
-// 		return (0);
-// }
+	i = 0;
+	while ((unsigned char)s1[i] == (unsigned char)s2[i]
+		&& s1[i] != '\0' && s2[i] != '\0' && i < n - 1)
+		i++;
+	if (n > 0)
+		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	else
+		return (0);
+}
 
 char	*ft_strdup(char *s1)
 {

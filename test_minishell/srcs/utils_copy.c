@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils_copy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 16:44:55 by marvin            #+#    #+#             */
-/*   Updated: 2022/08/22 16:45:30 by marvin           ###   ########.fr       */
+/*   Updated: 2022/08/23 18:13:33 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
 
-int	ft_strncmp(char *s1, char *s2, int n)
+int	ft_strncmp_2(char *s1, char *s2, int n)
 {
 	int	i;
 
@@ -36,7 +36,7 @@ size_t	ft_strlen(char *s)
 	return (i);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin_2(char *s1, char *s2)
 {
 	int		i;
 	int		j;

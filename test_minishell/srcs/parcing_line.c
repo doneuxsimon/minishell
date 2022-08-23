@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcing_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/08/22 16:48:11 by marvin           ###   ########.fr       */
+/*   Updated: 2022/08/23 17:32:36 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 //segfault random hello -n ca va | hello ca va | yo -n yes cest reussi | hello -n trop fort V
 //regarde comportement <<	V je pense
 //gerer $? V
-//gerer fd dans out/infile
+//gerer fd dans out/infile	+-
 //implementer export et unset	+-
 //gerer les free et les messages d'erreurs	+-
+//gere ctrl c dans <<
 
 int	check_sep(char **str, int len)
 {
@@ -37,6 +38,7 @@ int	check_sep(char **str, int len)
 	}
 	return (1);
 }
+
 char	**get_line(char *line)
 {
 	char	**str;
@@ -77,7 +79,7 @@ void	free_envp(void)
 	free(g_var);
 }
 
-int *init_returned(void)
+int	*init_returned(void)
 {
 	int	*i;
 
@@ -86,42 +88,62 @@ int *init_returned(void)
 	return (i);
 }
 
-int	check_g_var2(char *str, char *s)
-{
-	if (!g_var)
-	{
-		printf("jeff\n");
-		return(0);
-	}
-	while (g_var->before != NULL)
-		g_var = g_var->before;
-	while (g_var->next != NULL)
-	{
-		if (cmp_line(str, g_var->name) && ft_strncmp(g_var->value, s, 2) == 0)
-			return (1);
-		g_var = g_var->next;
-	}
-	if (cmp_line(str, g_var->name) && ft_strncmp(g_var->value, s, 2) == 0)
-		return (1);
-	return (0);
-}
-
-
-
-// int	main(void)//voué a disparaitre
+// int	main(int argc, char **argv, char **envp)
 // {
-// 	char	*line;
-// 	// char	*path;
-// 	// char	*tmp;
+// 	char				*line;
+// 	char				**str;
+// 	int					i;
+// 	t_list				*cmd;
+// 	static int			ct_line;
 
-// 	// path = getenv( "PATH" );
+// 	(void)argc;
+// 	(void)argv;
+// 	cmd = NULL;
+// 	i = 0;
+// 	g_var = init_var(g_var);
+// 	if (!g_var)
+// 		return (1);
+// 	g_var->returned = init_returned();
+// 	if (!g_var->returned)
+// 	{
+// 		free(g_var);
+// 		return (1);
+// 	}
+// 	if (ft_export(envp, &i, len2(envp)) )
+// 	{
+// 		free_envp();
+// 		return (1);
+// 	}
 // 	while (1)
 // 	{
-// 		line = readline("Minishell $> ");
+// 		sig(1);
+// 		ct_line++;
+// 		cmd = init_lst(cmd, ct_line);
+// 		if (!cmd)
+// 		{
+// 			free_envp();
+// 			return (1);
+// 		}
+// 		line = readline("Minishell$ ");
+// 		if (!line)
+// 		{
+// 			write(1, "exit\n", 5);
+// 			free_envp();
+// 			free(cmd);
+// 			rl_clear_history();
+// 			return (0);//changer avant la fin
+// 			// exit(0);
+// 		}
 // 		add_history(line);
-// 		get_line(line);
-// 		// tmp = get_cmd(path, line);
-// 		// printf("%s\n", tmp);
+// 		str = get_line(line);//si error malloc ne s'arrete pas
+// 		if (str)
+// 		{
+// 			i = put_in_struct(str, &cmd);
+// 			// if (!i)
+// 			// 	return (1);
+// 		}
+// 		else
+// 			free(cmd);
 // 	}
 // 	return (0);
 // }

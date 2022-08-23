@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/08/22 16:47:06 by marvin           ###   ########.fr       */
+/*   Updated: 2022/08/23 18:33:14 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,24 @@ typedef struct s_list
 	struct s_list	*before;
 }					t_list;
 
+typedef struct s_exec
+{
+	char	**cmd_path;
+	char	**envp;
+	char	*cmd;
+	char	**cmd_args;
+}			t_exec;
+
+typedef struct s_exec_pipe
+{
+	char	**cmd_path;
+	int		pid[4];
+	int		piped1[2];
+	int		piped2[2];
+	int		count;
+	char	**envp;
+}			t_exec_pipe;
+
 t_var	*g_var;
 
 char	*ft_strdup(char *s1);
@@ -108,8 +126,12 @@ void	print_cmd(t_list **cmd);
 int		free_infile(char **str, int *i);
 void	skip_sep_error(int ct, int sep);
 int		check_minus(char **str, int *i);
+char	**g_var_to_char(void);
+int		*init_returned(void);
+char	**get_line(char *line);
 
 int		ft_strncmp_end(char *s1, char *s2, int n);
+int		ft_strncmp_2(char *s1, char *s2, int n);
 void	ft_end(t_list **stack);
 void	ft_begin(t_list **stack);
 void	ft_end_var(t_var **stack);
@@ -117,13 +139,34 @@ void	ft_begin_var(t_var **stack);
 char	*find_path(char **envp);
 int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
+char	*ft_strjoin(char *s1, char *s2);
 //int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(char *s);
-char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strjoin_2(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
 char	*get_cmd(char *path, char *cmd);
 int		verify_builtins(t_list *list, char **envp, char **path);
 void	ft_start_exec(t_list *list, char *path, char **envp);
 char	*get_cmd2(char **cmd_paths, char *cmd);
+void	ft_exec_pipes(t_list *list, char **cmd_path, char **envp, int count);
+void	ft_fork_0(t_list *list, t_exec_pipe *exec);
+void	ft_fork_1(t_list *list, t_exec_pipe *exec);
+void	ft_fork_2(t_list *list, t_exec_pipe *exec);
+void	ft_fork_3(t_list *list, t_exec_pipe *exec);
+void	ft_close_wait(int *piped1, int *piped2, int *pid, int i);
+void	ft_exec(t_list *list, char **cmd_path, char **envp);
+void	ft_exec_nothing(t_list *list, t_exec *exec);
+int		ft_count_dup(t_list *list, int i);
+t_exec	*ft_init_exec(char **cmd_path, char **envp);
+void	ft_pwd(void);
+void	ft_echo(t_list *list);
+void	ft_env(int *i);
+void	ft_exit(void);
+int		ft_compare_n(t_list *list);
+void	ft_cd(t_list *list);
+int		ft_count_forks(t_list *list);
+void	ft_exec_arg_opt(t_list *list, t_exec *exec, int i);
+void	ft_exec_arg(t_list *list, t_exec *exec, int i);
+void	ft_exec_opt(t_list *list, t_exec *exec);
 
 #endif
