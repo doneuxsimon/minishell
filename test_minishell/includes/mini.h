@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/08/23 19:08:50 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/23 20:40:47 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ void	ft_start_exec(t_list *list, char *path, char **envp);
 char	*get_cmd2(char **cmd_paths, char *cmd);
 void	ft_exec_pipes(t_list *list, char **cmd_path, char **envp, int count);
 void	ft_fork_0(t_list *list, t_exec_pipe *exec);
-void	ft_fork_1(t_list *list, t_exec_pipe *exec);
+void	ft_fork_1(t_list **list, t_exec_pipe *exec);
 void	ft_fork_2(t_list *list, t_exec_pipe *exec);
 void	ft_fork_3(t_list *list, t_exec_pipe *exec);
 void	ft_close_wait(int *piped1, int *piped2, int *pid, int i);
@@ -168,5 +168,8 @@ int		ft_count_forks(t_list *list);
 void	ft_exec_arg_opt(t_list *list, t_exec *exec, int i);
 void	ft_exec_arg(t_list *list, t_exec *exec, int i);
 void	ft_exec_opt(t_list *list, t_exec *exec);
+int		ft_exit_pipe(void);
+int		ft_exit_fork(void);
+void	ft_freed(char **cmd_path);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/08/23 19:23:37 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/23 19:28:42 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	free_envp(void)
 		free(tmp->value);
 		free(tmp);
 	}
+	free(g_var->returned);
 	free(g_var->name);
 	free(g_var->value);
 	free(g_var);

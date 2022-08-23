@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 16:47:39 by marvin            #+#    #+#             */
-/*   Updated: 2022/08/23 19:22:11 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/23 20:40:26 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_start(char **str, t_list *cmd, char *path, char **envp)
 	int	j;
 
 	j = 0;
-	if (put_in_struct(str, &cmd))
+	if (!put_in_struct(str, &cmd))
 		return ;
 	if (cmd->ft && ft_strncmp_2(cmd->ft, "cd", 3) == 0 && !cmd->next)
 	{
@@ -61,15 +61,37 @@ void	ft_start(char **str, t_list *cmd, char *path, char **envp)
 	}
 	else
 		ft_start_exec(cmd, path, envp);
+	free_all(&cmd, 0);
+}
+
+char	**start_parsing(t_list **cmd)
+{
+	static int	ct_line;
+	char		*line;
+
+	sig(1);
+	ct_line++;
+	*cmd = init_lst(*cmd, ct_line);
+	if (!*cmd)
+		return (NULL);
+	line = readline("Minishell$ ");
+	if (!line)
+	{
+		write(1, "exit\n", 5);
+		free_envp();
+		free(*cmd);
+		rl_clear_history();
+		exit (0);
+	}
+	add_history(line);
+	return (get_line(line));
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	char				*line;
 	char				**str;
 	char				*path;
 	t_list				*cmd;
-	static int			ct_line;
 
 	if (argc > 1)
 	{
@@ -83,25 +105,7 @@ int	main(int argc, char **argv, char **envp)
 	path = getenv("PATH");
 	while (1)
 	{
-		sig(1);
-		ct_line++;
-		cmd = init_lst(cmd, ct_line);
-		if (!cmd)
-		{
-			free_envp();
-			return (1);
-		}
-		line = readline("Minishell$ ");
-		if (!line)
-		{
-			write(1, "exit\n", 5);
-			free_envp();
-			free(cmd);
-			rl_clear_history();
-			return (0);
-		}
-		add_history(line);
-		str = get_line(line);
+		str = start_parsing(&cmd);
 		if (str)
 			ft_start(str, cmd, path, envp);
 		else

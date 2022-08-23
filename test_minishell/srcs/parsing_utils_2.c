@@ -6,45 +6,43 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:27:47 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/23 18:31:53 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/23 20:41:46 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
 
-void	ft_print_code(t_list *list, int i)
+void	ft_print_code(t_list *list, int i, int *j)
 {
-	int	j;
-
-	j = 0;
-	while (list->arg[i][j])
+	while (list->arg[i][(*j)])
 	{
-		if (list->arg[i][j] == '$' && list->arg[i][j + 1]
-			&& list->arg[i][j + 1] == '?')
+		if (list->arg[i][(*j)] == '$' && list->arg[i][(*j) + 1]
+			&& list->arg[i][(*j) + 1] == '?')
 		{
 			printf("%d", g_var->returned[0]);
-			j += 2;
+			(*j) += 2;
 		}
 		else
 		{
-			printf("%c", list->arg[i][j]);
-			j++;
+			printf("%c", list->arg[i][(*j)]);
+			(*j)++;
 		}
 	}
 }
 
-int	ft_search_dollar(t_list *list, int i, int j)
+int	ft_search_dollar(t_list *list, int i, int *j)
 {
 	int	x;
 
 	x = 0;
-	if (list->arg[i][j] == '$' && list->arg[i][j + 1]
-		&& list->arg[i][j + 1] == '?')
+	if (list->arg[i][(*j)] == '$' && list->arg[i][(*j) + 1]
+		&& list->arg[i][(*j) + 1] == '?')
 	{
-		ft_print_code(list, i);
+		ft_print_code(list, i, j);
 		x = 1;
+		printf(" ");
 	}
-	j++;
+	(*j)++;
 	return (x);
 }
 
@@ -62,7 +60,7 @@ void	ft_echo(t_list *list)
 	{
 		j = 0;
 		while (list->arg[i][j])
-			x = ft_search_dollar(list, i, j);
+			x = ft_search_dollar(list, i, &j);
 		if (x == 0)
 		{
 			printf("%s", list->arg[i]);

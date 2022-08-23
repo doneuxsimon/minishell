@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:51:43 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/23 18:28:40 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/23 20:35:08 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,17 @@ int	ft_compare_n(t_list *list)
 			return (0);
 		i++;
 	}
+	return (1);
+}
+
+int	ft_exit_pipe(void)
+{
+	printf("pipe not executed\n");
+	return (1);
+}
+
+int	ft_exit_fork(void)
+{
+	printf("fork not executed\n");
 	return (1);
 }

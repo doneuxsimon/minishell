@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 18:34:54 by lide              #+#    #+#             */
-/*   Updated: 2022/08/17 16:28:50 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/23 20:42:41 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ void	handle_2(int sig)
 void	handle_4(int sig)
 {
 	if (sig == SIGINT)
+	{
 		exit(0);
+	}
 }
 
 void	sig(int i)

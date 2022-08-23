@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:21:56 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/23 18:23:27 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/23 20:03:25 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_exec(t_list *list, char **cmd_path, char **envp)
 		else if (list->opt && !list->arg)
 			ft_exec_opt(list, exec);
 	}
+	free(exec);
 }
 
 void	ft_close_wait(int *piped1, int *piped2, int *pid, int i)
@@ -58,14 +59,14 @@ void	ft_fork_0(t_list *list, t_exec_pipe *exec)
 {
 	exec->pid[0] = fork();
 	if (exec->pid[0] == -1)
-		printf("error child 1\n");
+		exit(ft_exit_fork());
 	if (!exec->pid[0])
 	{
 		sig(4);
 		if (list->infile)
 			dup2(list->infile, 0);
 		if (dup2(exec->piped1[1], 1) == -1)
-			dprintf(2, "jeff1\n");
+			exit(ft_exit_pipe());
 		close(exec->piped1[0]);
 		if (verify_builtins(list, exec->envp, exec->cmd_path) == 0)
 			ft_exec(list, exec->cmd_path, exec->envp);
@@ -74,27 +75,28 @@ void	ft_fork_0(t_list *list, t_exec_pipe *exec)
 	}
 }
 
-void	ft_fork_1(t_list *list, t_exec_pipe *exec)
+void	ft_fork_1(t_list **list, t_exec_pipe *exec)
 {
 	close(exec->piped2[0]);
 	close(exec->piped2[1]);
-	pipe(exec->piped2);
-	list = list->next;
+	if (pipe(exec->piped2) < 0)
+		exit(ft_exit_pipe());
+	(*list) = (*list)->next;
 	exec->pid[1] = fork();
 	if (exec->pid[1] == -1)
-		printf("error child 2\n");
+		exit(ft_exit_fork());
 	if (!exec->pid[1])
 	{
 		sig(4);
 		if (dup2(exec->piped1[0], 0) == -1)
-			dprintf(2, "jeff2\n");
+			exit(ft_exit_pipe());
 		if (dup2(exec->piped2[1], 1) == -1)
-			dprintf(2, "jeff22\n");
+			exit(ft_exit_pipe());
 		close(exec->piped1[1]);
 		close(exec->piped2[0]);
-		if (verify_builtins(list, exec->envp, exec->cmd_path) == 0)
-			ft_exec(list, exec->cmd_path, exec->envp);
-		else if (verify_builtins(list, exec->envp, exec->cmd_path) == 1)
+		if (verify_builtins((*list), exec->envp, exec->cmd_path) == 0)
+			ft_exec((*list), exec->cmd_path, exec->envp);
+		else if (verify_builtins((*list), exec->envp, exec->cmd_path) == 1)
 			exit(EXIT_SUCCESS);
 	}
 }
@@ -106,16 +108,16 @@ void	ft_fork_2(t_list *list, t_exec_pipe *exec)
 	pipe(exec->piped1);
 	exec->pid[2] = fork();
 	if (exec->pid[2] == -1)
-		printf("error child 2\n");
+		exit(ft_exit_fork());
 	if (!exec->pid[2])
 	{
 		sig(4);
 		if (dup2(exec->piped2[0], 0) == -1)
-			dprintf(2, "jeff3\n");
+			exit(ft_exit_pipe());
 		if (exec->count > 1)
 		{
 			if (dup2(exec->piped1[1], 1) == -1)
-				dprintf(2, "jeff3\n");
+				exit(ft_exit_pipe());
 		}
 		close(exec->piped1[0]);
 		close(exec->piped2[1]);

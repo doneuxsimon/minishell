@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   places.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 17:01:03 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/22 16:46:46 by marvin           ###   ########.fr       */
+/*   Updated: 2022/08/23 20:36:52 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,17 @@ void	ft_begin_var(t_var **stack)
 			(*stack) = (*stack)->before;
 		}
 	}
+}
+
+void	ft_freed(char **cmd_path)
+{
+	int	i;
+
+	i = 0;
+	while (cmd_path[i])
+	{
+		free(cmd_path[i]);
+		i++;
+	}
+	free(cmd_path);
 }
