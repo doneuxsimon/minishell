@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:19:52 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/23 20:37:21 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/24 16:33:36 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,28 @@ void	ft_exec_pipes(t_list *list, char **cmd_path, char **envp, int count)
 	free(exec);
 }
 
-void	ft_start_exec_2(char **envp, char **cmd_path, t_list *list)
+void	ft_start_exec_2(char **envp, char **cmd_path, t_list *list, int pid)
 {
 	int	j;
+	int	status;
 
-	sig(4);
-	j = verify_builtins(list, envp, cmd_path);
-	if (j == 0)
-		ft_exec(list, cmd_path, envp);
-	else if (j == 1)
-		exit(EXIT_SUCCESS);
+	pid = fork();
+	if (pid < 0)
+		exit(ft_exit_fork());
+	if (!pid)
+	{
+		j = verify_builtins(list, envp, cmd_path);
+		if (j == 0)
+			ft_exec(list, cmd_path, envp);
+		else if (j == 1)
+			exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		sig(4);
+		waitpid(pid, &status, 0);
+	}
+	g_var->returned[0] = WEXITSTATUS(status);
 }
 
 void	ft_start_exec(t_list *list, char *path, char **envp)
@@ -95,8 +107,8 @@ void	ft_start_exec(t_list *list, char *path, char **envp)
 	char	**cmd_path;
 	int		count;
 	int		pid;
-	int		status;
 
+	pid = 0;
 	if (list->ft == NULL)
 		return ;
 	count = ft_count_forks(list);
@@ -104,14 +116,7 @@ void	ft_start_exec(t_list *list, char *path, char **envp)
 	ft_begin(&list);
 	if (count == 1)
 	{
-		sig(3);
-		pid = fork();
-		if (pid < 0)
-			exit(ft_exit_fork());
-		if (!pid)
-			ft_start_exec_2(envp, cmd_path, list);
-		waitpid(pid, &status, 0);
-		g_var->returned[0] = WEXITSTATUS(status);
+		ft_start_exec_2(envp, cmd_path, list, pid);
 	}
 	else if (count > 1)
 		ft_exec_pipes(list, cmd_path, envp, count);
