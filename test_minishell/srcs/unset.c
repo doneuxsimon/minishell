@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 00:44:12 by lide              #+#    #+#             */
-/*   Updated: 2022/07/25 17:00:39 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/25 16:08:03 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_unset(char **str, int *i, int len)
 {
 	int		verif;
 
-	while (++(*i) < len)
+	while ((*i) < len)
 	{
 		if (str[*i])
 		{
@@ -54,6 +54,7 @@ int	ft_unset(char **str, int *i, int len)
 			if (verif)
 				remove_g_var();
 		}
+		(*i)++;
 	}
 	return (0);
 }

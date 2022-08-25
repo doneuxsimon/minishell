@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 16:47:39 by marvin            #+#    #+#             */
-/*   Updated: 2022/08/23 20:40:26 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/25 16:08:53 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	ft_start(char **str, t_list *cmd, char *path, char **envp)
 		else
 			chdir(getenv("HOME"));
 	}
+	else if (cmd->ft && ft_strncmp_2(cmd->ft, "exit", 5) == 0 && !cmd->next)
+		ft_exit(cmd);
 	else if (cmd->ft && ft_strncmp_2(cmd->ft, "export", 7) == 0 && !cmd->next)
 	{
 		ft_export(cmd->arg, &j, len2(cmd->arg));
@@ -87,6 +89,22 @@ char	**start_parsing(t_list **cmd)
 	return (get_line(line));
 }
 
+char	*ft_get_path(void)
+{
+	ft_begin_var(&g_var);
+	while (g_var->next)
+	{
+		if (ft_strncmp_2("PATH", g_var->name, 5) == 0)
+			return (g_var->value);
+		else
+			g_var = g_var->next;
+	}
+	if (ft_strncmp_2("PATH", g_var->name, 5) == 0)
+		return (g_var->value);
+	else
+		return (NULL);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char				**str;
@@ -102,7 +120,7 @@ int	main(int argc, char **argv, char **envp)
 	cmd = NULL;
 	if (init_global(envp))
 		return (1);
-	path = getenv("PATH");
+	path = ft_get_path();
 	while (1)
 	{
 		str = start_parsing(&cmd);

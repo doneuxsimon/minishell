@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:27:47 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/23 20:41:46 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/25 15:51:51 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ void	ft_echo(t_list *list)
 
 	i = 0;
 	x = 0;
-	n = ft_compare_n(list);
+	n = ft_compare_n2(list);
 	while (list->arg[i])
 	{
+		if (n)
+			i = ft_skip_n(list, i, n);
 		j = 0;
 		while (list->arg[i][j])
 			x = ft_search_dollar(list, i, &j);

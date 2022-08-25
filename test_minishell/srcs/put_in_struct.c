@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 11:31:20 by lide              #+#    #+#             */
-/*   Updated: 2022/08/24 16:33:00 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/25 16:08:58 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	put_in_cmd(char **str, t_list **cmd, int len)
 	return (1);
 }
 
-/* void	print_cmd(t_list **cmd)
+ void	print_cmd(t_list **cmd)
 {
 	int	i;
 
@@ -67,7 +67,7 @@ int	put_in_cmd(char **str, t_list **cmd, int len)
 			printf("%s /", (*cmd)->arg[i]);
 	printf("%s / %s / %d / %d / %d\n", (*cmd)->link,
 		(*cmd)->tmp, (*cmd)->infile, (*cmd)->outfile, (*cmd)->pos);
-} */
+} 
 
 int	put_in_struct(char **str, t_list **cmd)
 {

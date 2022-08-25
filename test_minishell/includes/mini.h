@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/08/24 16:20:45 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/25 16:03:05 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,8 +161,8 @@ t_exec	*ft_init_exec(char **cmd_path, char **envp);
 void	ft_pwd(void);
 void	ft_echo(t_list *list);
 void	ft_env(int *i);
-void	ft_exit(void);
-int		ft_compare_n(t_list *list);
+void	ft_exit(t_list *cmd);
+int		ft_compare_n(char *opt);
 void	ft_cd(t_list *list);
 int		ft_count_forks(t_list *list);
 void	ft_exec_arg_opt(t_list *list, t_exec *exec, int i);
@@ -171,5 +171,7 @@ void	ft_exec_opt(t_list *list, t_exec *exec);
 int		ft_exit_pipe(void);
 int		ft_exit_fork(void);
 void	ft_freed(char **cmd_path);
+int		ft_skip_n(t_list *list, int i, int n);
+int		ft_compare_n2(t_list *list);
 
 #endif

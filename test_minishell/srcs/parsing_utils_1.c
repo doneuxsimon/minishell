@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:25:57 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/23 18:26:49 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/25 16:02:36 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	verify_builtins_2(t_list *list, int i, int j)
 		ft_env(&i);
 	if (ft_strncmp_2(list->ft, "exit", 5) == 0)
 	{
-		ft_exit();
 		i = 1;
 	}
 	if (ft_strncmp_2(list->ft, "export", 6) == 0)

@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:51:43 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/23 20:35:08 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/25 16:09:29 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,25 @@ void	ft_env(int *i)
 	}
 }
 
-void	ft_exit(void)
+void	ft_exit(t_list *cmd)
 {
-	printf("\nexit\n");
+	free(cmd);
+	printf("exit\n");
 	exit(EXIT_SUCCESS);
 }
 
-int	ft_compare_n(t_list *list)
+int	ft_compare_n(char *opt)
 {
 	int	i;
 
 	i = 1;
-	if (!list->opt)
+	if (!opt)
 		return (0);
-	if (list->opt[0] != '-')
+	if (opt[0] != '-')
 		return (0);
-	while (list->opt[i])
+	while (opt[i])
 	{
-		if (list->opt[i] != 'n')
+		if (opt[i] != 'n')
 			return (0);
 		i++;
 	}
