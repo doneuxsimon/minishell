@@ -40,7 +40,7 @@ NAME	=	minishell.a
 EXEC	=	minishell
 OBJS	=	${SRCS:.c=.o}
 CC		=	@gcc
-CFLAGS = -I/Users/$(USER)/.brew/opt/readline/include
+CFLAGS = -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include
 
 ${NAME}:	${OBJS}
 			@ar -rc ${NAME} ${OBJS}
