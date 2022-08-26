@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/08/25 16:03:05 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/26 15:49:54 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	*free_split(char **str, int max);
 char	*free_env(char *str, char *ret, char *env);
 char	**check_dol(char **str, int len);
 int		len1(char *str);
-int		ft_export(char **str, int *i, int len);
+int		ft_export(char **str, int i, int len);
 int		len2(char **str);
 int		put_in_struct(char **str, t_list **cmd);
 int		redirection(char **str, t_list **cmd, int len);
@@ -103,7 +103,7 @@ int		cmp_line(char *str, char *line);
 char	*find_name(t_list **cmd);
 void	remove_g_var(void);
 int		remove_quote(char **str, int i);
-int		ft_unset(char **str, int *i, int len);
+int		ft_unset(char **str, int i, int len);
 int		check_g_var(char *str);
 void	free_envp(void);
 char	*free_char(char *str, char *print);

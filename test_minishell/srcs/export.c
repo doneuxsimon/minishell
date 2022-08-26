@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 13:36:37 by lide              #+#    #+#             */
-/*   Updated: 2022/08/23 17:49:10 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/26 15:47:29 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,28 +91,28 @@ int	put_in_g(char **str, int i, int j)
 	return (put_g_name(tmp, verif));
 }
 
-int	ft_export(char **str, int *i, int len)
+int	ft_export(char **str, int i, int len)
 {
 	int	j;
 	int	verif;
 
-	while (*i < len)
+	while (i < len)
 	{
-		if (str[*i])
+		if (str[i])
 		{
-			if (str[*i][0] == '|' || str[*i][0] == '&')
+			if (str[i][0] == '|' || str[i][0] == '&')
 				break ;
 			j = 0;
-			while (str[*i][j] && str[*i][j] != '=')
+			while (str[i][j] && str[i][j] != '=')
 				j++;
-			if (str[*i][j])
+			if (str[i][j])
 			{
-				verif = put_in_g(str, *i, j);
+				verif = put_in_g(str, i, j);
 				if (!verif)
 					return ((print_perror("export") + 1));
 			}
 		}
-		(*i)++;
+		i++;
 	}
 	return (0);
 }

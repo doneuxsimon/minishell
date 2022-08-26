@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 16:47:39 by marvin            #+#    #+#             */
-/*   Updated: 2022/08/25 16:08:53 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/26 15:42:24 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	init_global(char **envp)
 		perror("init_returned");
 		return (1);
 	}
-	i = ft_export(envp, &i, len2(envp));
+	i = ft_export(envp, 0, len2(envp));
 	if (i)
 	{
 		free_envp();
@@ -37,9 +37,6 @@ int	init_global(char **envp)
 
 void	ft_start(char **str, t_list *cmd, char *path, char **envp)
 {
-	int	j;
-
-	j = 0;
 	if (!put_in_struct(str, &cmd))
 		return ;
 	if (cmd->ft && ft_strncmp_2(cmd->ft, "cd", 3) == 0 && !cmd->next)
@@ -52,15 +49,9 @@ void	ft_start(char **str, t_list *cmd, char *path, char **envp)
 	else if (cmd->ft && ft_strncmp_2(cmd->ft, "exit", 5) == 0 && !cmd->next)
 		ft_exit(cmd);
 	else if (cmd->ft && ft_strncmp_2(cmd->ft, "export", 7) == 0 && !cmd->next)
-	{
-		ft_export(cmd->arg, &j, len2(cmd->arg));
-		j = 0;
-	}
+		ft_export(cmd->arg, 0, len2(cmd->arg));
 	else if (cmd->ft && ft_strncmp_2(cmd->ft, "unset", 6) == 0 && !cmd->next)
-	{
-		ft_unset(cmd->arg, &j, len2(cmd->arg));
-		j = 0;
-	}
+		ft_unset(cmd->arg, 0, len2(cmd->arg));
 	else
 		ft_start_exec(cmd, path, envp);
 	free_all(&cmd, 0);

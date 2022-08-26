@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:25:57 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/25 16:02:36 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/26 15:57:30 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_minishell(char **path, char **envp)
 		waitpid(pid, NULL, 0);
 }
 
-int	verify_builtins_2(t_list *list, int i, int j)
+int	verify_builtins_2(t_list *list, int i)
 {
 	if (ft_strncmp_2(list->ft, "env", 4) == 0)
 		ft_env(&i);
@@ -61,12 +61,12 @@ int	verify_builtins_2(t_list *list, int i, int j)
 	}
 	if (ft_strncmp_2(list->ft, "export", 6) == 0)
 	{
-		ft_export(list->arg, &j, len2(list->arg));
+		ft_export(list->arg, 0, len2(list->arg));
 		i = 1;
 	}
 	if (ft_strncmp_2(list->ft, "unset", 6) == 0)
 	{
-		ft_unset(list->arg, &j, len2(list->arg));
+		ft_unset(list->arg, 0, len2(list->arg));
 		i = 1;
 	}
 	if (ft_strncmp_2(list->ft, "pwd", 4) == 0)
@@ -80,9 +80,7 @@ int	verify_builtins_2(t_list *list, int i, int j)
 int	verify_builtins(t_list *list, char **envp, char **path)
 {
 	int	i;
-	int	j;
 
-	j = 0;
 	i = 0;
 	if (ft_strncmp_2(list->ft, "echo", 5) == 0)
 	{
@@ -99,7 +97,7 @@ int	verify_builtins(t_list *list, char **envp, char **path)
 		ft_minishell(path, envp);
 		i = 1;
 	}
-	i = verify_builtins_2(list, i, j);
+	i = verify_builtins_2(list, i);
 	return (i);
 }
 
