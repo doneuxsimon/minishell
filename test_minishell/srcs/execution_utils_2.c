@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:21:56 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/23 20:03:25 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/29 16:35:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_fork_0(t_list *list, t_exec_pipe *exec)
 		sig(4);
 		if (list->infile)
 			dup2(list->infile, 0);
-		if (dup2(exec->piped1[1], 1) == -1)
+		if (dup1(list, exec->piped1[1]) == -1)
 			exit(ft_exit_pipe());
 		close(exec->piped1[0]);
 		if (verify_builtins(list, exec->envp, exec->cmd_path) == 0)
@@ -88,9 +88,9 @@ void	ft_fork_1(t_list **list, t_exec_pipe *exec)
 	if (!exec->pid[1])
 	{
 		sig(4);
-		if (dup2(exec->piped1[0], 0) == -1)
+		if (dup0(*list, exec->piped1[0]) == -1)
 			exit(ft_exit_pipe());
-		if (dup2(exec->piped2[1], 1) == -1)
+		if (dup1(*list, exec->piped2[1]) == -1)
 			exit(ft_exit_pipe());
 		close(exec->piped1[1]);
 		close(exec->piped2[0]);
@@ -112,11 +112,11 @@ void	ft_fork_2(t_list *list, t_exec_pipe *exec)
 	if (!exec->pid[2])
 	{
 		sig(4);
-		if (dup2(exec->piped2[0], 0) == -1)
+		if (dup0(list, exec->piped2[0]) == -1)
 			exit(ft_exit_pipe());
 		if (exec->count > 1)
 		{
-			if (dup2(exec->piped1[1], 1) == -1)
+			if (dup1(list, exec->piped1[1]) == -1)
 				exit(ft_exit_pipe());
 		}
 		close(exec->piped1[0]);

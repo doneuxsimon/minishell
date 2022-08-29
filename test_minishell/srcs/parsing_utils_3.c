@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:51:03 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/25 15:51:31 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/29 16:32:45 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,34 @@ int	ft_skip_n(t_list *list, int i, int n)
 		i++;
 	}
 	return (i);
+}
+
+int	dup0(t_list *list, int piped)
+{
+	if (list->infile)
+	{
+		if (dup2(list->infile, 0) == -1)
+			return (-1);
+	}
+	else
+	{
+		if (dup2(piped, 0) == -1)
+			return (-1);
+	}
+	return (0);
+}
+
+int	dup1(t_list *list, int piped)
+{
+	if (list->infile)
+	{
+		if (dup2(list->outfile, 1) == -1)
+			return (-1);
+	}
+	else
+	{
+		if (dup2(piped, 1) == -1)
+			return (-1);
+	}
+	return (0);
 }

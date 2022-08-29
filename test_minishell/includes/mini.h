@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/08/26 15:49:54 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/29 16:33:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,5 +173,7 @@ int		ft_exit_fork(void);
 void	ft_freed(char **cmd_path);
 int		ft_skip_n(t_list *list, int i, int n);
 int		ft_compare_n2(t_list *list);
+int		dup0(t_list *list, int piped);
+int		dup1(t_list *list, int piped);
 
 #endif
