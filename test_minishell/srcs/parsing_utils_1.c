@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:25:57 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/26 15:57:30 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/30 19:42:29 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,26 @@ void	ft_modify_env(void)
 
 void	ft_minishell(char **path, char **envp)
 {
-	int		pid;
+	//int		pid;
 	char	**cmd_args;
 	char	*cmd;
 
-	printf("jeff\n");
 	cmd_args = malloc(sizeof(char *));
 	cmd_args[0] = NULL;
 	cmd = get_cmd2(path, "open");
-	pid = fork();
-	if (!pid)
-	{
+	sig(3);
+	// pid = fork();
+	// if (!pid)
+	// {
 		ft_modify_env();
 		envp = g_var_to_char();
 		execve("./minishell", cmd_args, envp);
-	}
-	else
-		waitpid(pid, NULL, 0);
+	// }
+	// else
+	// {
+	// 	sig(3);
+	// 	waitpid(pid, NULL, 0);
+	// }
 }
 
 int	verify_builtins_2(t_list *list, int i)
@@ -92,7 +95,8 @@ int	verify_builtins(t_list *list, char **envp, char **path)
 		ft_cd(list);
 		i = 1;
 	}
-	if (ft_strncmp_2(list->ft, "./minishell", 12) == 0)
+	if (ft_strncmp_2(list->ft, "./minishell", 12) == 0
+		&& !list->next && !list->before)
 	{
 		ft_minishell(path, envp);
 		i = 1;

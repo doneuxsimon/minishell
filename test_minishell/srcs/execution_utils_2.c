@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:21:56 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/30 18:41:54 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/30 19:26:43 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_fork_0(t_list *list, t_exec_pipe *exec)
 		close(exec->piped1[0]);
 		if (verify_builtins(list, exec->envp, exec->cmd_path) == 0)
 			ft_exec(list, exec->cmd_path, exec->envp);
-		else if (verify_builtins(list, exec->envp, exec->cmd_path) == 1)
+		else
 			exit(EXIT_SUCCESS);
 	}
 	else
@@ -97,7 +97,7 @@ void	ft_fork_1(t_list **list, t_exec_pipe *exec)
 		close(exec->piped2[0]);
 		if (verify_builtins((*list), exec->envp, exec->cmd_path) == 0)
 			ft_exec((*list), exec->cmd_path, exec->envp);
-		else if (verify_builtins((*list), exec->envp, exec->cmd_path) == 1)
+		else
 			exit(EXIT_SUCCESS);
 	}
 	else
@@ -126,7 +126,7 @@ void	ft_fork_2(t_list *list, t_exec_pipe *exec)
 			close(exec->piped1[1]);
 		if (verify_builtins(list, exec->envp, exec->cmd_path) == 0)
 			ft_exec(list, exec->cmd_path, exec->envp);
-		else if (verify_builtins(list, exec->envp, exec->cmd_path) == 1)
+		else
 			exit(EXIT_SUCCESS);
 	}
 	else
