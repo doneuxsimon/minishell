@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:19:52 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/30 17:59:30 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/30 18:41:41 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_fork_3(t_list *list, t_exec_pipe *exec)
 		exit(ft_exit_fork());
 	if (!exec->pid[3])
 	{
-		sig(1);
+		sig(5);
 		if (list->outfile)
 			dup2(list->outfile, 1);
 		if (dup0(list, exec->piped1[0]) == -1)
@@ -90,6 +90,7 @@ void	ft_start_exec_2(char **envp, char **cmd_path, t_list *list, int pid)
 		ft_exit_fork();
 	if (!pid)
 	{
+		sig(5);
 		check_in_outfile(list);
 		j = verify_builtins(list, envp, cmd_path);
 		if (j == 0)
@@ -102,7 +103,7 @@ void	ft_start_exec_2(char **envp, char **cmd_path, t_list *list, int pid)
 		ft_cat_return();
 		waitpid(pid, &status, 0);
 	}
-	if (!(g_var->returned[0] == 130))
+	if (!(g_var->returned[0] == 130) && !(g_var->returned[0] == 131))
 		g_var->returned[0] = WEXITSTATUS(status);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 19:08:35 by lide              #+#    #+#             */
-/*   Updated: 2022/08/17 18:52:42 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/30 18:05:24 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,11 @@ char	*ft_strdup(char *s1)
 	}
 	s2[i] = 0;
 	return (s2);
+}
+
+void	ft_close_pipe(t_exec_pipe *exec)
+{
+	close(exec->piped1[0]);
+	close(exec->piped1[1]);
+	pipe(exec->piped1);
 }

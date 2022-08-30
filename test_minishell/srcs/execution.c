@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 16:53:14 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/23 18:24:18 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/30 18:55:12 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,23 @@ char	*get_cmd2(char **cmd_paths, char *cmd)
 	char	*tmp;
 	char	*command;
 
-	while (*cmd_paths)
+	if (cmd[0] != '/')
 	{
-		tmp = ft_strjoin_2(*cmd_paths, "/");
-		command = ft_strjoin_2(tmp, cmd);
-		free(tmp);
-		if (access(command, 0) == 0)
-			return (command);
-		free(command);
-		cmd_paths++;
+		while (*cmd_paths)
+		{
+			tmp = ft_strjoin_2(*cmd_paths, "/");
+			command = ft_strjoin_2(tmp, cmd);
+			free(tmp);
+			if (access(command, 0) == 0)
+				return (command);
+			free(command);
+			cmd_paths++;
+		}
+	}
+	else
+	{
+		if (access(cmd, 0) == 0)
+			return (cmd);
 	}
 	return (NULL);
 }

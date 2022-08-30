@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/08/30 17:56:33 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/30 18:05:39 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct s_list
 	char			*tmp;
 	int				infile;
 	int				outfile;
-	int				piped[2];
 	int				pos;
 	int				ct_line;
 	struct s_list	*next;
@@ -177,5 +176,6 @@ int		dup0(t_list *list, int piped);
 int		dup1(t_list *list, int piped);
 void	check_in_outfile(t_list *list);
 void	ft_cat_return(void);
+void	ft_close_pipe(t_exec_pipe *exec);
 
 #endif

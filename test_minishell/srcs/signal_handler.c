@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 18:34:54 by lide              #+#    #+#             */
-/*   Updated: 2022/08/30 17:55:32 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/30 18:43:39 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,26 @@ void	handle_4(int sig)
 		printf("\n");
 		g_var->returned[0] = 130;
 	}
+	if (sig == SIGQUIT)
+	{
+		printf("Quit : 3\n");
+		g_var->returned[0] = 131;
+	}
+}
+
+void	handle_5(int sig)
+{
+	if (sig == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	if (sig == SIGQUIT)
+	{
+		exit(0);
+	}
 }
 
 void	sig(int i)
@@ -48,25 +68,25 @@ void	sig(int i)
 	struct sigaction	sa1;
 	struct sigaction	sa2;
 
+	sa2.sa_handler = SIG_IGN;
+	sa2.sa_flags = SA_SIGINFO;
+	sa1.sa_flags = SA_SIGINFO;
 	if (i == 1)
-	{
 		sa1.sa_handler = &handle_1;
-		sa1.sa_flags = SA_SIGINFO;
-	}
 	if (i == 2)
-	{
 		sa1.sa_handler = &handle_2;
-		sa1.sa_flags = SA_SIGINFO;
-	}
 	if (i == 3)
 		sa1.sa_handler = SIG_IGN;
 	if (i == 4)
 	{
 		sa1.sa_handler = &handle_4;
-		sa1.sa_flags = SA_SIGINFO;
+		sa2.sa_handler = &handle_4;
 	}
-	sa2.sa_handler = SIG_IGN;
-	sa2.sa_flags = SA_SIGINFO;
+	if (i == 5)
+	{
+		sa1.sa_handler = &handle_5;
+		sa2.sa_handler = &handle_5;
+	}
 	sigaction(SIGINT, &sa1, NULL);
 	sigaction(SIGQUIT, &sa2, NULL);
 }

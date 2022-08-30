@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:21:56 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/30 17:57:16 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/30 18:41:54 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_close_wait(int *piped1, int *piped2, int *pid, int i)
 	}
 	if ((i - 1) % 2 == 1)
 		waitpid(pid[3], &status, 0);
-	if (!(g_var->returned[0] == 130))
+	if (!(g_var->returned[0] == 130) && !(g_var->returned[0] == 131))
 		g_var->returned[0] = WEXITSTATUS(status);
 }
 
@@ -61,7 +61,7 @@ void	ft_fork_0(t_list *list, t_exec_pipe *exec)
 		exit(ft_exit_fork());
 	if (!exec->pid[0])
 	{
-		sig(1);
+		sig(5);
 		if (list->infile)
 			dup2(list->infile, 0);
 		if (dup1(list, exec->piped1[1]) == -1)
@@ -88,7 +88,7 @@ void	ft_fork_1(t_list **list, t_exec_pipe *exec)
 		ft_exit_fork();
 	if (!exec->pid[1])
 	{
-		sig(1);
+		sig(5);
 		if (dup0(*list, exec->piped1[0]) == -1)
 			exit(ft_exit_pipe());
 		if (dup1(*list, exec->piped2[1]) == -1)
@@ -106,15 +106,13 @@ void	ft_fork_1(t_list **list, t_exec_pipe *exec)
 
 void	ft_fork_2(t_list *list, t_exec_pipe *exec)
 {
-	close(exec->piped1[0]);
-	close(exec->piped1[1]);
-	pipe(exec->piped1);
+	ft_close_pipe(exec);
 	exec->pid[2] = fork();
 	if (exec->pid[2] == -1)
 		exit(ft_exit_fork());
 	if (!exec->pid[2])
 	{
-		sig(1);
+		sig(5);
 		if (dup0(list, exec->piped2[0]) == -1)
 			exit(ft_exit_pipe());
 		if (exec->count > 1)
