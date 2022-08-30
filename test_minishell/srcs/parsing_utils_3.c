@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:51:03 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/29 16:32:45 by marvin           ###   ########.fr       */
+/*   Updated: 2022/08/30 16:43:30 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	dup0(t_list *list, int piped)
 
 int	dup1(t_list *list, int piped)
 {
-	if (list->infile)
+	if (list->outfile)
 	{
 		if (dup2(list->outfile, 1) == -1)
 			return (-1);

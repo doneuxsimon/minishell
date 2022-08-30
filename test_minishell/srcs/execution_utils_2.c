@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:21:56 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/29 16:35:48 by marvin           ###   ########.fr       */
+/*   Updated: 2022/08/30 17:57:16 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ void	ft_exec(t_list *list, char **cmd_path, char **envp)
 
 	i = 0;
 	exec = ft_init_exec(cmd_path, envp);
-	if (!list->arg && !list->outfile && !list->infile && !list->opt)
-	{
+	if (!list->arg && !list->opt)
 		ft_exec_nothing(list, exec);
-	}
 	else
 	{
 		i = ft_count_dup(list, i);
@@ -52,7 +50,8 @@ void	ft_close_wait(int *piped1, int *piped2, int *pid, int i)
 	}
 	if ((i - 1) % 2 == 1)
 		waitpid(pid[3], &status, 0);
-	g_var->returned[0] = WEXITSTATUS(status);
+	if (!(g_var->returned[0] == 130))
+		g_var->returned[0] = WEXITSTATUS(status);
 }
 
 void	ft_fork_0(t_list *list, t_exec_pipe *exec)
@@ -62,7 +61,7 @@ void	ft_fork_0(t_list *list, t_exec_pipe *exec)
 		exit(ft_exit_fork());
 	if (!exec->pid[0])
 	{
-		sig(4);
+		sig(1);
 		if (list->infile)
 			dup2(list->infile, 0);
 		if (dup1(list, exec->piped1[1]) == -1)
@@ -73,6 +72,8 @@ void	ft_fork_0(t_list *list, t_exec_pipe *exec)
 		else if (verify_builtins(list, exec->envp, exec->cmd_path) == 1)
 			exit(EXIT_SUCCESS);
 	}
+	else
+		ft_cat_return();
 }
 
 void	ft_fork_1(t_list **list, t_exec_pipe *exec)
@@ -80,14 +81,14 @@ void	ft_fork_1(t_list **list, t_exec_pipe *exec)
 	close(exec->piped2[0]);
 	close(exec->piped2[1]);
 	if (pipe(exec->piped2) < 0)
-		exit(ft_exit_pipe());
+		ft_exit_pipe();
 	(*list) = (*list)->next;
 	exec->pid[1] = fork();
 	if (exec->pid[1] == -1)
-		exit(ft_exit_fork());
+		ft_exit_fork();
 	if (!exec->pid[1])
 	{
-		sig(4);
+		sig(1);
 		if (dup0(*list, exec->piped1[0]) == -1)
 			exit(ft_exit_pipe());
 		if (dup1(*list, exec->piped2[1]) == -1)
@@ -99,6 +100,8 @@ void	ft_fork_1(t_list **list, t_exec_pipe *exec)
 		else if (verify_builtins((*list), exec->envp, exec->cmd_path) == 1)
 			exit(EXIT_SUCCESS);
 	}
+	else
+		ft_cat_return();
 }
 
 void	ft_fork_2(t_list *list, t_exec_pipe *exec)
@@ -111,7 +114,7 @@ void	ft_fork_2(t_list *list, t_exec_pipe *exec)
 		exit(ft_exit_fork());
 	if (!exec->pid[2])
 	{
-		sig(4);
+		sig(1);
 		if (dup0(list, exec->piped2[0]) == -1)
 			exit(ft_exit_pipe());
 		if (exec->count > 1)
@@ -128,4 +131,6 @@ void	ft_fork_2(t_list *list, t_exec_pipe *exec)
 		else if (verify_builtins(list, exec->envp, exec->cmd_path) == 1)
 			exit(EXIT_SUCCESS);
 	}
+	else
+		ft_cat_return();
 }

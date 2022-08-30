@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:23:47 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/23 18:24:26 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/30 17:56:55 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,6 @@ int	ft_count_dup(t_list *list, int i)
 		while (list->arg[i])
 			i++;
 	}
-	if (list->infile)
-	{
-		if (list->infile < 0)
-		{
-			perror("INFILE");
-			exit(EXIT_SUCCESS);
-		}
-		dup2(list->infile, 0);
-	}
-	if (list->outfile)
-	{
-		if (list->outfile < 0)
-		{
-			perror("OUTFILE");
-			exit(EXIT_SUCCESS);
-		}
-		dup2(list->outfile, 1);
-	}
 	return (i);
 }
 
@@ -65,4 +47,18 @@ t_exec	*ft_init_exec(char **cmd_path, char **envp)
 	exec->cmd_path = cmd_path;
 	exec->envp = envp;
 	return (exec);
+}
+
+void	check_in_outfile(t_list *list)
+{
+	if (list->infile)
+		dup0(list, 0);
+	if (list->outfile)
+		dup1(list, 0);
+}
+
+void	ft_cat_return(void)
+{
+	g_var->returned[0] = 0;
+	sig(4);
 }

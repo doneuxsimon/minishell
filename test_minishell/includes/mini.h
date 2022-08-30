@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/08/29 16:33:03 by marvin           ###   ########.fr       */
+/*   Updated: 2022/08/30 17:56:33 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,5 +175,7 @@ int		ft_skip_n(t_list *list, int i, int n);
 int		ft_compare_n2(t_list *list);
 int		dup0(t_list *list, int piped);
 int		dup1(t_list *list, int piped);
+void	check_in_outfile(t_list *list);
+void	ft_cat_return(void);
 
 #endif

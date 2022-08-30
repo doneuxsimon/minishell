@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 18:34:54 by lide              #+#    #+#             */
-/*   Updated: 2022/08/24 18:39:45 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/30 17:55:32 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	handle_4(int sig)
 	if (sig == SIGINT)
 	{
 		printf("\n");
+		g_var->returned[0] = 130;
 	}
 }
 

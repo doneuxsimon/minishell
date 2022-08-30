@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils_1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:19:52 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/29 16:37:02 by marvin           ###   ########.fr       */
+/*   Updated: 2022/08/30 17:59:30 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_fork_3(t_list *list, t_exec_pipe *exec)
 		exit(ft_exit_fork());
 	if (!exec->pid[3])
 	{
-		sig(4);
+		sig(1);
 		if (list->outfile)
 			dup2(list->outfile, 1);
 		if (dup0(list, exec->piped1[0]) == -1)
@@ -32,6 +32,8 @@ void	ft_fork_3(t_list *list, t_exec_pipe *exec)
 		else if (verify_builtins(list, exec->envp, exec->cmd_path) == 1)
 			exit(EXIT_SUCCESS);
 	}
+	else
+		ft_cat_return();
 }
 
 t_exec_pipe	*ft_init_exec_pipe(char **cmd_path, char **envp, int count)
@@ -85,9 +87,10 @@ void	ft_start_exec_2(char **envp, char **cmd_path, t_list *list, int pid)
 
 	pid = fork();
 	if (pid < 0)
-		exit(ft_exit_fork());
+		ft_exit_fork();
 	if (!pid)
 	{
+		check_in_outfile(list);
 		j = verify_builtins(list, envp, cmd_path);
 		if (j == 0)
 			ft_exec(list, cmd_path, envp);
@@ -96,10 +99,11 @@ void	ft_start_exec_2(char **envp, char **cmd_path, t_list *list, int pid)
 	}
 	else
 	{
-		sig(4);
+		ft_cat_return();
 		waitpid(pid, &status, 0);
 	}
-	g_var->returned[0] = WEXITSTATUS(status);
+	if (!(g_var->returned[0] == 130))
+		g_var->returned[0] = WEXITSTATUS(status);
 }
 
 void	ft_start_exec(t_list *list, char *path, char **envp)
