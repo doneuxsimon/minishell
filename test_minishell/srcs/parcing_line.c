@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/08/31 17:09:07 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/31 18:57:39 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,19 +81,19 @@ int	*init_returned(void)
 
 int	command_exist(t_list *list, char **cmd_path)
 {
-	if (!get_cmd2(cmd_path, list->ft))
+	if (!get_cmd2(cmd_path, list->ft) && !verif_builtin(list))
 	{
 		g_var->returned[0] = 127;
-		printf("Command not found!\n");
+		printf("minishell: %s: Command not found\n", list->ft);
 		return (0);
 	}
 	while (list->next)
 	{
 		list = list->next;
-		if (!get_cmd2(cmd_path, list->ft))
+		if (!get_cmd2(cmd_path, list->ft) && !verif_builtin(list))
 		{
 			g_var->returned[0] = 127;
-			printf("Command not found!\n");
+			printf("minishell: %s: Command not found\n", list->ft);
 			return (0);
 		}
 	}
