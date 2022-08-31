@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:51:52 by lide              #+#    #+#             */
-/*   Updated: 2022/08/17 18:53:51 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/31 17:06:45 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,13 @@ void	skip_sep_error(int ct, int sep)
 		else
 			printf("minishel: syntax error near unexpected token `>>'\n");
 	}
+}
+
+int	change_question_error(char **str, char *nb, int i, int verif)
+{
+	if (!verif)
+		str[i] = print_str_perror("ft_itoa");
+	else
+		str[i] = free_char(nb, "change_question\n");
+	return (0);
 }

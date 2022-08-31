@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:21:56 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/30 19:26:43 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/31 16:28:40 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_close_wait(int *piped1, int *piped2, int *pid, int i)
 	}
 	if ((i - 1) % 2 == 1)
 		waitpid(pid[3], &status, 0);
-	if (!(g_var->returned[0] == 130) && !(g_var->returned[0] == 131))
+	if (g_var->returned[0] != 130 && g_var->returned[0] != 131)
 		g_var->returned[0] = WEXITSTATUS(status);
 }
 

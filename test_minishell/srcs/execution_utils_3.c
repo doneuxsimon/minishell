@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:23:47 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/30 17:56:55 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/31 17:11:04 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,6 @@ void	ft_exec_nothing(t_list *list, t_exec *exec)
 	exec->cmd_args = malloc(sizeof(char *) * 2);
 	exec->cmd_args[0] = list->ft;
 	exec->cmd_args[1] = NULL;
-	if (exec->cmd == NULL)
-	{
-		printf("command not found \n");
-		exit(EXIT_FAILURE);
-	}
 	execve(exec->cmd, exec->cmd_args, exec->envp);
 }
 
@@ -59,6 +54,6 @@ void	check_in_outfile(t_list *list)
 
 void	ft_cat_return(void)
 {
-	g_var->returned[0] = 0;
 	sig(4);
+	g_var->returned[0] = 0;
 }

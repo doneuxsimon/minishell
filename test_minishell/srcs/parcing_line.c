@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/08/23 19:28:42 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/31 17:09:07 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,25 @@ int	*init_returned(void)
 	i = (int *)malloc(sizeof(int));
 	*i = 0;
 	return (i);
+}
+
+int	command_exist(t_list *list, char **cmd_path)
+{
+	if (!get_cmd2(cmd_path, list->ft))
+	{
+		g_var->returned[0] = 127;
+		printf("Command not found!\n");
+		return (0);
+	}
+	while (list->next)
+	{
+		list = list->next;
+		if (!get_cmd2(cmd_path, list->ft))
+		{
+			g_var->returned[0] = 127;
+			printf("Command not found!\n");
+			return (0);
+		}
+	}
+	return (1);
 }

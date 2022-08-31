@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 16:53:14 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/30 18:55:12 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/31 16:22:50 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,6 @@ void	ft_exec_arg_opt(t_list *list, t_exec *exec, int i)
 		j++;
 	}
 	exec->cmd_args[j] = NULL;
-	if (exec->cmd == NULL)
-	{
-		printf("command not found \n");
-		exit(EXIT_FAILURE);
-	}
 	execve(exec->cmd, exec->cmd_args, exec->envp);
 }
 
@@ -90,11 +85,6 @@ void	ft_exec_arg(t_list *list, t_exec *exec, int i)
 		j++;
 	}
 	exec->cmd_args[j] = NULL;
-	if (exec->cmd == NULL)
-	{
-		printf("command not found \n");
-		exit(EXIT_FAILURE);
-	}
 	execve(exec->cmd, exec->cmd_args, exec->envp);
 }
 
@@ -105,10 +95,5 @@ void	ft_exec_opt(t_list *list, t_exec *exec)
 	exec->cmd_args[0] = list->ft;
 	exec->cmd_args[1] = list->opt;
 	exec->cmd_args[2] = NULL;
-	if (exec->cmd == NULL)
-	{
-		printf("command not found \n");
-		exit(EXIT_FAILURE);
-	}
 	execve(exec->cmd, exec->cmd_args, exec->envp);
 }

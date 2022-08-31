@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 16:47:39 by marvin            #+#    #+#             */
-/*   Updated: 2022/08/26 15:42:24 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/31 17:14:28 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_start(char **str, t_list *cmd, char *path, char **envp)
 {
 	if (!put_in_struct(str, &cmd))
 		return ;
+	ft_begin(&cmd);
 	if (cmd->ft && ft_strncmp_2(cmd->ft, "cd", 3) == 0 && !cmd->next)
 	{
 		if (cmd->arg)

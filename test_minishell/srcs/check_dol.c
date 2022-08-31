@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_dol.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 13:51:37 by lide              #+#    #+#             */
-/*   Updated: 2022/08/17 16:23:44 by lide             ###   ########.fr       */
+/*   Updated: 2022/08/31 17:05:40 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*change_env(char *str, int *j, int tmp)
 		line[i] = str[i];
 	while (env && env[++ct])
 		line[i++] = env[ct];
-	ct = i;
+	ct = i - 1;
 	while (str[*j])
 		line[i++] = str[(*j)++];
 	*j = ct;
@@ -71,6 +71,34 @@ int	find_dol(char **str, int i, int j)
 	return (j);
 }
 
+int	change_question(char **str, int i, int j)
+{
+	int		x;
+	int		z;
+	char	*line;
+	char	*nb;
+
+	x = -1;
+	z = -1;
+	nb = ft_itoa(*g_var->returned);
+	if (!nb)
+		return (change_question_error(str, nb, i, 0));
+	line = (char *)malloc(sizeof(char) * (len1(str[i]) + 1));
+	if (!line)
+		return (change_question_error(str, nb, i, 1));
+	while (++x < j)
+		line[x] = str[i][x];
+	while (nb[++z])
+		line[x++] = nb[z];
+	z = x - 1;
+	j += 1;
+	while (str[i][++j])
+		line[x++] = str[i][j];
+	line[x] = '\0';
+	str[i] = line;
+	return (z);
+}
+
 char	**check_dol(char **str, int len)
 {
 	int	i;
@@ -85,12 +113,12 @@ char	**check_dol(char **str, int len)
 		j = -1;
 		while (str[i][++j])
 		{
-			if (str[i][j] == '$' && str[i][j + 1] && str[i][j + 1] == '?')
-				j += 2;
 			if (str[i][j] == '\"')
 				verif *= -1;
 			if (str[i][j] == '\'' && verif > 0)
 				j = (skip_s_quote(str, i, j) - 1);
+			else if (str[i][j] == '$' && str[i][j + 1] && str[i][j + 1] == '?')
+				j = change_question(str, i, j);
 			else if (str[i][j] == '$' && str[i][j + 1])
 				j = (find_dol(str, i, j) - 1);
 			if (!str[i])

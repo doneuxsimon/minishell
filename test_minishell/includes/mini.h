@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/08/30 18:05:39 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/08/31 17:17:42 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,6 @@ char	*find_path(char **envp);
 int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
 char	*ft_strjoin(char *s1, char *s2);
-//int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(char *s);
 char	*ft_strjoin_2(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
@@ -162,7 +161,6 @@ void	ft_echo(t_list *list);
 void	ft_env(int *i);
 void	ft_exit(t_list *cmd);
 int		ft_compare_n(char *opt);
-void	ft_cd(t_list *list);
 int		ft_count_forks(t_list *list);
 void	ft_exec_arg_opt(t_list *list, t_exec *exec, int i);
 void	ft_exec_arg(t_list *list, t_exec *exec, int i);
@@ -177,5 +175,7 @@ int		dup1(t_list *list, int piped);
 void	check_in_outfile(t_list *list);
 void	ft_cat_return(void);
 void	ft_close_pipe(t_exec_pipe *exec);
+int		change_question_error(char **str, char *nb, int i, int verif);
+int		command_exist(t_list *list, char **cmd_path);
 
 #endif
