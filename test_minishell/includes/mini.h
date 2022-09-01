@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/08/31 19:34:06 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/01 16:40:01 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ int		ft_compare_n2(t_list *list);
 int		dup0(t_list *list, int piped);
 int		dup1(t_list *list, int piped);
 void	check_in_outfile(t_list *list);
-void	ft_cat_return(void);
+void	ft_cat_return(t_list *list);
 void	ft_close_pipe(t_exec_pipe *exec);
 int		change_question_error(char **str, char *nb, int i, int verif);
 int		command_exist(t_list *list, char **cmd_path);
@@ -182,5 +182,6 @@ void	ft_cd(t_list *list);
 void	ft_unset_old(void);
 void	ft_export_2(void);
 void	*free_join(char **str, int i);
+void	ft_modify_env(void);
 
 #endif

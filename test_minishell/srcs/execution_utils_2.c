@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:21:56 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/31 16:28:40 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/01 16:35:03 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ft_fork_0(t_list *list, t_exec_pipe *exec)
 			exit(EXIT_SUCCESS);
 	}
 	else
-		ft_cat_return();
+		ft_cat_return(list);
 }
 
 void	ft_fork_1(t_list **list, t_exec_pipe *exec)
@@ -101,7 +101,7 @@ void	ft_fork_1(t_list **list, t_exec_pipe *exec)
 			exit(EXIT_SUCCESS);
 	}
 	else
-		ft_cat_return();
+		ft_cat_return(*list);
 }
 
 void	ft_fork_2(t_list *list, t_exec_pipe *exec)
@@ -130,5 +130,5 @@ void	ft_fork_2(t_list *list, t_exec_pipe *exec)
 			exit(EXIT_SUCCESS);
 	}
 	else
-		ft_cat_return();
+		ft_cat_return(list);
 }

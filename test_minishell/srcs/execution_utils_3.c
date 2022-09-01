@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:23:47 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/31 17:11:04 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/01 16:33:30 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,11 @@ void	check_in_outfile(t_list *list)
 		dup1(list, 0);
 }
 
-void	ft_cat_return(void)
+void	ft_cat_return(t_list *list)
 {
-	sig(4);
+	if (verif_builtin(list) == 2)
+		sig(3);
+	else
+		sig(4);
 	g_var->returned[0] = 0;
 }

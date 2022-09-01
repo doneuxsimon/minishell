@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 19:02:09 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/01 16:17:17 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/01 18:04:41 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,19 @@ void	free_cp_var(int verif, t_var *new)
 	free(new);
 }
 
-t_var *copy_var(void)
+void	copy_var_struct(t_var **new, t_var **tmp, t_var **cp)
 {
-	t_var *new;
-	t_var *tmp;
-	t_var *cp;
+	(*new)->next = *tmp;
+	(*tmp)->before = *new;
+	*new = (*new)->next;
+	*cp = (*cp)->next;
+}
+
+t_var	*copy_var(void)
+{
+	t_var	*new;
+	t_var	*tmp;
+	t_var	*cp;
 
 	new = NULL;
 	new = init_var(new);
@@ -91,10 +99,7 @@ t_var *copy_var(void)
 		tmp = init_var(tmp);
 		if (!new)
 			free_cp_var(1, new);
-		new->next = tmp;
-		tmp->before = new;
-		new = new->next;
-		cp = cp->next;
+		copy_var_struct(&new, &tmp, &cp);
 	}
 	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 16:47:39 by marvin            #+#    #+#             */
-/*   Updated: 2022/08/31 19:44:36 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/01 16:42:15 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ void	ft_start(char **str, t_list *cmd, char *path, char **envp)
 		&& !cmd->before && !cmd->next)
 		ft_cd(cmd);
 	else if (cmd->ft && ft_strncmp_2(cmd->ft, "exit", 5) == 0
-			&& !cmd->before && !cmd->next)
+		&& !cmd->before && !cmd->next)
 		ft_exit(cmd);
 	else if (cmd->ft && ft_strncmp_2(cmd->ft, "export", 7) == 0
-			&& !cmd->before && !cmd->next)
+		&& !cmd->before && !cmd->next)
 	{
 		if (cmd->arg)
 			ft_export(cmd->arg, 0, len2(cmd->arg));
@@ -115,6 +115,7 @@ int	main(int argc, char **argv, char **envp)
 	cmd = NULL;
 	if (init_global(envp))
 		return (1);
+	ft_modify_env();
 	ft_unset_old();
 	path = ft_get_path();
 	while (1)

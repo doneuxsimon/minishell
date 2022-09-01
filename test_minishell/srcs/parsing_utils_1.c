@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:25:57 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/31 19:43:40 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/01 16:41:02 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	ft_minishell(char **path, char **envp)
 	cmd_args = malloc(sizeof(char *));
 	cmd_args[0] = NULL;
 	cmd = get_cmd2(path, "open");
-	ft_modify_env();
 	envp = g_var_to_char();
 	execve("./minishell", cmd_args, envp);
 }
