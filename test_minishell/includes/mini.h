@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/09/01 16:40:01 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/01 18:41:28 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define ERROR1 "redirection: syntax error near unexpected token `newline'"
 # define ERROR2 "minishell: warning: here-document at line %d"
 # define ERROR2BIS " delimited by end-of-file (wanted `%s')"
+# define ERROR_EXPORT "minishell: export: `%s': not a valid identifier\n"
 
 typedef struct s_var
 {

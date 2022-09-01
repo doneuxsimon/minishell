@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 13:36:37 by lide              #+#    #+#             */
-/*   Updated: 2022/08/26 15:47:29 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/01 18:41:36 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,9 @@ int	ft_export(char **str, int i, int len)
 			j = 0;
 			while (str[i][j] && str[i][j] != '=')
 				j++;
-			if (str[i][j])
+			if (j == 0)
+				printf(ERROR_EXPORT, str[i]);
+			else if (str[i][j])
 			{
 				verif = put_in_g(str, i, j);
 				if (!verif)

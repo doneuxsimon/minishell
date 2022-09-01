@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcing_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/08/31 18:57:39 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/01 19:00:06 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ char	**get_line(char *line)
 	if (!check_sep(str, len))
 	{
 		printf("you can only use '|' has a separator\n");
+		free_split(str, len);
+		return (NULL);
+	}
+	if (str[0][0] == '|')
+	{
+		printf("minishell: syntax error near unexpected token `|'\n");
 		free_split(str, len);
 		return (NULL);
 	}

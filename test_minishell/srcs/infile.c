@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:42:40 by lide              #+#    #+#             */
-/*   Updated: 2022/08/18 20:22:47 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/01 18:48:57 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	start_heredoc(int fd, char **str, t_list **cmd, int *i)
 		if (!line)
 		{
 			printf(ERROR2 ERROR2BIS"\n", (*cmd)->ct_line, str[*i + 1]);
-			exit(1);
+			exit(0);
 		}
 		if (cmp_line(str[*i + 1], line))
 			break ;
