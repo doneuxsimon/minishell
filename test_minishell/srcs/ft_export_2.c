@@ -3,54 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 19:02:09 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/31 19:58:25 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/01 16:17:17 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
 
-void	free_tmp(t_var *clean)
+void	ft_print_delete(t_var **var)
 {
 	t_var	*tmp;
 
-	while (clean->before != NULL)
-		clean = clean->before;
-	while (clean->next != NULL)
-	{
-		tmp = clean;
-		clean = clean->next;
-		free(tmp->name);
-		free(tmp->value);
-		free(tmp);
-	}
-	free(clean->name);
-	free(clean->value);
-	free(clean);
-}
-
-t_var	*init_clean(void)
-{
-	t_var	*var;
-	t_var	*tmp;
-
-	tmp = NULL;
-	var = NULL;
-	var = init_var(var);
-	ft_begin_var(&g_var);
-	while (g_var->next)
-	{
-		var->name = strdup(g_var->name);
-		var->value = strdup(g_var->value);
-		var->next = init_var(tmp);
-		var->next->before = var;
-		var = var->next;
-		g_var = g_var->next;
-	}
-	ft_begin_var(&var);
-	return (var);
+	printf("declare -x %s=\"%s\"\n", (*var)->name, (*var)->value);
+	tmp = (*var);
+	if ((*var)->next)
+		(*var)->next->before = (*var)->before;
+	if ((*var)->before)
+		tmp->before->next = (*var)->next;
+	(*var) = (*var)->next;
+	free(tmp->value);
+	free(tmp->name);
+	free(tmp);
+	if (!(*var)->next && !(*var)->before)
+		*var = NULL;
 }
 
 int	ft_var_cmp(t_var *tmp, t_var *clean)
@@ -58,29 +35,68 @@ int	ft_var_cmp(t_var *tmp, t_var *clean)
 	int	i;
 
 	i = 0;
-	while (i)
+	while (1)
 	{
-		if (tmp->name[i] == clean->name[i])
+		if ((unsigned char)tmp->name[i] == (unsigned char)clean->name[i])
 			i++;
-		else if (tmp->name[i] > clean->name[i])
+		else if ((unsigned char)tmp->name[i] < (unsigned char)clean->name[i])
 			return (0);
-		else if (tmp->name[i] < clean->name[i])	
+		else if ((unsigned char)tmp->name[i] > (unsigned char)clean->name[i])
 			return (1);
 	}
 	return (0);
 }
 
-void	ft_print_delete(t_var **var)
+void	free_cp_var(int verif, t_var *new)
 {
 	t_var	*tmp;
 
-	printf("declare - x %s=%s\n", (*var)->name, (*var)->value);
-	tmp = (*var);
-	(*var)->next->before = (*var)->before;
-	tmp->before->next = (*var)->next;
-	(*var) = (*var)->next;
-	free(tmp->value);
-	free(tmp->name);
+	while (new->before != NULL)
+		new = new->before;
+	while (new->next != NULL)
+	{
+		tmp = new;
+		new = new->next;
+		free(tmp->name);
+		free(tmp->value);
+		free(tmp);
+	}
+	free(new->name);
+	if (verif)
+		free(new->value);
+	free(new);
+}
+
+t_var *copy_var(void)
+{
+	t_var *new;
+	t_var *tmp;
+	t_var *cp;
+
+	new = NULL;
+	new = init_var(new);
+	if (!new)
+		return (NULL);
+	ft_begin_var(&g_var);
+	cp = g_var;
+	while (cp->value)
+	{
+		tmp = NULL;
+		new->name = ft_strdup(cp->name);
+		if (!new->name)
+			free_cp_var(0, new);
+		new->value = ft_strdup(cp->value);
+		if (!new->value)
+			free_cp_var(1, new);
+		tmp = init_var(tmp);
+		if (!new)
+			free_cp_var(1, new);
+		new->next = tmp;
+		tmp->before = new;
+		new = new->next;
+		cp = cp->next;
+	}
+	return (new);
 }
 
 void	ft_export_2(void)
@@ -88,21 +104,23 @@ void	ft_export_2(void)
 	t_var	*tmp;
 	t_var	*clean;
 
-	ft_begin_var(&g_var);
-	clean = init_clean();
+	clean = copy_var();
 	if (!clean)
 		exit(EXIT_FAILURE);
 	ft_begin_var(&clean);
 	while (clean)
 	{
+		ft_begin_var(&clean);
 		tmp = clean;
-		while (clean->next)
+		while (clean->next->name != NULL)
 		{
-			clean =clean->next;
+			clean = clean->next;
 			if (ft_var_cmp(tmp, clean))
 				tmp = clean;
 		}
 		ft_print_delete(&tmp);
-		ft_begin_var(&clean);
+		clean = tmp;
+		if (clean)
+			ft_begin_var(&clean);
 	}
 }
