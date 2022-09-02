@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:27:47 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/01 16:42:53 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/01 20:28:36 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 void	ft_echo(t_list *list)
 {
 	int	i;
-	int	x;
 	int	n;
 
 	i = 0;
-	x = 0;
 	n = ft_compare_n2(list);
 	while (list->arg[i])
 	{
@@ -49,7 +47,7 @@ int	verif_builtin(t_list *list)
 
 	i = 0;
 	if (ft_strncmp_2(list->ft, "env", 4) == 0)
-		ft_env(&i);
+		i = 1;
 	else if (ft_strncmp_2(list->ft, "exit", 5) == 0)
 		i = 1;
 	else if (ft_strncmp_2(list->ft, "export", 6) == 0)

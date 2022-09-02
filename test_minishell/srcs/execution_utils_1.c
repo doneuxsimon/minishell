@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:19:52 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/01 16:33:57 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/02 14:24:49 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_fork_3(t_list *list, t_exec_pipe *exec)
 	if (!exec->pid[3])
 	{
 		sig(5);
+		verif_ft(list);
 		if (list->outfile)
 			dup2(list->outfile, 1);
 		if (dup0(list, exec->piped1[0]) == -1)
@@ -27,7 +28,7 @@ void	ft_fork_3(t_list *list, t_exec_pipe *exec)
 		close(exec->piped1[1]);
 		close(exec->piped2[1]);
 		close(exec->piped2[0]);
-		if (verify_builtins(list, exec->envp, exec->cmd_path) == 0)
+		if (verify_builtins(list, exec->envp) == 0)
 			ft_exec(list, exec->cmd_path, exec->envp);
 		else
 			exit(EXIT_SUCCESS);
@@ -41,6 +42,8 @@ t_exec_pipe	*ft_init_exec_pipe(char **cmd_path, char **envp, int count)
 	t_exec_pipe	*piped;
 
 	piped = malloc(sizeof(t_exec_pipe));
+	if (!piped)
+		exit(ft_exit_pipe());
 	piped->cmd_path = cmd_path;
 	piped->count = count;
 	if (pipe(piped->piped1) < 0)
@@ -91,8 +94,9 @@ void	ft_start_exec_2(char **envp, char **cmd_path, t_list *list, int pid)
 	if (!pid)
 	{
 		sig(5);
+		verif_ft(list);
 		check_in_outfile(list);
-		j = verify_builtins(list, envp, cmd_path);
+		j = verify_builtins(list, envp);
 		if (j == 0)
 			ft_exec(list, cmd_path, envp);
 		else if (j == 1)

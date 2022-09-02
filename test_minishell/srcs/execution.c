@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 16:53:14 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/31 16:22:50 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/01 20:57:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	ft_exec_arg_opt(t_list *list, t_exec *exec, int i)
 
 	exec->cmd = get_cmd2(exec->cmd_path, list->ft);
 	exec->cmd_args = malloc(sizeof(char *) * (3 + i));
+	if (!exec->cmd_args)
+		exit(ft_exit_malloc());
 	exec->cmd_args[0] = list->ft;
 	exec->cmd_args[1] = list->opt;
 	j = 2;
@@ -77,6 +79,8 @@ void	ft_exec_arg(t_list *list, t_exec *exec, int i)
 
 	exec->cmd = get_cmd2(exec->cmd_path, list->ft);
 	exec->cmd_args = malloc(sizeof(char *) * (2 + i));
+	if (!exec->cmd_args)
+		exit(ft_exit_malloc());
 	exec->cmd_args[0] = list->ft;
 	j = 1;
 	while (j < i + 1)
@@ -92,6 +96,8 @@ void	ft_exec_opt(t_list *list, t_exec *exec)
 {
 	exec->cmd = get_cmd2(exec->cmd_path, list->ft);
 	exec->cmd_args = malloc(sizeof(char *) * 3);
+	if (!exec->cmd_args)
+		exit(ft_exit_malloc());
 	exec->cmd_args[0] = list->ft;
 	exec->cmd_args[1] = list->opt;
 	exec->cmd_args[2] = NULL;

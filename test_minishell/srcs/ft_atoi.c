@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 16:35:27 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/19 17:09:14 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/01 18:20:55 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,20 @@ int	ft_atoi(const char *str)
 	if (isneg == 1)
 		return (-nbr);
 	return (nbr);
+}
+
+int	is_digitt(char *arg)
+{
+	int	i;
+
+	i = 0;
+	if (arg[i] == '-' && arg[i + 1])
+		i++;
+	while (arg[i])
+	{
+		if (arg[i] < '0' || arg[i] > '9')
+			return (1);
+		i++;
+	}
+	return (0);
 }

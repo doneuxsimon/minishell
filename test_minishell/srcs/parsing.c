@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:51:43 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/25 16:09:29 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/01 20:22:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,29 @@ void	ft_env(int *i)
 
 void	ft_exit(t_list *cmd)
 {
-	free(cmd);
-	printf("exit\n");
-	exit(EXIT_SUCCESS);
+	if (cmd->arg && cmd->arg[0])
+	{
+		if (is_digitt(cmd->arg[0]) == 0)
+		{
+			printf("exit\n");
+			printf("minishell: exit: %s: numeric argument required\n",
+				cmd->arg[0]);
+			free_all(&cmd, 0);
+			exit(EXIT_SUCCESS);
+		}
+		else if (is_digitt(cmd->arg[0]) == 1 && cmd->arg[1])
+		{
+			printf("exit\n");
+			printf("minishell: exit: too many arguments\n");
+		}
+		else
+		{
+			printf("exit\n");
+			free_all(&cmd, 0);
+			exit(EXIT_SUCCESS);
+		}
+	}
+	
 }
 
 int	ft_compare_n(char *opt)

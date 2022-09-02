@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/09/01 18:41:28 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/02 14:47:58 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ size_t	ft_strlen(char *s);
 char	*ft_strjoin_2(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
 char	*get_cmd(char *path, char *cmd);
-int		verify_builtins(t_list *list, char **envp, char **path);
+int		verify_builtins(t_list *list, char **envp);
 void	ft_start_exec(t_list *list, char *path, char **envp);
 char	*get_cmd2(char **cmd_paths, char *cmd);
 void	ft_exec_pipes(t_list *list, char **cmd_path, char **envp, int count);
@@ -184,5 +184,8 @@ void	ft_unset_old(void);
 void	ft_export_2(void);
 void	*free_join(char **str, int i);
 void	ft_modify_env(void);
+int		is_digitt(char *arg);
+void	verif_ft(t_list *list);
+int		ft_exit_malloc(void);
 
 #endif

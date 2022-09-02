@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:21:56 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/01 16:35:03 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/02 14:23:18 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,13 @@ void	ft_fork_0(t_list *list, t_exec_pipe *exec)
 	if (!exec->pid[0])
 	{
 		sig(5);
+		verif_ft(list);
 		if (list->infile)
 			dup2(list->infile, 0);
 		if (dup1(list, exec->piped1[1]) == -1)
 			exit(ft_exit_pipe());
 		close(exec->piped1[0]);
-		if (verify_builtins(list, exec->envp, exec->cmd_path) == 0)
+		if (verify_builtins(list, exec->envp) == 0)
 			ft_exec(list, exec->cmd_path, exec->envp);
 		else
 			exit(EXIT_SUCCESS);
@@ -89,13 +90,14 @@ void	ft_fork_1(t_list **list, t_exec_pipe *exec)
 	if (!exec->pid[1])
 	{
 		sig(5);
+		verif_ft(*list);
 		if (dup0(*list, exec->piped1[0]) == -1)
 			exit(ft_exit_pipe());
 		if (dup1(*list, exec->piped2[1]) == -1)
 			exit(ft_exit_pipe());
 		close(exec->piped1[1]);
 		close(exec->piped2[0]);
-		if (verify_builtins((*list), exec->envp, exec->cmd_path) == 0)
+		if (verify_builtins((*list), exec->envp) == 0)
 			ft_exec((*list), exec->cmd_path, exec->envp);
 		else
 			exit(EXIT_SUCCESS);
@@ -113,6 +115,7 @@ void	ft_fork_2(t_list *list, t_exec_pipe *exec)
 	if (!exec->pid[2])
 	{
 		sig(5);
+		verif_ft(list);
 		if (dup0(list, exec->piped2[0]) == -1)
 			exit(ft_exit_pipe());
 		if (exec->count > 1)
@@ -124,7 +127,7 @@ void	ft_fork_2(t_list *list, t_exec_pipe *exec)
 		close(exec->piped2[1]);
 		if (exec->count <= 1)
 			close(exec->piped1[1]);
-		if (verify_builtins(list, exec->envp, exec->cmd_path) == 0)
+		if (verify_builtins(list, exec->envp) == 0)
 			ft_exec(list, exec->cmd_path, exec->envp);
 		else
 			exit(EXIT_SUCCESS);
