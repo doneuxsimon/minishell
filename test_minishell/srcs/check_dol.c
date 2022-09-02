@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   check_dol.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 13:51:37 by lide              #+#    #+#             */
-/*   Updated: 2022/08/31 17:05:40 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/02 22:45:27 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
+
+int	check_line(char *line)
+{
+	int	len;
+	int	i;
+
+	len = len1(line);
+	if (len == 1)
+		return (0);
+	i = -1;
+	while (line[++i])
+	{
+		if (line[i] == '|')
+			return (1);
+		else if ((line[i] >= 9 && line[i] <= 13) || line[i] == ' ')
+			return (1);
+	}
+	return (0);
+}
 
 char	*find_env(char *str, int *len, int tmp, int *j)
 {
@@ -60,14 +79,62 @@ char	*change_env(char *str, int *j, int tmp)
 	return (free_env(str, line, env));
 }
 
-int	find_dol(char **str, int i, int j)
+char **realloc_str(char **str, char *line, int *i)
 {
-	int	tmp;
+	int x;
+	int	len;
+	int	len_sp;
+	char **split;
+	char **new;
+
+	if (check_line(line))
+	{
+		split = mini_split(line);
+		// if (split)
+		len = len2(str);
+		len_sp = len2(split);
+		new = malloc(sizeof(char *) * (len + len_sp));
+		// if (new)
+		x = -1;
+		while (++x < *i)
+			new[x] = str[x];
+		len = -1;
+		while (split[++len])
+			new[x++] = split[len];
+		len = x - 1;
+		while (str[++(*i)])
+		{
+			new[x++] = str[*i];
+		}
+		new[x] = NULL;
+		*i = len;
+		return (new);
+	}
+	else
+	{
+		str[*i] = line;
+		return (str);
+	}
+}
+
+int	find_dol(char ***str, int *i, int j)
+{
+	int		max;
+	int		diff;
+	int		tmp;
+	char	*line;
 
 	tmp = ++(j);
-	while (str[i][j] && check_expt(str[i][j], 4))
+	while ((*str)[*i][j] && check_expt((*str)[*i][j], 4))
 		(j)++;
-	str[i] = change_env(str[i], &j, tmp);
+	max = j;
+	diff = 0;
+	while((*str)[*i][max++])
+		diff++;
+	line = change_env((*str)[*i], &j, tmp);
+	(*str) = realloc_str((*str), line, i);
+	max = len1((*str)[*i]);
+	j = max - diff;
 	return (j);
 }
 
@@ -120,7 +187,7 @@ char	**check_dol(char **str, int len)
 			else if (str[i][j] == '$' && str[i][j + 1] && str[i][j + 1] == '?')
 				j = change_question(str, i, j);
 			else if (str[i][j] == '$' && str[i][j + 1])
-				j = (find_dol(str, i, j) - 1);
+				j = (find_dol(&str, &i, j) - 1);
 			if (!str[i])
 				return (free_split(str, len));
 		}

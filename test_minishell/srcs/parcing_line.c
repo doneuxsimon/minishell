@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/09/01 19:00:06 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/02 21:29:57 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	check_sep(char **str, int len)
 	return (1);
 }
 
+
 char	**get_line(char *line)
 {
 	char	**str;
@@ -38,21 +39,21 @@ char	**get_line(char *line)
 	if (!str)
 		return (NULL);
 	len = len2(str);
+	str = check_dol(str, len);
+	if (!str)
+		return (NULL);
 	if (!check_sep(str, len))
 	{
 		printf("you can only use '|' has a separator\n");
 		free_split(str, len);
 		return (NULL);
 	}
-	if (str[0][0] == '|')
+	if (str[0] && str[0][0] == '|')
 	{
 		printf("minishell: syntax error near unexpected token `|'\n");
 		free_split(str, len);
 		return (NULL);
 	}
-	str = check_dol(str, len);
-	if (!str)
-		return (NULL);
 	return (str);
 }
 

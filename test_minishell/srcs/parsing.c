@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:51:43 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/01 20:22:54 by marvin           ###   ########.fr       */
+/*   Updated: 2022/09/02 14:57:33 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ void	ft_exit(t_list *cmd)
 {
 	if (cmd->arg && cmd->arg[0])
 	{
-		if (is_digitt(cmd->arg[0]) == 0)
+		if (is_digitt(cmd->arg[0]) == 1)
 		{
 			printf("exit\n");
 			printf("minishell: exit: %s: numeric argument required\n",
 				cmd->arg[0]);
 			free_all(&cmd, 0);
-			exit(EXIT_SUCCESS);
+			exit(2);
 		}
-		else if (is_digitt(cmd->arg[0]) == 1 && cmd->arg[1])
+		else if (is_digitt(cmd->arg[0]) == 0 && cmd->arg[1])
 		{
 			printf("exit\n");
 			printf("minishell: exit: too many arguments\n");
@@ -48,7 +48,7 @@ void	ft_exit(t_list *cmd)
 			exit(EXIT_SUCCESS);
 		}
 	}
-	
+
 }
 
 int	ft_compare_n(char *opt)
