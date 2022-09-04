@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:42:40 by lide              #+#    #+#             */
-/*   Updated: 2022/09/01 18:48:57 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/04 13:28:22 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,10 @@ int	find_infile(char **str, t_list **cmd, int *i)
 			return (0);
 	}
 	else
+	{
 		fd = open(str[*i + 1], O_RDONLY);
+		(*cmd)->infile = fd;
+	}
 	if (fd == -1)
 		return (print_perror("infile"));
 	return (free_infile(str, i));

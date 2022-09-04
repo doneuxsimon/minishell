@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 13:51:37 by lide              #+#    #+#             */
-/*   Updated: 2022/09/02 22:45:27 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/04 13:01:21 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,7 @@ char **realloc_str(char **str, char *line, int *i)
 			new[x++] = split[len];
 		len = x - 1;
 		while (str[++(*i)])
-		{
 			new[x++] = str[*i];
-		}
 		new[x] = NULL;
 		*i = len;
 		return (new);

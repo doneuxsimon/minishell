@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 13:36:37 by lide              #+#    #+#             */
-/*   Updated: 2022/09/01 18:41:36 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/04 13:24:20 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,29 @@ int	put_in_g(char **str, int i, int j)
 	return (put_g_name(tmp, verif));
 }
 
+int	check_w_sp(char *str, int j)
+{
+	int	i;
+
+	i = -1;
+
+	if (j == 0)
+	{
+		printf(ERROR_EXPORT, str);
+		return (-1);
+	}
+	while(++i < j)
+	{
+		if ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+		{
+			// printf();trouver l erreur
+			printf("white space\n");
+			return (-1);
+		}
+	}
+	return (j);
+}
+
 int	ft_export(char **str, int i, int len)
 {
 	int	j;
@@ -105,9 +128,8 @@ int	ft_export(char **str, int i, int len)
 			j = 0;
 			while (str[i][j] && str[i][j] != '=')
 				j++;
-			if (j == 0)
-				printf(ERROR_EXPORT, str[i]);
-			else if (str[i][j])
+			j = check_w_sp(str[i], j);
+			if (j > -1 && str[i][j])
 			{
 				verif = put_in_g(str, i, j);
 				if (!verif)
