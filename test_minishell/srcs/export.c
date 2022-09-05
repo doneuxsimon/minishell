@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 13:36:37 by lide              #+#    #+#             */
-/*   Updated: 2022/09/05 15:13:23 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/05 16:12:01 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,7 @@ int	check_w_sp(char *str, int j)
 	{
 		if ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
 		{
-			// printf();trouver l erreur
-			printf("white space\n");
+			printf(ERROR_EXPORT, str);
 			return (-1);
 		}
 	}

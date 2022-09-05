@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 13:51:37 by lide              #+#    #+#             */
-/*   Updated: 2022/09/05 15:52:36 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/05 16:08:58 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	check_line(char *line)
 	int	i;
 
 	len = len1(line);
-	if (len == 1)
+	i = 0;
+	if (len == 1 && !((line[i] >= 9 && line[i] <= 13) || line[i] == ' '))
 		return (0);
 	i = -1;
 	while (line[++i])
@@ -92,15 +93,19 @@ int	check_empty(char *line)
 	return (1);
 }
 
-char	**put_empty(char **str, int *i)
+char	**put_empty(char **str, char *line, int *i)
 {
-	char	*line;
+	char	*empty;
 
-	line = malloc(sizeof(char));
-	if (!line)
-		return (NULL);
-	line[0] = '\0';
-	str[*i] = line;
+	empty = malloc(sizeof(char));
+	if (!empty)
+	{
+		free(line);
+		str[*i] = NULL;
+		return (str);
+	}
+	empty[0] = '\0';
+	str[*i] = empty;
 	return (str);
 }
 
@@ -115,7 +120,7 @@ char	**realloc_str(char **str, char *line, int *i)
 	if (check_line(line))
 	{
 		if (check_empty(line))
-			return (put_empty(str, i));
+			return (put_empty(str, line, i));
 		split = mini_split(line);
 		if (split)
 		{
@@ -143,7 +148,6 @@ char	**realloc_str(char **str, char *line, int *i)
 			new[x++] = str[*i];
 		new[x] = NULL;
 		*i = len;
-		// free(str);
 		return (new);
 	}
 	else
