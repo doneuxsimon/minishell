@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 18:34:54 by lide              #+#    #+#             */
-/*   Updated: 2022/09/05 15:05:58 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/05 21:30:27 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,9 @@ void	sig(int i)
 		sa2.sa_handler = &handle_4;
 	}
 	if (i == 5)
-	{
 		sa1.sa_handler = &handle_5;
+	if (i == 5)
 		sa2.sa_handler = &handle_5;
-	}
 	sigaction(SIGINT, &sa1, NULL);
 	sigaction(SIGQUIT, &sa2, NULL);
 }

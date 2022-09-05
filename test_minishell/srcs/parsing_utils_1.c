@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:25:57 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/05 16:13:03 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/05 20:56:30 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ void	ft_modify_env(void)
 	{
 		tmp = ft_atoi(g_var->value);
 		tmp++;
+		free(g_var->value);
 		g_var->value = ft_itoa(tmp);
+		// if (!g_var->value)// connait pas l'incidence
 	}
 }
 
@@ -101,7 +103,9 @@ char	*get_cmd(char *path, char *cmd)
 	while (*cmd_paths)
 	{
 		tmp = ft_strjoin_2(*cmd_paths, "/");
+		//if NULL !!!
 		command = ft_strjoin_2(tmp, cmd);
+		// if NULL !!!
 		free(tmp);
 		if (access(command, 0) == 0)
 			return (command);

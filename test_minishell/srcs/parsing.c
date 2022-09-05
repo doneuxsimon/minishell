@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:51:43 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/02 14:57:33 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/05 17:14:41 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	ft_exit(t_list *cmd)
 			exit(EXIT_SUCCESS);
 		}
 	}
-
 }
 
 int	ft_compare_n(char *opt)

@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 13:36:37 by lide              #+#    #+#             */
-/*   Updated: 2022/09/05 16:12:01 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/05 21:45:34 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,26 @@ int	put_g_name(char *tmp, int verif)
 	return (1);
 }
 
-int	put_g_value(char **str, int ct, int i, int j)
+int	put_g_value(char *str, char *tmp, int *verif, int j)
 {
-	int	len;
-	int	x;
+	int		x;
+	int		ct;
+	int		len;
+	char	*new;
 
 	x = 0;
-	len = len1(str[i]);
-	g_var->value = (char *)malloc(sizeof(char) * (len - (j - 1)));// leaks
-	if (!g_var->value)
+	ct = j;
+	len = len1(str);
+	new = (char *)malloc(sizeof(char) * (len - (j - 1)));
+	if (!new)
 		return (0);
+	*verif = check_g_var(tmp);
+	if (*verif)
+		free(g_var->value);
 	while (++ct < len)
-		g_var->value[x++] = str[i][ct];
-	g_var->value[x] = '\0';
+		new[x++] = str[ct];
+	new[x] = '\0';
+	g_var->value = new;
 	return (1);
 }
 
@@ -80,37 +87,13 @@ int	put_in_g(char **str, int i, int j)
 	while (++ct < j)
 		tmp[x++] = str[i][ct];
 	tmp[ct] = '\0';
-	verif = check_g_var(tmp);
-	if (verif)
-		free(g_var->value);
-	x = put_g_value(str, ct, i, j);
+	x = put_g_value(str[i], tmp, &verif, j);
 	if (!x)
 	{
 		free(tmp);
 		return (0);
 	}
 	return (put_g_name(tmp, verif));
-}
-
-int	check_w_sp(char *str, int j)
-{
-	int	i;
-
-	i = -1;
-	if (j == 0)
-	{
-		printf(ERROR_EXPORT, str);
-		return (-1);
-	}
-	while (++i < j)
-	{
-		if ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
-		{
-			printf(ERROR_EXPORT, str);
-			return (-1);
-		}
-	}
-	return (j);
 }
 
 int	ft_export(char **str, int i, int len)

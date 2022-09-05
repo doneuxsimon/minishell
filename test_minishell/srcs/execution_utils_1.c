@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils_1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:19:52 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/05 16:20:44 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/05 21:01:37 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_fork_3(t_list *list, t_exec_pipe *exec)
 		close(exec->piped1[1]);
 		close(exec->piped2[1]);
 		close(exec->piped2[0]);
+		//if close rate
 		if (verify_builtins(list, exec->envp) == 0)
 			ft_exec(list, exec->cmd_path, exec->envp);
 		else
@@ -121,6 +122,7 @@ void	ft_start_exec(t_list *list, char *path, char **envp)
 		return ;
 	count = ft_count_forks(list);
 	cmd_path = ft_split(path, ':');
+	//if NULL !!!
 	ft_begin(&list);
 	if (command_exist(list, cmd_path) == 0)
 	{

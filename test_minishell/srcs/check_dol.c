@@ -6,31 +6,11 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 13:51:37 by lide              #+#    #+#             */
-/*   Updated: 2022/09/05 16:08:58 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/05 21:41:35 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
-
-int	check_line(char *line)
-{
-	int	len;
-	int	i;
-
-	len = len1(line);
-	i = 0;
-	if (len == 1 && !((line[i] >= 9 && line[i] <= 13) || line[i] == ' '))
-		return (0);
-	i = -1;
-	while (line[++i])
-	{
-		if (line[i] == '|')
-			return (1);
-		else if ((line[i] >= 9 && line[i] <= 13) || line[i] == ' ')
-			return (1);
-	}
-	return (0);
-}
 
 char	*find_env(char *str, int *len, int tmp, int *j)
 {
@@ -80,83 +60,6 @@ char	*change_env(char *str, int *j, int tmp)
 	return (free_env(str, line, env));
 }
 
-int	check_empty(char *line)
-{
-	int	i;
-
-	i = -1;
-	while (line[++i])
-	{
-		if (!((line[i] >= 9 && line[i] <= 13) || line[i] == ' '))
-			return (0);
-	}
-	return (1);
-}
-
-char	**put_empty(char **str, char *line, int *i)
-{
-	char	*empty;
-
-	empty = malloc(sizeof(char));
-	if (!empty)
-	{
-		free(line);
-		str[*i] = NULL;
-		return (str);
-	}
-	empty[0] = '\0';
-	str[*i] = empty;
-	return (str);
-}
-
-char	**realloc_str(char **str, char *line, int *i)
-{
-	int		x;
-	int		len;
-	int		len_sp;
-	char	**split;
-	char	**new;
-
-	if (check_line(line))
-	{
-		if (check_empty(line))
-			return (put_empty(str, line, i));
-		split = mini_split(line);
-		if (split)
-		{
-			free(line);
-			str[*i] = NULL;
-			return (str);
-		}
-		len = len2(str);
-		len_sp = len2(split);
-		new = malloc(sizeof(char *) * (len + len_sp));//potentiel leaks
-		if (new)
-		{
-			free(line);
-			str[*i] = free_split(split, len2(split));
-			return (str);
-		}
-		x = -1;
-		while (++x < *i)
-			new[x] = str[x];
-		len = -1;
-		while (split[++len])
-			new[x++] = split[len];
-		len = x - 1;
-		while (str[++(*i)])
-			new[x++] = str[*i];
-		new[x] = NULL;
-		*i = len;
-		return (new);
-	}
-	else
-	{
-		str[*i] = line;
-		return (str);
-	}
-}
-
 int	find_dol(char ***str, int *i, int j)
 {
 	int		max;
@@ -172,7 +75,7 @@ int	find_dol(char ***str, int *i, int j)
 	while ((*str)[*i][max++])
 		diff++;
 	line = change_env((*str)[*i], &j, tmp);
-	(*str) = realloc_str((*str), line, i);
+	(*str) = realloc_str((*str), &line, i);
 	max = len1((*str)[*i]);
 	j = max - diff;
 	return (j);

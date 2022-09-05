@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   put_in_struct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 11:31:20 by lide              #+#    #+#             */
-/*   Updated: 2022/09/05 16:03:11 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/05 21:28:01 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,31 +41,31 @@ int	put_in_cmd(char **str, t_list **cmd, int len)
 	return (1);
 }
 
-void    print_cmd(t_list **cmd)
-{
-    int i;
+// void    print_cmd(t_list **cmd)
+// {
+//     int i;
 
-    while ((*cmd)->before != NULL)
-        *cmd = (*cmd)->before;
-    while ((*cmd)->next != NULL)
-    {
-        printf("ft %s / opt %s /", (*cmd)->ft, (*cmd)->opt);
-        i = -1;
-        if ((*cmd)->arg != NULL)
-            while ((*cmd)->arg[++i])
-                printf("arg %s /", (*cmd)->arg[i]);
-        printf("link %s / tmp %s / infile %d / outfile %d / pos %d\n", (*cmd)->link,
-            (*cmd)->tmp, (*cmd)->infile, (*cmd)->outfile, (*cmd)->pos);
-        *cmd = (*cmd)->next;
-    }
-    printf("ft %s / opt %s /", (*cmd)->ft, (*cmd)->opt);
-    i = -1;
-    if ((*cmd)->arg != NULL)
-        while ((*cmd)->arg[++i])
-            printf("arg %s /", (*cmd)->arg[i]);
-    printf("link %s / tmp %s / infile %d / outfile %d / pos %d\n", (*cmd)->link,
-        (*cmd)->tmp, (*cmd)->infile, (*cmd)->outfile, (*cmd)->pos);
-}
+//     while ((*cmd)->before != NULL)
+//         *cmd = (*cmd)->before;
+//     while ((*cmd)->next != NULL)
+//     {
+//         printf("ft %s / opt %s /", (*cmd)->ft, (*cmd)->opt);
+//         i = -1;
+//         if ((*cmd)->arg != NULL)
+//             while ((*cmd)->arg[++i])
+//                 printf("arg %s /", (*cmd)->arg[i]);
+//         printf("link %s / tmp %s / infile %d / outfile %d / pos %d\n", (*cmd)->link,
+//             (*cmd)->tmp, (*cmd)->infile, (*cmd)->outfile, (*cmd)->pos);
+//         *cmd = (*cmd)->next;
+//     }
+//     printf("ft %s / opt %s /", (*cmd)->ft, (*cmd)->opt);
+//     i = -1;
+//     if ((*cmd)->arg != NULL)
+//         while ((*cmd)->arg[++i])
+//             printf("arg %s /", (*cmd)->arg[i]);
+//     printf("link %s / tmp %s / infile %d / outfile %d / pos %d\n", (*cmd)->link,
+//         (*cmd)->tmp, (*cmd)->infile, (*cmd)->outfile, (*cmd)->pos);
+// }
 
 int	put_in_struct(char **str, t_list **cmd)
 {
@@ -84,6 +84,6 @@ int	put_in_struct(char **str, t_list **cmd)
 		return (0);
 	}
 	free(str);
-	 print_cmd(cmd);
+	//  print_cmd(cmd);
 	return (1);
 }

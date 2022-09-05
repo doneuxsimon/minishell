@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:42:40 by lide              #+#    #+#             */
-/*   Updated: 2022/09/04 13:28:22 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/05 21:19:34 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,10 @@ int	create_tmp_file(char **str, t_list **cmd, int *i)
 	return (1);
 }
 
-int	find_infile(char **str, t_list **cmd, int *i)
+int	find_infile(char **str, t_list **cmd, int *i, int fd)
 {
-	int	fd;
 	int	verif;
 
-	fd = 0;
 	if (!remove_red_quote(str, *i))
 		return (0);
 	if ((*cmd)->infile != 0)

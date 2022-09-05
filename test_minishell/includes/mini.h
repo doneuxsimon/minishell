@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/09/05 16:40:31 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/05 21:50:44 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include <signal.h>
 # include <curses.h>
 # include <term.h>
-//# include "../wraloc.h"
+// # include "../wraloc.h"
 
 # define ERROR1 "redirection: syntax error near unexpected token `newline'"
 # define ERROR2 "minishell: warning: here-document at line %d"
@@ -117,7 +117,7 @@ char	*cp_value(char *value, char *line, int *len);
 char	*print_str_perror(char *str);
 int		print_perror(char *str);
 int		print_error(char *str);
-int		find_infile(char **str, t_list **cmd, int *i);
+int		find_infile(char **str, t_list **cmd, int *i, int fd);
 int		remove_red_quote(char **str, int i);
 int		put_pipe(t_list **cmd, char **str, int i);
 int		put_ft_and_opt(char **str, t_list **cmd, int *i);
@@ -189,5 +189,9 @@ int		is_digitt(char *arg);
 void	verif_ft(t_list *list);
 int		ft_exit_malloc(void);
 char	*verif_line(char *line, t_list *cmd);
+char	**realloc_str(char **str, char **line, int *i);
+void	ft_print_delete(t_var **var);
+int		check_w_sp(char *str, int j);
+int		error_init_returned(int verif);
 
 #endif

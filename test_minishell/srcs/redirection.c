@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:12:08 by lide              #+#    #+#             */
-/*   Updated: 2022/08/17 16:27:42 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/05 21:19:40 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	redirection(char **str, t_list **cmd, int len)
 			if (str[i][0] == '>')
 				verif = find_outfile(str, cmd, &i);
 			else if (str[i][0] == '<')
-				verif = find_infile(str, cmd, &i);
+				verif = find_infile(str, cmd, &i, 0);
 			else if (str[i][0] == '&' || str[i][0] == '|')
 				verif = next_struct(cmd, &i, str);
 			else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 16:47:39 by marvin            #+#    #+#             */
-/*   Updated: 2022/09/05 16:42:23 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/05 21:49:02 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,11 @@ int	init_global(char **envp)
 	if (!g_var)
 		return (1);
 	g_var->returned = init_returned();
-	g_var->pid = init_returned();
 	if (!g_var->returned)
-	{
-		free(g_var);
-		perror("init_returned");
-		return (1);
-	}
+		return (error_init_returned(0));
+	g_var->pid = init_returned();
+	if (!g_var->pid)
+		return (error_init_returned(1));
 	i = ft_export(envp, 0, len2(envp));
 	if (i)
 	{
@@ -118,7 +116,6 @@ int	main(int argc, char **argv, char **envp)
 	if (init_global(envp))
 		return (1);
 	ft_modify_env();
-	// ft_unset_old();
 	path = ft_get_path();
 	while (1)
 	{

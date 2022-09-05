@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcing_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/09/05 16:20:23 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/05 20:16:49 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	check_sep(char **str, int len)
 	}
 	return (1);
 }
-
 
 char	**get_line(char *line)
 {
@@ -73,8 +72,8 @@ void	free_envp(void)
 		free(tmp);
 	}
 	free(g_var->returned);
-	free(g_var->name);
 	free(g_var->pid);
+	free(g_var->name);
 	free(g_var->value);
 	free(g_var);
 }

@@ -15,6 +15,7 @@ SRCS	=	srcs/parcing_line.c\
 			srcs/unset.c\
 			srcs/remove_quote.c\
 			srcs/export.c\
+			srcs/utils_export.c\
 			srcs/main.c\
 			srcs/split.c\
 			srcs/parsing.c\
@@ -22,6 +23,7 @@ SRCS	=	srcs/parcing_line.c\
 			srcs/execution.c\
 			srcs/utils_copy.c\
 			srcs/print_error.c\
+			srcs/print_error2.c\
 			srcs/signal_handler.c\
 			srcs/utils_put_in_struct2.c\
 			srcs/ft_atoi.c\
@@ -34,7 +36,8 @@ SRCS	=	srcs/parcing_line.c\
 			srcs/execution_utils_3.c\
 			srcs/parsing_utils_3.c\
 			srcs/ft_export_2.c\
-			srcs/verif_line.c
+			srcs/verif_line.c\
+			srcs/realloc_dol.c
 
 # SRCS	=	srcs/minishell_signal.c
 

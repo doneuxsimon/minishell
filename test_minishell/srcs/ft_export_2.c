@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 19:02:09 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/01 18:04:41 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/05 21:45:37 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
-
-void	ft_print_delete(t_var **var)
-{
-	t_var	*tmp;
-
-	printf("declare -x %s=\"%s\"\n", (*var)->name, (*var)->value);
-	tmp = (*var);
-	if ((*var)->next)
-		(*var)->next->before = (*var)->before;
-	if ((*var)->before)
-		tmp->before->next = (*var)->next;
-	(*var) = (*var)->next;
-	free(tmp->value);
-	free(tmp->name);
-	free(tmp);
-	if (!(*var)->next && !(*var)->before)
-		*var = NULL;
-}
 
 int	ft_var_cmp(t_var *tmp, t_var *clean)
 {
