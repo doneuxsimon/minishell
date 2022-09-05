@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 16:47:39 by marvin            #+#    #+#             */
-/*   Updated: 2022/09/05 16:15:09 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/05 16:42:23 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ char	**start_parsing(t_list **cmd)
 		rl_clear_history();
 		exit (0);
 	}
+	line = verif_line(line, *cmd);
 	add_history(line);
 	return (get_line(line));
 }

@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/09/05 15:10:07 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/05 16:40:31 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,5 +188,6 @@ void	ft_modify_env(void);
 int		is_digitt(char *arg);
 void	verif_ft(t_list *list);
 int		ft_exit_malloc(void);
+char	*verif_line(char *line, t_list *cmd);
 
 #endif

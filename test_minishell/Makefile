@@ -33,7 +33,8 @@ SRCS	=	srcs/parcing_line.c\
 			srcs/execution_utils_2.c\
 			srcs/execution_utils_3.c\
 			srcs/parsing_utils_3.c\
-			srcs/ft_export_2.c
+			srcs/ft_export_2.c\
+			srcs/verif_line.c
 
 # SRCS	=	srcs/minishell_signal.c
 
