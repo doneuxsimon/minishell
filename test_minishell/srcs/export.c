@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 13:36:37 by lide              #+#    #+#             */
-/*   Updated: 2022/09/05 13:45:47 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/05 15:13:23 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	put_g_value(char **str, int ct, int i, int j)
 
 	x = 0;
 	len = len1(str[i]);
-	g_var->value = (char *)malloc(sizeof(char) * (len - (j - 1)));
+	g_var->value = (char *)malloc(sizeof(char) * (len - (j - 1)));// leaks
 	if (!g_var->value)
 		return (0);
 	while (++ct < len)
@@ -97,13 +97,12 @@ int	check_w_sp(char *str, int j)
 	int	i;
 
 	i = -1;
-
 	if (j == 0)
 	{
 		printf(ERROR_EXPORT, str);
 		return (-1);
 	}
-	while(++i < j)
+	while (++i < j)
 	{
 		if ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
 		{

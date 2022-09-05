@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 13:51:37 by lide              #+#    #+#             */
-/*   Updated: 2022/09/04 13:01:21 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/05 15:52:36 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,22 +79,59 @@ char	*change_env(char *str, int *j, int tmp)
 	return (free_env(str, line, env));
 }
 
-char **realloc_str(char **str, char *line, int *i)
+int	check_empty(char *line)
 {
-	int x;
-	int	len;
-	int	len_sp;
-	char **split;
-	char **new;
+	int	i;
+
+	i = -1;
+	while (line[++i])
+	{
+		if (!((line[i] >= 9 && line[i] <= 13) || line[i] == ' '))
+			return (0);
+	}
+	return (1);
+}
+
+char	**put_empty(char **str, int *i)
+{
+	char	*line;
+
+	line = malloc(sizeof(char));
+	if (!line)
+		return (NULL);
+	line[0] = '\0';
+	str[*i] = line;
+	return (str);
+}
+
+char	**realloc_str(char **str, char *line, int *i)
+{
+	int		x;
+	int		len;
+	int		len_sp;
+	char	**split;
+	char	**new;
 
 	if (check_line(line))
 	{
+		if (check_empty(line))
+			return (put_empty(str, i));
 		split = mini_split(line);
-		// if (split)
+		if (split)
+		{
+			free(line);
+			str[*i] = NULL;
+			return (str);
+		}
 		len = len2(str);
 		len_sp = len2(split);
-		new = malloc(sizeof(char *) * (len + len_sp));
-		// if (new)
+		new = malloc(sizeof(char *) * (len + len_sp));//potentiel leaks
+		if (new)
+		{
+			free(line);
+			str[*i] = free_split(split, len2(split));
+			return (str);
+		}
 		x = -1;
 		while (++x < *i)
 			new[x] = str[x];
@@ -106,6 +143,7 @@ char **realloc_str(char **str, char *line, int *i)
 			new[x++] = str[*i];
 		new[x] = NULL;
 		*i = len;
+		// free(str);
 		return (new);
 	}
 	else
@@ -127,7 +165,7 @@ int	find_dol(char ***str, int *i, int j)
 		(j)++;
 	max = j;
 	diff = 0;
-	while((*str)[*i][max++])
+	while ((*str)[*i][max++])
 		diff++;
 	line = change_env((*str)[*i], &j, tmp);
 	(*str) = realloc_str((*str), line, i);
