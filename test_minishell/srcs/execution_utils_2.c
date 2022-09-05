@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:21:56 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/02 14:23:18 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/05 13:48:43 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	ft_fork_0(t_list *list, t_exec_pipe *exec)
 	if (!exec->pid[0])
 	{
 		sig(5);
-		verif_ft(list);
 		if (list->infile)
 			dup2(list->infile, 0);
 		if (dup1(list, exec->piped1[1]) == -1)
@@ -74,7 +73,7 @@ void	ft_fork_0(t_list *list, t_exec_pipe *exec)
 			exit(EXIT_SUCCESS);
 	}
 	else
-		ft_cat_return(list);
+		ft_cat_return(list, exec->pid[0]);
 }
 
 void	ft_fork_1(t_list **list, t_exec_pipe *exec)
@@ -90,7 +89,6 @@ void	ft_fork_1(t_list **list, t_exec_pipe *exec)
 	if (!exec->pid[1])
 	{
 		sig(5);
-		verif_ft(*list);
 		if (dup0(*list, exec->piped1[0]) == -1)
 			exit(ft_exit_pipe());
 		if (dup1(*list, exec->piped2[1]) == -1)
@@ -103,7 +101,7 @@ void	ft_fork_1(t_list **list, t_exec_pipe *exec)
 			exit(EXIT_SUCCESS);
 	}
 	else
-		ft_cat_return(*list);
+		ft_cat_return(*list, exec->pid[1]);
 }
 
 void	ft_fork_2(t_list *list, t_exec_pipe *exec)
@@ -115,7 +113,6 @@ void	ft_fork_2(t_list *list, t_exec_pipe *exec)
 	if (!exec->pid[2])
 	{
 		sig(5);
-		verif_ft(list);
 		if (dup0(list, exec->piped2[0]) == -1)
 			exit(ft_exit_pipe());
 		if (exec->count > 1)
@@ -133,5 +130,5 @@ void	ft_fork_2(t_list *list, t_exec_pipe *exec)
 			exit(EXIT_SUCCESS);
 	}
 	else
-		ft_cat_return(list);
+		ft_cat_return(list, exec->pid[2]);
 }

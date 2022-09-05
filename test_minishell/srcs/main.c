@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 16:47:39 by marvin            #+#    #+#             */
-/*   Updated: 2022/09/02 18:06:44 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/05 13:46:36 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	init_global(char **envp)
 	if (!g_var)
 		return (1);
 	g_var->returned = init_returned();
+	g_var->pid = init_returned();
 	if (!g_var->returned)
 	{
 		free(g_var);

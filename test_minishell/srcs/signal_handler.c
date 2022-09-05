@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 18:34:54 by lide              #+#    #+#             */
-/*   Updated: 2022/09/01 16:23:31 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/05 13:40:46 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,18 @@ void	handle_2(int sig)
 
 void	handle_4(int sig)
 {
+	int	i;
+
 	if (sig == SIGINT)
 	{
+		dprintf(0, "%d", EOF);
+		i = kill(*g_var->pid, SIGINT);
+		if (i < 0)
+			perror("kill");
 		printf("\n");
+		//kill(*g_var->pid, 20);
 		g_var->returned[0] = 130;
+		//exit(1);
 	}
 	if (sig == SIGQUIT)
 	{

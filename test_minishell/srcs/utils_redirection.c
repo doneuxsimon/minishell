@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:24:05 by lide              #+#    #+#             */
-/*   Updated: 2022/09/02 14:46:10 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/02 16:50:29 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,4 @@ int	remove_red_quote(char **str, int i)
 			return (0);
 	}
 	return (1);
-}
-
-void	verif_ft(t_list *list)
-{
-	if (list->ft == NULL && list->next)
-	{
-		printf("minishell: syntax error near unexpected token `|'\n");
-		exit(1);
-	}
-	else if (!list->ft && !list->next)
-	{
-		printf("jeff\n");
-		// faire un readline pour choper la commande
-	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils_3.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:23:47 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/01 20:56:41 by marvin           ###   ########.fr       */
+/*   Updated: 2022/09/05 13:48:36 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,12 @@ void	check_in_outfile(t_list *list)
 		dup1(list, 0);
 }
 
-void	ft_cat_return(t_list *list)
+void	ft_cat_return(t_list *list, int pid)
 {
 	if (verif_builtin(list) == 2)
 		sig(3);
 	else
 		sig(4);
+	g_var->pid[0] = pid;
 	g_var->returned[0] = 0;
 }

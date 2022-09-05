@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 13:36:37 by lide              #+#    #+#             */
-/*   Updated: 2022/09/04 13:24:20 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/05 13:45:47 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	put_g_name(char *tmp, int verif)
 		if (!new)
 			return (0);
 		new->returned = g_var->returned;
+		new->pid = g_var->pid;
 		new->before = g_var;
 		g_var->next = new;
 		g_var = g_var->next;

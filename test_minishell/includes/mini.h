@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/09/02 18:06:09 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/05 13:48:48 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_var
 	char			*name;
 	char			*value;
 	int				*returned;
+	int				*pid;
 	struct s_var	*next;
 	struct s_var	*before;
 }					t_var;
@@ -174,7 +175,7 @@ int		ft_compare_n2(t_list *list);
 int		dup0(t_list *list, int piped);
 int		dup1(t_list *list, int piped);
 void	check_in_outfile(t_list *list);
-void	ft_cat_return(t_list *list);
+void	ft_cat_return(t_list *list, int pid);
 void	ft_close_pipe(t_exec_pipe *exec);
 int		change_question_error(char **str, char *nb, int i, int verif);
 int		command_exist(t_list *list, char **cmd_path);

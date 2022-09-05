@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:27:47 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/01 20:28:36 by marvin           ###   ########.fr       */
+/*   Updated: 2022/09/02 16:43:19 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,21 +72,21 @@ void	ft_cd(t_list *list)
 	if (list->arg)
 	{
 		tmp = getcwd(NULL, 0);
-		tmp = ft_strjoin("OLDPWD=", tmp);
-		ft_export(&tmp, 0, 1);
+		tmp = ft_strjoin("OLDPWD", tmp);
 		chdir(list->arg[0]);
+		ft_export(&tmp, 0, 1);
 		tmp = getcwd(NULL, 0);
-		tmp = ft_strjoin("PWD=", tmp);
+		tmp = ft_strjoin("PWD", tmp);
 		ft_export(&tmp, 0, 1);
 	}
 	else
 	{
 		tmp = getcwd(NULL, 0);
-		tmp = ft_strjoin("OLDPWD=", tmp);
-		ft_export(&tmp, 0, 1);
+		tmp = ft_strjoin("OLDPWD", tmp);
 		chdir(getenv("HOME"));
+		ft_export(&tmp, 0, 1);
 		tmp = getcwd(NULL, 0);
-		tmp = ft_strjoin("PWD=", tmp);
+		tmp = ft_strjoin("PWD", tmp);
 		ft_export(&tmp, 0, 1);
 	}
 }
