@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcing_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/09/05 14:46:06 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/05 16:20:23 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	free_envp(void)
 	}
 	free(g_var->returned);
 	free(g_var->name);
+	free(g_var->pid);
 	free(g_var->value);
 	free(g_var);
 }
@@ -89,6 +90,8 @@ int	*init_returned(void)
 
 int	command_exist(t_list *list, char **cmd_path)
 {
+	if (&(list->ft) && strlen(list->ft) == 0)
+		return (0);
 	if (!get_cmd2(cmd_path, list->ft) && !verif_builtin(list))
 	{
 		g_var->returned[0] = 127;

@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 18:34:54 by lide              #+#    #+#             */
-/*   Updated: 2022/09/05 13:40:46 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/05 15:05:58 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,19 @@ void	handle_4(int sig)
 
 	if (sig == SIGINT)
 	{
-		dprintf(0, "%d", EOF);
-		i = kill(*g_var->pid, SIGINT);
-		if (i < 0)
-			perror("kill");
 		printf("\n");
-		//kill(*g_var->pid, 20);
 		g_var->returned[0] = 130;
-		//exit(1);
+		i = kill(*g_var->pid, 20);
+		if (i < 0)
+			perror("kill didn't worked");
 	}
 	if (sig == SIGQUIT)
 	{
 		printf("Quit : 3\n");
 		g_var->returned[0] = 131;
+		i = kill(0, 20);
+		if (i < 0)
+			perror("kill didn't worked");
 	}
 }
 
@@ -87,6 +87,8 @@ void	sig(int i)
 		sa1.sa_handler = SIG_IGN;
 	if (i == 4)
 	{
+		sa1.sa_flags = SA_NOCLDWAIT | SA_RESTART | SA_SIGINFO;
+		sa2.sa_flags = SA_NOCLDWAIT | SA_RESTART | SA_SIGINFO;
 		sa1.sa_handler = &handle_4;
 		sa2.sa_handler = &handle_4;
 	}
