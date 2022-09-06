@@ -39,18 +39,17 @@ SRCS	=	srcs/parcing_line.c\
 			srcs/verif_line.c\
 			srcs/realloc_dol.c
 
-# SRCS	=	srcs/minishell_signal.c
 
 NAME	=	minishell.a
 EXEC	=	minishell
 OBJS	=	${SRCS:.c=.o}
-CC		=	@gcc
-CFLAGS = -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include\
-		#-fsanitize=address -g
+CC		=	@gcc -Wall -Wextra -Werror -I ${RPATH}include
+RPATH	=	/Users/$(USER)/.brew/opt/readline/
+RLFLAGS	=	-L ${RPATH}lib -I ${RPATH}include
 
 ${NAME}:	${OBJS}
 			@ar -rc ${NAME} ${OBJS}
-			@${CC} -lreadline ${CFLAGS} ${NAME} -lreadline -L/Users/$(USER)/.brew/opt/readline/lib -o ${EXEC}
+			@${CC} ${RLFLAGS} -lreadline ${NAME} -o ${EXEC}
 			@echo "|minishell: ready to use|"
 
 all:		${NAME}
