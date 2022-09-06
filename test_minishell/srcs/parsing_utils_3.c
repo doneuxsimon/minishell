@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:51:03 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/08/30 16:43:30 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/06 17:02:27 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,27 @@ int	dup1(t_list *list, int piped)
 			return (-1);
 	}
 	return (0);
+}
+
+void	ft_cd_utils(void)
+{
+	char	*tmp;
+
+	tmp = getcwd(NULL, 0);
+	tmp = ft_strjoin("OLDPWD", tmp);
+	if (!tmp)
+	{
+		perror("strjoin in cd");
+		exit(1);
+	}
+	chdir(getenv("HOME"));
+	ft_export(&tmp, 0, 1);
+	tmp = getcwd(NULL, 0);
+	tmp = ft_strjoin("PWD", tmp);
+	if (!tmp)
+	{
+		perror("strjoin in cd");
+		exit(1);
+	}
+	ft_export(&tmp, 0, 1);
 }

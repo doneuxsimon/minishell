@@ -40,16 +40,14 @@ SRCS	=	srcs/parcing_line.c\
 			srcs/realloc_dol.c
 
 
-NAME	=	minishell.a
-EXEC	=	minishell
+NAME	=	minishell
 OBJS	=	${SRCS:.c=.o}
 CC		=	@gcc -Wall -Wextra -Werror -I ${RPATH}include
 RPATH	=	/Users/$(USER)/.brew/opt/readline/
 RLFLAGS	=	-L ${RPATH}lib -I ${RPATH}include
 
 ${NAME}:	${OBJS}
-			@ar -rc ${NAME} ${OBJS}
-			@${CC} ${RLFLAGS} -lreadline ${NAME} -o ${EXEC}
+			@${CC} ${OBJS} ${RLFLAGS} -lreadline -o ${NAME}
 			@echo "|minishell: ready to use|"
 
 all:		${NAME}
@@ -60,7 +58,7 @@ clean:
 
 fclean:
 			@rm -f ${OBJS}
-			@rm -f ${NAME} ${EXEC}
+			@rm -f ${NAME}
 			@echo "-everything as been Fcleaned-"
 
 re:			fclean all

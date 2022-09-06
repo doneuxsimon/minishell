@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:25:57 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/05 20:56:30 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/06 19:15:43 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_modify_env(void)
 {
 	int		tmp;
+	char	*str;
 
 	tmp = 0;
 	ft_begin_var(&g_var);
@@ -26,9 +27,17 @@ void	ft_modify_env(void)
 	{
 		tmp = ft_atoi(g_var->value);
 		tmp++;
-		free(g_var->value);
-		g_var->value = ft_itoa(tmp);
-		// if (!g_var->value)// connait pas l'incidence
+		str = ft_itoa(tmp);
+		if (str)
+		{
+			free(g_var->value);
+			g_var->value = str;
+		}
+		else
+		{
+			perror("itoa modify env");
+			exit(1);
+		}
 	}
 }
 
@@ -93,19 +102,26 @@ int	verify_builtins(t_list *list, char **envp)
 	return (i);
 }
 
-char	*get_cmd(char *path, char *cmd)
+char	*get_cmd_utils(char **cmd_paths, char *cmd)
 {
 	char	*tmp;
 	char	*command;
-	char	**cmd_paths;
 
-	cmd_paths = ft_split(path, ':');
 	while (*cmd_paths)
 	{
 		tmp = ft_strjoin_2(*cmd_paths, "/");
-		//if NULL !!!
+		if (!tmp)
+		{
+			perror("strjoin2 in get_cmd");
+			return ("MALLOC ERROR");
+		}
 		command = ft_strjoin_2(tmp, cmd);
-		// if NULL !!!
+		if (!command)
+		{
+			perror("strjoin2 in get_cmd");
+			free(tmp);
+			return ("MALLOC ERROR");
+		}
 		free(tmp);
 		if (access(command, 0) == 0)
 			return (command);

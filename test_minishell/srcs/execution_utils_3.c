@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:23:47 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/05 13:48:36 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/06 16:34:07 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_exec_nothing(t_list *list, t_exec *exec)
 {
-	exec->cmd = get_cmd2(exec->cmd_path, list->ft);
+	exec->cmd = get_cmd2(exec->cmd_path, list->ft, list);
 	exec->cmd_args = malloc(sizeof(char *) * 2);
 	if (!exec->cmd_args)
 		exit(ft_exit_malloc());

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/09/05 21:50:44 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/06 19:24:30 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include <signal.h>
 # include <curses.h>
 # include <term.h>
-// # include "../wraloc.h"
+//# include "../wraloc.h"
 
 # define ERROR1 "redirection: syntax error near unexpected token `newline'"
 # define ERROR2 "minishell: warning: here-document at line %d"
@@ -147,7 +147,7 @@ char	**ft_split(char const *s, char c);
 char	*get_cmd(char *path, char *cmd);
 int		verify_builtins(t_list *list, char **envp);
 void	ft_start_exec(t_list *list, char *path, char **envp);
-char	*get_cmd2(char **cmd_paths, char *cmd);
+char	*get_cmd2(char **cmd_paths, char *cmd, t_list *list);
 void	ft_exec_pipes(t_list *list, char **cmd_path, char **envp, int count);
 void	ft_fork_0(t_list *list, t_exec_pipe *exec);
 void	ft_fork_1(t_list **list, t_exec_pipe *exec);
@@ -193,5 +193,9 @@ char	**realloc_str(char **str, char **line, int *i);
 void	ft_print_delete(t_var **var);
 int		check_w_sp(char *str, int j);
 int		error_init_returned(int verif);
+char	*get_cmd_utils(char **cmd_paths, char *cmd);
+void	ft_cd_utils(void);
+int		ft_exit_close(void);
+void	ft_exit_utils(t_list *cmd);
 
 #endif

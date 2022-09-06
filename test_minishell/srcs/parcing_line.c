@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcing_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/09/05 20:16:49 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/06 19:43:57 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,23 +89,27 @@ int	*init_returned(void)
 
 int	command_exist(t_list *list, char **cmd_path)
 {
+	char	*tmp;
+
 	if (&(list->ft) && strlen(list->ft) == 0)
 		return (0);
-	if (!get_cmd2(cmd_path, list->ft) && !verif_builtin(list))
+	tmp = get_cmd2(cmd_path, list->ft, list);
+	if (!tmp && !verif_builtin(list))
 	{
 		g_var->returned[0] = 127;
-		printf("minishell: %s: Command not found\n", list->ft);
 		return (0);
 	}
 	while (list->next)
 	{
+		tmp = get_cmd2(cmd_path, list->ft, list);
 		list = list->next;
-		if (!get_cmd2(cmd_path, list->ft) && !verif_builtin(list))
+		if (!tmp && !verif_builtin(list))
 		{
 			g_var->returned[0] = 127;
-			printf("minishell: %s: Command not found\n", list->ft);
 			return (0);
 		}
 	}
+	if (tmp)
+		free(tmp);
 	return (1);
 }

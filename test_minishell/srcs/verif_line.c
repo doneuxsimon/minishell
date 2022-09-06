@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:30:25 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/05 17:17:58 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/06 19:24:58 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,16 @@ char	*verif_line(char *line, t_list *cmd)
 				return (line);
 		}
 	}
+}
+
+void	ft_exit_utils(t_list *cmd)
+{
+	int	tmp;
+
+	printf("exit\n");
+	tmp = ft_atoi(cmd->arg[0]);
+	if (!tmp)
+		tmp = 1;
+	free_all(&cmd, 0);
+	exit(tmp);
 }

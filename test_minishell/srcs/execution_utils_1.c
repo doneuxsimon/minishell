@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils_1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:19:52 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/05 21:01:37 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/06 19:39:48 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ void	ft_fork_3(t_list *list, t_exec_pipe *exec)
 			dup2(list->outfile, 1);
 		if (dup0(list, exec->piped1[0]) == -1)
 			exit(ft_exit_pipe());
-		close(exec->piped1[1]);
-		close(exec->piped2[1]);
-		close(exec->piped2[0]);
-		//if close rate
+		if (close(exec->piped1[1]) < 0)
+			exit(ft_exit_close());
+		if (close(exec->piped2[1]) < 0)
+			exit(ft_exit_close());
+		if (close(exec->piped2[0]) < 0)
+			exit(ft_exit_close());
 		if (verify_builtins(list, exec->envp) == 0)
 			ft_exec(list, exec->cmd_path, exec->envp);
 		else
@@ -122,7 +124,11 @@ void	ft_start_exec(t_list *list, char *path, char **envp)
 		return ;
 	count = ft_count_forks(list);
 	cmd_path = ft_split(path, ':');
-	//if NULL !!!
+	if (!cmd_path)
+	{
+		perror("split in start_exec");
+		exit(1);
+	}
 	ft_begin(&list);
 	if (command_exist(list, cmd_path) == 0)
 	{

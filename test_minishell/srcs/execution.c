@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 16:53:14 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/01 20:57:10 by marvin           ###   ########.fr       */
+/*   Updated: 2022/09/06 19:40:38 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,29 +27,25 @@ int	ft_count_forks(t_list *list)
 	return (i);
 }
 
-char	*get_cmd2(char **cmd_paths, char *cmd)
+char	*get_cmd2(char **cmd_paths, char *cmd, t_list *list)
 {
-	char	*tmp;
-	char	*command;
+	char	*cmd2;
 
 	if (cmd[0] != '/')
 	{
-		while (*cmd_paths)
-		{
-			tmp = ft_strjoin_2(*cmd_paths, "/");
-			command = ft_strjoin_2(tmp, cmd);
-			free(tmp);
-			if (access(command, 0) == 0)
-				return (command);
-			free(command);
-			cmd_paths++;
-		}
+		cmd2 = get_cmd_utils(cmd_paths, cmd);
+		if (cmd2 && ft_strncmp_2(cmd2, "MALLOC ERROR", 13) == 0)
+			return (NULL);
+		else if (cmd2)
+			return (cmd2);
 	}
 	else
 	{
 		if (access(cmd, 0) == 0)
 			return (cmd);
 	}
+	if (!verif_builtin(list))
+		printf("minishell: %s: Command not found\n", list->ft);
 	return (NULL);
 }
 
@@ -57,7 +53,7 @@ void	ft_exec_arg_opt(t_list *list, t_exec *exec, int i)
 {
 	int	j;
 
-	exec->cmd = get_cmd2(exec->cmd_path, list->ft);
+	exec->cmd = get_cmd2(exec->cmd_path, list->ft, list);
 	exec->cmd_args = malloc(sizeof(char *) * (3 + i));
 	if (!exec->cmd_args)
 		exit(ft_exit_malloc());
@@ -77,7 +73,7 @@ void	ft_exec_arg(t_list *list, t_exec *exec, int i)
 {
 	int	j;
 
-	exec->cmd = get_cmd2(exec->cmd_path, list->ft);
+	exec->cmd = get_cmd2(exec->cmd_path, list->ft, list);
 	exec->cmd_args = malloc(sizeof(char *) * (2 + i));
 	if (!exec->cmd_args)
 		exit(ft_exit_malloc());
@@ -94,7 +90,7 @@ void	ft_exec_arg(t_list *list, t_exec *exec, int i)
 
 void	ft_exec_opt(t_list *list, t_exec *exec)
 {
-	exec->cmd = get_cmd2(exec->cmd_path, list->ft);
+	exec->cmd = get_cmd2(exec->cmd_path, list->ft, list);
 	exec->cmd_args = malloc(sizeof(char *) * 3);
 	if (!exec->cmd_args)
 		exit(ft_exit_malloc());

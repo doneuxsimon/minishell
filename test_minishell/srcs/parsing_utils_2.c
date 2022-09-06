@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:27:47 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/05 20:57:45 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/06 17:02:19 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,26 +73,24 @@ void	ft_cd(t_list *list)
 	{
 		tmp = getcwd(NULL, 0);
 		tmp = ft_strjoin("OLDPWD", tmp);
-		//if NULL !!!
+		if (!tmp)
+		{
+			perror("strjoin in cd");
+			exit(1);
+		}
 		chdir(list->arg[0]);
 		ft_export(&tmp, 0, 1);
 		tmp = getcwd(NULL, 0);
 		tmp = ft_strjoin("PWD", tmp);
-		//if NULL !!!
+		if (!tmp)
+		{
+			perror("strjoin in cd");
+			exit(1);
+		}
 		ft_export(&tmp, 0, 1);
 	}
 	else
-	{
-		tmp = getcwd(NULL, 0);
-		tmp = ft_strjoin("OLDPWD", tmp);
-		//if NULL !!!
-		chdir(getenv("HOME"));
-		ft_export(&tmp, 0, 1);
-		tmp = getcwd(NULL, 0);
-		tmp = ft_strjoin("PWD", tmp);
-		//if NULL !!!
-		ft_export(&tmp, 0, 1);
-	}
+		ft_cd_utils();
 }
 
 void	ft_unset_old(void)

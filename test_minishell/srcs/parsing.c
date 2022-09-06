@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:51:43 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/05 17:14:41 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/06 19:25:05 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,13 @@ void	ft_exit(t_list *cmd)
 			printf("minishell: exit: too many arguments\n");
 		}
 		else
-		{
-			printf("exit\n");
-			free_all(&cmd, 0);
-			exit(EXIT_SUCCESS);
-		}
+			ft_exit_utils(cmd);
+	}
+	else
+	{
+		printf("exit\n");
+		free_all(&cmd, 0);
+		exit(EXIT_SUCCESS);
 	}
 }
 
