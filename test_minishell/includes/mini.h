@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/09/06 19:24:30 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/06 20:53:35 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ void	free_envp(void);
 char	*free_char(char *str, char *print);
 int		free_redirection(char **str, t_list **cmd, int len);
 void	free_all(t_list **cmd, int verif);
-char	**ft_str_big_dup(char **str);
 int		skip_s_quote(char **str, int i, int j);
 char	*cp_name(char *str, int *len, int tmp, int *j);
 char	*cp_value(char *value, char *line, int *len);
@@ -123,7 +122,6 @@ int		put_pipe(t_list **cmd, char **str, int i);
 int		put_ft_and_opt(char **str, t_list **cmd, int *i);
 int		put_arg(char **str, t_list **cmd, int len, int *i);
 void	sig(int i);
-void	print_cmd(t_list **cmd);
 int		free_infile(char **str, int *i);
 void	skip_sep_error(int ct, int sep);
 int		check_minus(char **str, int *i);
@@ -131,20 +129,17 @@ char	**g_var_to_char(void);
 int		*init_returned(void);
 char	**get_line(char *line);
 
-int		ft_strncmp_end(char *s1, char *s2, int n);
 int		ft_strncmp_2(char *s1, char *s2, int n);
 void	ft_end(t_list **stack);
 void	ft_begin(t_list **stack);
 void	ft_end_var(t_var **stack);
 void	ft_begin_var(t_var **stack);
-char	*find_path(char **envp);
 int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
 char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlen(char *s);
 char	*ft_strjoin_2(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
-char	*get_cmd(char *path, char *cmd);
 int		verify_builtins(t_list *list, char **envp);
 void	ft_start_exec(t_list *list, char *path, char **envp);
 char	*get_cmd2(char **cmd_paths, char *cmd, t_list *list);
@@ -186,7 +181,6 @@ void	ft_export_2(void);
 void	*free_join(char **str, int i);
 void	ft_modify_env(void);
 int		is_digitt(char *arg);
-void	verif_ft(t_list *list);
 int		ft_exit_malloc(void);
 char	*verif_line(char *line, t_list *cmd);
 char	**realloc_str(char **str, char **line, int *i);
