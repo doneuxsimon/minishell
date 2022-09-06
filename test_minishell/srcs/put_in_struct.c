@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 11:31:20 by lide              #+#    #+#             */
-/*   Updated: 2022/09/05 21:28:01 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/06 21:14:09 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,6 @@ int	put_in_struct(char **str, t_list **cmd)
 		return (0);
 	}
 	free(str);
-	//  print_cmd(cmd);
+	// print_cmd(cmd);
 	return (1);
 }

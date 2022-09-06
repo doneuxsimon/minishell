@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:30:25 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/06 19:24:58 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/06 21:09:31 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ char	*verif_line(char *line, t_list *cmd)
 	while (1)
 	{
 		len = strlen(line) - 1;
-		while (len > 0)
+		while (len >= 0)
 		{
-			while ((line[len] >= 9 && line[len] <= 13) || line[len] == ' ')
+			while (len >= 0 && ((line[len] >= 9 && line[len] <= 13) || line[len] == ' '))
 				len--;
-			if (line[len] == '|')
+			if (len >= 0 && line[len] == '|')
 			{
 				line = ft_readline(line, cmd);
 				return (verif_line(line, cmd));
