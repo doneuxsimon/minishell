@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:27:47 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/06 17:02:19 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/07 14:33:25 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,24 +69,20 @@ void	ft_cd(t_list *list)
 {
 	char	*tmp;
 
-	if (list->arg)
+	if (list->opt && ft_strncmp_2(list->opt, "-", 2) == 0)
+		ft_cd_utils_minus();
+	else if (list->arg)
 	{
 		tmp = getcwd(NULL, 0);
 		tmp = ft_strjoin("OLDPWD", tmp);
 		if (!tmp)
-		{
-			perror("strjoin in cd");
-			exit(1);
-		}
+			exit(ft_exit_cd());
 		chdir(list->arg[0]);
 		ft_export(&tmp, 0, 1);
 		tmp = getcwd(NULL, 0);
 		tmp = ft_strjoin("PWD", tmp);
 		if (!tmp)
-		{
-			perror("strjoin in cd");
-			exit(1);
-		}
+			exit(ft_exit_cd());
 		ft_export(&tmp, 0, 1);
 	}
 	else

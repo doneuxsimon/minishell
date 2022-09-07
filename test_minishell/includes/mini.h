@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/09/06 20:53:35 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/07 14:35:16 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ int		check_minus(char **str, int *i);
 char	**g_var_to_char(void);
 int		*init_returned(void);
 char	**get_line(char *line);
-
 int		ft_strncmp_2(char *s1, char *s2, int n);
 void	ft_end(t_list **stack);
 void	ft_begin(t_list **stack);
@@ -191,5 +190,7 @@ char	*get_cmd_utils(char **cmd_paths, char *cmd);
 void	ft_cd_utils(void);
 int		ft_exit_close(void);
 void	ft_exit_utils(t_list *cmd);
+void	ft_cd_utils_minus(void);
+int		ft_exit_cd(void);
 
 #endif

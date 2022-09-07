@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 16:53:14 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/06 19:40:38 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/07 14:07:46 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*get_cmd2(char **cmd_paths, char *cmd, t_list *list)
 		else if (cmd2)
 			return (cmd2);
 	}
-	else
+	else if (cmd[0] == '/')
 	{
 		if (access(cmd, 0) == 0)
 			return (cmd);
