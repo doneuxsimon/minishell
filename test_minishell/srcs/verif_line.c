@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:30:25 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/07 14:49:55 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/07 18:50:01 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,12 @@ char	*ft_readline(char *line, t_list *cmd)
 	if (!line)
 	{
 		perror("Strjoin");
-		return (NULL);
+		write(1, "exit\n", 5);//dans l'idee
+		free_envp();
+		free(cmd);
+		rl_clear_history();
+		exit (0);
+		// return (NULL);
 	}
 	free(tmp);
 	return (line);
