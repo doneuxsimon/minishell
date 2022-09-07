@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 00:44:12 by lide              #+#    #+#             */
-/*   Updated: 2022/09/07 14:33:49 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/07 17:44:48 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,22 @@ void	ft_cd_utils_minus(void)
 		tmp = ft_strjoin("OLDPWD", tmp);
 		if (!tmp)
 			exit(ft_exit_cd());
-		chdir(g_var->value);
-		ft_export(&tmp, 0, 1);
-		tmp = getcwd(NULL, 0);
-		tmp = ft_strjoin("PWD", tmp);
-		if (!tmp)
-			exit(ft_exit_cd());
-		ft_export(&tmp, 0, 1);
+		if (chdir(g_var->value) < 0)
+			perror("minishel: cd: ");
+		else
+			ft_cd_utils2(tmp);
 	}
+}
+
+void	ft_cd_utils2(char *tmp)
+{
+	ft_export(&tmp, 0, 1);
+	free(tmp);
+	tmp = getcwd(NULL, 0);
+	tmp = ft_strjoin("PWD", tmp);
+	if (!tmp)
+		exit(ft_exit_cd());
+	ft_export(&tmp, 0, 1);
 }
 
 int	ft_exit_cd(void)

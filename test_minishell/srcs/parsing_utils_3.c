@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:51:03 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/06 17:02:27 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/07 17:44:40 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,8 @@ void	ft_cd_utils(void)
 		perror("strjoin in cd");
 		exit(1);
 	}
-	chdir(getenv("HOME"));
-	ft_export(&tmp, 0, 1);
-	tmp = getcwd(NULL, 0);
-	tmp = ft_strjoin("PWD", tmp);
-	if (!tmp)
-	{
-		perror("strjoin in cd");
-		exit(1);
-	}
-	ft_export(&tmp, 0, 1);
+	if (chdir(getenv("HOME")) < 0)
+		perror("minishel: cd: ");
+	else
+		ft_cd_utils2(tmp);
 }
