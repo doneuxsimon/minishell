@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 16:53:14 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/07 18:04:10 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/07 18:17:28 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,18 @@ int	ft_count_forks(t_list *list)
 
 char	*get_cmd2(char **cmd_paths, char *cmd, t_list *list)
 {
-	char	*cmd2;
-
 	if (cmd[0] != '/')
 	{
-		cmd2 = get_cmd_utils(cmd_paths, cmd);
-		if (cmd2 && ft_strncmp_2(cmd2, "MALLOC ERROR", 13) == 0)
-			return (NULL);
-		else if (cmd2)
-			return (cmd2);
+		if (get_cmd2_utils(cmd_paths, cmd))
+			return (get_cmd2_utils(cmd_paths, cmd));
 	}
 	else if (cmd[0] == '/')
 	{
+		if (!cmd[1] && cmd[0] == '/')
+		{
+			printf("minishell: /: Is a directory\n");
+			return (NULL);
+		}
 		if (access(cmd, 0) == 0)
 			return (cmd);
 		else

@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/09/07 17:42:40 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/07 18:17:18 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,5 +192,6 @@ void	ft_exit_utils(t_list *cmd);
 void	ft_cd_utils_minus(void);
 int		ft_exit_cd(void);
 void	ft_cd_utils2(char *tmp);
+char	*get_cmd2_utils(char **cmd_paths, char *cmd);
 
 #endif

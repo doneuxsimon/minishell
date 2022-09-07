@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 21:44:36 by lide              #+#    #+#             */
-/*   Updated: 2022/09/05 21:45:29 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/07 18:17:07 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,17 @@ int	check_w_sp(char *str, int j)
 		}
 	}
 	return (j);
+}
+
+char	*get_cmd2_utils(char **cmd_paths, char *cmd)
+{
+	char	*cmd2;
+
+	cmd2 = get_cmd_utils(cmd_paths, cmd);
+	if (cmd2 && ft_strncmp_2(cmd2, "MALLOC ERROR", 13) == 0)
+		return (NULL);
+	else if (cmd2)
+		return (cmd2);
+	else
+		return (NULL);
 }
