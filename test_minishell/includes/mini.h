@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/09/07 14:35:16 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/07 14:49:24 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 # include <signal.h>
 # include <curses.h>
 # include <term.h>
-//# include "../wraloc.h"
 
 # define ERROR1 "redirection: syntax error near unexpected token `newline'"
 # define ERROR2 "minishell: warning: here-document at line %d"
