@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/09/08 20:11:52 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/08 20:30:28 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,5 +194,7 @@ void	ft_cd_utils_minus(void);
 int		ft_exit_cd(void);
 void	ft_cd_utils2(char *tmp);
 char	*get_cmd2_utils(char **cmd_paths, char *cmd);
+int		check_pipe(char *line);
+char	**print_pipe_error(char *line);
 
 #endif

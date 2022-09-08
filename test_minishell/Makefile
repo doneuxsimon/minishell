@@ -9,6 +9,7 @@ SRCS	=	srcs/parcing_line.c\
 			srcs/utils_redirection.c\
 			srcs/utils_put_in_struct.c\
 			srcs/utils.c\
+			srcs/utils2.c\
 			srcs/free.c\
 			srcs/infile.c\
 			srcs/init.c\

@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 16:47:39 by marvin            #+#    #+#             */
-/*   Updated: 2022/09/08 19:23:45 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/08 20:29:57 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,26 +58,6 @@ void	ft_start(char **str, t_list *cmd, char *path, char **envp)
 	else
 		ft_start_exec(cmd, path, envp);
 	free_all(&cmd, 0);
-}
-
-int	check_pipe(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] && ((line[i] >= 9 && line[i] <= 13) || line[i] == ' '))
-		i++;
-	if (line[i] == '|')
-		return (1);
-	return (0);
-}
-
-char	**print_pipe_error(char *line)
-{
-	add_history(line);
-	free(line);
-	printf("minishell: syntax error near unexpected token `|'\n");
-	return (NULL);
 }
 
 char	**start_parsing(t_list **cmd)
