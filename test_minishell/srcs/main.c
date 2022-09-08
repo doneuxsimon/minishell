@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 16:47:39 by marvin            #+#    #+#             */
-/*   Updated: 2022/09/07 18:48:14 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/08 19:23:45 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,14 @@ int	check_pipe(char *line)
 	return (0);
 }
 
+char	**print_pipe_error(char *line)
+{
+	add_history(line);
+	free(line);
+	printf("minishell: syntax error near unexpected token `|'\n");
+	return (NULL);
+}
+
 char	**start_parsing(t_list **cmd)
 {
 	static int	ct_line;
@@ -92,12 +100,10 @@ char	**start_parsing(t_list **cmd)
 		exit (0);
 	}
 	if (check_pipe(line))
-	{
-		add_history(line);
-		printf("minishell: syntax error near unexpected token `|'\n");
-		return (NULL);//peut etre free line
-	}
+		return (print_pipe_error(line));
 	line = verif_line(line, *cmd);
+	if (!line)
+		return (NULL);
 	add_history(line);
 	return (get_line(line));
 }

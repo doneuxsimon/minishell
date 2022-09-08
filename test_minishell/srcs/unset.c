@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 00:44:12 by lide              #+#    #+#             */
-/*   Updated: 2022/09/07 17:44:48 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/08 19:37:53 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini.h"
-
-//doit ajouter remove_quote
 
 void	remove_g_var(void)
 {
@@ -33,6 +31,7 @@ void	remove_g_var(void)
 		verif = 1;
 	free(tmp->name);
 	free(tmp->value);
+	free(tmp);
 	if (verif)
 	{
 		tmp->name = NULL;

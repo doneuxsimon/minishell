@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:30:25 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/07 18:50:01 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/08 19:47:32 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,28 @@
 char	*ft_readline(char *line, t_list *cmd)
 {
 	char	*tmp;
+	char	*str;
 
 	tmp = readline("> ");
 	if (!tmp)
 	{
 		write(1, "exit\n", 5);
 		free_envp();
+		free(line);
 		free(cmd);
 		rl_clear_history();
 		exit (0);
 	}
-	line = ft_strjoin_2(line, tmp);
-	if (!line)
+	str = ft_strjoin_2(line, tmp);
+	if (!str)
 	{
 		perror("Strjoin");
-		write(1, "exit\n", 5);//dans l'idee
-		free_envp();
-		free(cmd);
-		rl_clear_history();
-		exit (0);
-		// return (NULL);
+		free(tmp);
+		add_history(line);
+		return (NULL);
 	}
+	free(line);
+	line = str;
 	free(tmp);
 	return (line);
 }
@@ -55,6 +56,8 @@ char	*verif_line(char *line, t_list *cmd)
 			if (len >= 0 && line[len] == '|')
 			{
 				line = ft_readline(line, cmd);
+				if (!line)
+					return (NULL);
 				return (verif_line(line, cmd));
 			}
 			else

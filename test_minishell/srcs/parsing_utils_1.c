@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:25:57 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/06 19:15:43 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/08 19:52:43 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ char	*get_cmd_utils(char **cmd_paths, char *cmd)
 			return ("MALLOC ERROR");
 		}
 		free(tmp);
+		// printf("line %p\n", command); //leaks avec command
 		if (access(command, 0) == 0)
 			return (command);
 		free(command);

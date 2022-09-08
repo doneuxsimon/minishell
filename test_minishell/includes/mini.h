@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/09/07 18:17:18 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/08 20:11:52 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <signal.h>
 # include <curses.h>
 # include <term.h>
+// # include "../wraloc.h"
 
 # define ERROR1 "redirection: syntax error near unexpected token `newline'"
 # define ERROR2 "minishell: warning: here-document at line %d"
