@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:30:25 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/08 19:47:32 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/12 13:58:35 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,17 @@ char	*ft_readline(char *line, t_list *cmd)
 
 char	*verif_line(char *line, t_list *cmd)
 {
-	size_t	len;
+	int	len;
 
 	while (1)
 	{
-		len = strlen(line) - 1;
+		len = len1(line) - 1;
 		while (len >= 0)
 		{
 			while (len >= 0 && ((line[len] >= 9 && line[len] <= 13)
 					|| line[len] == ' '))
 				len--;
-			if (len >= 0 && line[len] == '|')
+			if (len >= 1 && line[len] == '|' && line[len - 1] != '|')
 			{
 				line = ft_readline(line, cmd);
 				if (!line)
@@ -63,6 +63,7 @@ char	*verif_line(char *line, t_list *cmd)
 			else
 				return (line);
 		}
+		return (line);
 	}
 }
 
