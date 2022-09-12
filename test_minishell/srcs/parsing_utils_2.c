@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:27:47 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/07 17:44:38 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/12 17:58:28 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_cd(t_list *list)
 {
 	char	*tmp;
 
-	if (list->opt && ft_strncmp_2(list->opt, "-", 2) == 0)
+	if (list->opt && ft_strncmp_2(list->opt, "-", 2) == 0 && !list->opt[1])
 		ft_cd_utils_minus();
 	else if (list->arg)
 	{
@@ -78,7 +78,8 @@ void	ft_cd(t_list *list)
 		if (!tmp)
 			exit(ft_exit_cd());
 		if (chdir(list->arg[0]) < 0)
-			perror("minishel: cd: ");
+			printf("minishel: cd: %s: no such file or directory\n",
+				list->arg[0]);
 		else
 			ft_cd_utils2(tmp);
 	}

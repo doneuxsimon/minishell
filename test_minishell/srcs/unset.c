@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 00:44:12 by lide              #+#    #+#             */
-/*   Updated: 2022/09/08 19:37:53 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/12 17:58:51 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,21 @@ void	ft_cd_utils_minus(void)
 	char	*tmp;
 
 	ft_begin_var(&g_var);
-	while (ft_strncmp_2(g_var->name, "OLDPWD", 7) != 0)
+	while (g_var->next && ft_strncmp_2(g_var->name, "OLDPWD", 7) != 0)
 		g_var = g_var->next;
-	if (ft_strncmp_2(g_var->name, "OLDPWD", 7) == 0)
+	if (g_var->name && g_var->value
+		&& ft_strncmp_2(g_var->name, "OLDPWD", 7) == 0)
 	{
-		printf("%s\n", g_var->value);
+		printf("%s\n", g_var->name);
 		tmp = getcwd(NULL, 0);
 		tmp = ft_strjoin("OLDPWD", tmp);
 		if (!tmp)
 			exit(ft_exit_cd());
-		if (chdir(g_var->value) < 0)
-			perror("minishel: cd: ");
-		else
-			ft_cd_utils2(tmp);
+		chdir(g_var->value);
+		ft_cd_utils2(tmp);
 	}
+	else
+		printf("minishell: cd: OLDPWD not set\n");
 }
 
 void	ft_cd_utils2(char *tmp)

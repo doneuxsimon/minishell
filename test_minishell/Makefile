@@ -45,7 +45,8 @@ NAME	=	minishell
 OBJS	=	${SRCS:.c=.o}
 CC		=	@gcc -Wall -Wextra -Werror -I ${RPATH}include
 RPATH	=	/Users/$(USER)/.brew/opt/readline/
-RLFLAGS	=	-L ${RPATH}lib -I ${RPATH}include
+RLFLAGS	=	-L ${RPATH}lib -I ${RPATH}include\
+			#-fsanitize=address
 
 ${NAME}:	${OBJS}
 			@${CC} ${OBJS} ${RLFLAGS} -lreadline -o ${NAME}

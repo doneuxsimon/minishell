@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:21:56 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/05 13:48:43 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/12 17:31:01 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	ft_exec(t_list *list, char **cmd_path, char **envp)
 		else if (list->opt && !list->arg)
 			ft_exec_opt(list, exec);
 	}
+	free(exec->cmd);
 	free(exec);
 }
 
