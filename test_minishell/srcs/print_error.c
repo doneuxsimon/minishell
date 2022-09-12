@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:51:52 by lide              #+#    #+#             */
-/*   Updated: 2022/09/12 13:38:46 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/12 14:15:15 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	skip_sep_error(int ct, int sep)
 		if (ct == 3)
 			printf("minishel: syntax error near unexpected token `%c'\n", sep);
 		else
-			printf("minishel: syntax error near unexpected token `%c%c'\n", sep, sep);
+			printf("minishel: syntax error near unexpected token `%c%c'\n",
+				sep, sep);
 	}
 }
 

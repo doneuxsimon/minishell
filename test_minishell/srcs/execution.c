@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 16:53:14 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/07 18:17:28 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/12 14:14:46 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ int	ft_count_forks(t_list *list)
 
 char	*get_cmd2(char **cmd_paths, char *cmd, t_list *list)
 {
-	if (cmd[0] != '/')
-	{
-		if (get_cmd2_utils(cmd_paths, cmd))
-			return (get_cmd2_utils(cmd_paths, cmd));
-	}
+	char	*str;
+
+	str = get_cmd2_utils(cmd_paths, cmd);
+	if (cmd[0] != '/' && str)
+		return (str);
 	else if (cmd[0] == '/')
 	{
+		free(str);
 		if (!cmd[1] && cmd[0] == '/')
 		{
 			printf("minishell: /: Is a directory\n");
