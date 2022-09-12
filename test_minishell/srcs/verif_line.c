@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:30:25 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/12 14:11:13 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/12 18:01:26 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ char	*ft_readline(char *line, t_list *cmd)
 	tmp = readline("> ");
 	if (!tmp)
 	{
-		write(1, "exit\n", 5);
+		printf("minishell: syntax error: unexpected end of file\nexit\n");
 		free_envp();
 		free(line);
 		free(cmd);
 		rl_clear_history();
-		exit (0);
+		exit (2);
 	}
 	str = ft_strjoin_2(line, tmp);
 	if (!str)
