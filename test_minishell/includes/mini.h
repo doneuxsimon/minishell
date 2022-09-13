@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:03:36 by lide              #+#    #+#             */
-/*   Updated: 2022/09/12 19:11:01 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/13 15:39:31 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,5 +195,6 @@ void	ft_cd_utils2(char *tmp);
 char	*get_cmd2_utils(char **cmd_paths, char *cmd);
 int		check_pipe(char *line);
 char	**print_pipe_error(char *line);
+void	check_in_outfile2(t_list *list);
 
 #endif

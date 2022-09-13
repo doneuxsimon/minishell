@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils_1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
+/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:19:52 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/12 20:05:53 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/13 15:36:30 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	ft_fork_3(t_list *list, t_exec_pipe *exec)
 	{
 		sig(5);
 		check_in_outfile(list);
-		if (list->outfile)
-			dup2(list->outfile, 1);
 		if (dup0(list, exec->piped1[0]) == -1)
 			exit(ft_exit_pipe());
 		if (close(exec->piped1[1]) < 0)

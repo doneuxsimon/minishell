@@ -38,7 +38,8 @@ SRCS	=	srcs/parcing_line.c\
 			srcs/parsing_utils_3.c\
 			srcs/ft_export_2.c\
 			srcs/verif_line.c\
-			srcs/realloc_dol.c
+			srcs/realloc_dol.c\
+			srcs/check_in_outfile.c
 
 
 NAME	=	minishell
