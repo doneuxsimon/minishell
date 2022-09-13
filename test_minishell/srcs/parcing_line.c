@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 13:22:50 by lide              #+#    #+#             */
-/*   Updated: 2022/09/12 17:39:37 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/12 18:23:30 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ int	command_exist(t_list *list, char **cmd_path)
 		g_var->returned[0] = 127;
 		return (0);
 	}
-	free(tmp);
+	if (list->next)
+		free(tmp);
 	while (list->next)
 	{
 		list = list->next;

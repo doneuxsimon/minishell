@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:51:03 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/07 17:44:40 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/12 19:12:32 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_compare_n2(t_list *list)
 	if (!list->opt)
 		return (0);
 	if (list->opt[0] != '-')
-		n = 0;
+		return (0);
 	while (list->opt[i])
 	{
 		if (list->opt[i] != 'n')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils_1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:19:52 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/12 17:27:52 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/12 20:05:53 by lide             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_fork_3(t_list *list, t_exec_pipe *exec)
 	if (!exec->pid[3])
 	{
 		sig(5);
+		check_in_outfile(list);
 		if (list->outfile)
 			dup2(list->outfile, 1);
 		if (dup0(list, exec->piped1[0]) == -1)

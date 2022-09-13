@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 18:27:47 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/12 17:58:28 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/12 19:15:34 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ void	ft_echo(t_list *list)
 	n = ft_compare_n2(list);
 	while (list->arg[i])
 	{
-		if (n)
+		if (n == 1)
+		{
 			i = ft_skip_n(list, i, n);
+			n = 2;
+		}
 		printf("%s", list->arg[i]);
 		if (list->arg[i + 1])
 			printf(" ");

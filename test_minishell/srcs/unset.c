@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 00:44:12 by lide              #+#    #+#             */
-/*   Updated: 2022/09/12 17:58:51 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/12 19:09:55 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_cd_utils_minus(void)
 	if (g_var->name && g_var->value
 		&& ft_strncmp_2(g_var->name, "OLDPWD", 7) == 0)
 	{
-		printf("%s\n", g_var->name);
+		printf("%s\n", g_var->value);
 		tmp = getcwd(NULL, 0);
 		tmp = ft_strjoin("OLDPWD", tmp);
 		if (!tmp)
@@ -89,6 +89,7 @@ void	ft_cd_utils2(char *tmp)
 	if (!tmp)
 		exit(ft_exit_cd());
 	ft_export(&tmp, 0, 1);
+	free(tmp);
 }
 
 int	ft_exit_cd(void)

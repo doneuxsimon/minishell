@@ -6,7 +6,7 @@
 /*   By: sdoneux <sdoneux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 16:53:14 by sdoneux           #+#    #+#             */
-/*   Updated: 2022/09/12 17:33:52 by sdoneux          ###   ########.fr       */
+/*   Updated: 2022/09/12 18:18:59 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ char	*get_cmd2(char **cmd_paths, char *cmd, t_list *list)
 {
 	char	*str;
 
+	str = get_cmd2_utils(cmd_paths, cmd);
+	if (cmd[0] != '/' && str)
+		return (str);
+	free(str);
 	if (cmd[0] == '/')
 	{
 		if (!cmd[1] && cmd[0] == '/')
@@ -46,10 +50,6 @@ char	*get_cmd2(char **cmd_paths, char *cmd, t_list *list)
 			return (NULL);
 		}
 	}
-	str = get_cmd2_utils(cmd_paths, cmd);
-	if (cmd[0] != '/' && str)
-		return (str);
-	free(str);
 	if (!verif_builtin(list))
 		printf("minishell: %s: Command not found\n", list->ft);
 	return (NULL);

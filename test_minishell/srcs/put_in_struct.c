@@ -6,7 +6,7 @@
 /*   By: lide <lide@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 11:31:20 by lide              #+#    #+#             */
-/*   Updated: 2022/09/08 19:05:31 by lide             ###   ########.fr       */
+/*   Updated: 2022/09/12 18:06:19 by sdoneux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,33 +41,6 @@ int	put_in_cmd(char **str, t_list **cmd, int len)
 	return (1);
 }
 
-// void    print_cmd(t_list **cmd)
-// {
-//     int i;
-//     if ((*cmd)->ft)
-//         printf("yo\n");
-//     while ((*cmd)->before != NULL)
-//         *cmd = (*cmd)->before;
-//     while ((*cmd)->next != NULL)
-//     {
-//         printf("%s / %s /", (*cmd)->ft, (*cmd)->opt);
-//         i = -1;
-//         if ((*cmd)->arg != NULL)
-//             while ((*cmd)->arg[++i])
-//                 printf("%s /", (*cmd)->arg[i]);
-//         printf("%s / %s / %d / %d / %d\n", (*cmd)->link,
-//             (*cmd)->tmp, (*cmd)->infile, (*cmd)->outfile, (*cmd)->pos);
-//         *cmd = (*cmd)->next;
-//     }
-//     printf("%s / %s /", (*cmd)->ft, (*cmd)->opt);
-//     i = -1;
-//     if ((*cmd)->arg != NULL)
-//         while ((*cmd)->arg[++i])
-//             printf("%s /", (*cmd)->arg[i]);
-//     printf("%s / %s / %d / %d / %d\n", (*cmd)->link,
-//         (*cmd)->tmp, (*cmd)->infile, (*cmd)->outfile, (*cmd)->pos);
-// }
-
 int	put_in_struct(char **str, t_list **cmd)
 {
 	int	len;
@@ -85,6 +58,5 @@ int	put_in_struct(char **str, t_list **cmd)
 		return (0);
 	}
 	free(str);
-	// print_cmd(cmd);
 	return (1);
 }
